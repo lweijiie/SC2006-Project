@@ -1,9 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import SignUpForm from "../components/SignUpForm";
+import Navbar from "../components/Navbar";
 
 ReactDOM.render(
   <React.StrictMode>
-    <h1>This is the Sign Up page</h1>
+    <Navbar isSignedIn={false} />
+    <SignUpForm></SignUpForm>
   </React.StrictMode>,
   document.getElementById("root")
 );
