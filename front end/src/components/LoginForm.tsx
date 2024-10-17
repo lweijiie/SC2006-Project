@@ -23,41 +23,16 @@ function LoginForm() {
 
     if ("" === email) {
       setEmailError("Please enter your email");
-      return;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setEmailError("please enter a valid email address");
     }
-
     if ("" === password) {
       setPasswordError("Please enter a password");
-      return;
-    }
-    if (password.length < 7) {
-      setPasswordError("password must be 8 character or longer");
-      return;
+    } else if (password.length < 7) {
+      setPasswordError("Password must be 8 character or longer");
     }
 
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      setEmailError("please enter a valid email address");
-      return;
-    }
-
-    if (email) {
-      return (
-        <>
-          {
-            <Routers>
-              {
-                <Routes>
-                  <Route path="/home/"></Route>
-                </Routes>
-              }
-            </Routers>
-          }
-        </>
-      );
-    } else {
-      return <Navigate to="/Component/Login/Login" />;
-    }
-    //navigate("../Home")
+    return;
   };
 
   return (
@@ -91,7 +66,7 @@ function LoginForm() {
         />
         <div>
           <p>Not have an account?&nbsp;</p>
-          <a id="signup-text" href="/signup/">
+          <a id="sign-up-text" href="/sign-up/">
             Sign Up
           </a>
           <p>&nbsp;now!</p>
