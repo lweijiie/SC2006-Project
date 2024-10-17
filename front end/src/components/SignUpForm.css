@@ -1,4 +1,4 @@
-.login-box {
+.sign-up-box {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -10,19 +10,16 @@
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
-
-.login-box h2 {
+.sign-up-box h2 {
   margin: 0 0 30px;
   padding: 0;
   color: black;
   text-align: center;
 }
-
-.login-box .user-box {
+.sign-up-box .user-box {
   position: relative;
 }
-
-.login-box .user-box input {
+.sign-up-box .user-box input {
   width: 100%;
   padding: 10px 0;
   padding-left: 10px;
@@ -33,7 +30,7 @@
   outline: none;
   background: rgb(249, 232, 212);
 }
-.login-box .user-box label {
+.sign-up-box .user-box label {
   position: absolute;
   top: 0;
   left: 0;
@@ -44,9 +41,8 @@
   pointer-events: none;
   transition: 0.5s;
 }
-
-.login-box .user-box input:focus ~ label,
-.login-box .user-box input:valid ~ label {
+.sign-up-box .user-box input:focus ~ label,
+.sign-up-box .user-box input:valid ~ label {
   top: -25px;
   left: 0;
   color: rgb(255, 0, 0);
@@ -70,12 +66,4 @@ input[type="button"] {
   font-size: 15px;
   border-radius: 8px;
   cursor: pointer;
-}
-
-p {
-  display: inline-block;
-}
-
-#sign-up-text {
-  text-decoration: none;
 }

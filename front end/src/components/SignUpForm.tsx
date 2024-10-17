@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./LoginForm.css";
+import "./SignUpForm.css";
 import {
   BrowserRouter as Routers,
   Routes,
@@ -8,18 +8,33 @@ import {
 } from "react-router-dom";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function LoginForm() {
+function SignUpForm() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [passwordError, setPasswordError] = useState("");
   //  const navigate = useNavigate();
 
   const onButtonClick = () => {
+    setFirstNameError("");
+    setLastNameError("");
     setEmailError("");
     setPasswordError("");
+
+    if ("" === firstName) {
+      setFirstNameError("Please enter your first name");
+      return;
+    }
+
+    if ("" === lastName) {
+      setLastNameError("Please enter your last name");
+      return;
+    }
 
     if ("" === email) {
       setEmailError("Please enter your email");
@@ -33,6 +48,14 @@ function LoginForm() {
     if (password.length < 7) {
       setPasswordError("password must be 8 character or longer");
       return;
+    }
+
+    if (!/^[a-zA-Z ]*$/.test(firstName)) {
+      setFirstNameError("please enter a valid first name");
+    }
+
+    if (!/^[a-zA-Z ]*$/.test(lastName)) {
+      setLastNameError("please enter a valid last name");
     }
 
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
@@ -61,9 +84,27 @@ function LoginForm() {
   };
 
   return (
-    <div className="login-box">
-      <h2>Login</h2>
+    <div className="sign-up-box">
+      <h2>Sign Up</h2>
       <form>
+        <div className="user-box">
+          <input
+            value={firstName}
+            placeholder="Enter first name here"
+            onChange={(ev) => setFirstName(ev.target.value)}
+            className={"user-box"}
+          />
+          <label className="errorLabel">{firstNameError}</label>
+        </div>
+        <div className="user-box">
+          <input
+            value={lastName}
+            placeholder="Enter last name here"
+            onChange={(ev) => setLastName(ev.target.value)}
+            className={"user-box"}
+          />
+          <label className="errorLabel">{lastNameError}</label>
+        </div>
         <div className="user-box">
           <input
             value={email}
@@ -87,18 +128,11 @@ function LoginForm() {
           onClick={onButtonClick}
           className={"inputButton"}
           type="button"
-          value={"Log In"}
+          value={"Sign Up"}
         />
-        <div>
-          <p>Not have an account?&nbsp;</p>
-          <a id="sign-up-text" href="/sign-up/">
-            Sign Up
-          </a>
-          <p>&nbsp;now!</p>
-        </div>
       </form>
     </div>
   );
 }
 
-export default LoginForm;
+export default SignUpForm;
