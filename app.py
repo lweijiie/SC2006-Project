@@ -6,7 +6,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
 
-uri = "mongodb+srv://user:sc2006@careerpathnow.1wsqb.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
+uri = "api-key"
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
@@ -19,8 +19,7 @@ app = Flask(__name__)
 CORS(app)
 
 # MongoDB configuration
-app.config["MONGO_URI"] = "mongodb+srv://user:sc2006@careerpathnow.1wsqb.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
-mongo = PyMongo(app)
+app.config["MONGO_URI"] = uri
 bcrypt = Bcrypt(app)  # For hashing passwords
 
 # Users collection in MongoDB
