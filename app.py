@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app)
 
 # MongoDB configuration
-app.config["MONGO_URI"] = ""
+app.config["MONGO_URI"] = uri
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)  # For hashing passwords
 

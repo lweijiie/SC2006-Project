@@ -61,7 +61,7 @@
   border: 1px solid grey;
   padding-left: 8px;
 }
-input[type="button"] {
+button[type="submit"] {
   border: none;
   background: cornflowerblue;
   color: white;

@@ -9,7 +9,6 @@ const App = () => {
     <>
       <div>
         <Navbar isSignedIn={isSignedIn}></Navbar>
-        <Fetch></Fetch>
       </div>
     </>
   );
