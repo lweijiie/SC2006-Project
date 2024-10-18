@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const Fetch = () => {
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/photos")
+    fetch("/register")
       .then((res) => {
         return res.json();
       })
@@ -15,7 +15,7 @@ const Fetch = () => {
   return (
     <div>
       {photos.map((photo) => (
-        <img key={photo.id} src={photo.url} alt={photo.title} width={100} />
+        <p>{photo.password}</p>
       ))}
     </div>
   );
