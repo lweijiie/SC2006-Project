@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
+import Fetch from "./components/Fetch";
 
 const App = () => {
   const [isSignedIn, setSignInState] = useState(false);
@@ -8,6 +9,7 @@ const App = () => {
     <>
       <div>
         <Navbar isSignedIn={isSignedIn}></Navbar>
+        <Fetch></Fetch>
       </div>
     </>
   );
