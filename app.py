@@ -6,7 +6,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
 
-uri = "mongodb+srv://user:sc2006@careerpathnow.1wsqb.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
+uri = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
@@ -19,7 +19,7 @@ app = Flask(__name__)
 CORS(app)
 
 # MongoDB configuration
-app.config["MONGO_URI"] = "mongodb+srv://user:sc2006@careerpathnow.1wsqb.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
+app.config["MONGO_URI"] = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)  # For hashing passwords
 
@@ -51,7 +51,6 @@ def register():
     return jsonify({'message': 'User registered successfully!'}), 201
 
 # Login endpoint
-@app.route('/login', methods=['POST'])
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
