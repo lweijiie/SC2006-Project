@@ -6,7 +6,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
 
-uri = "api-key"
+uri = ""
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
@@ -20,6 +20,7 @@ CORS(app)
 
 # MongoDB configuration
 app.config["MONGO_URI"] = uri
+mongo = PyMongo(app)
 bcrypt = Bcrypt(app)  # For hashing passwords
 
 # Users collection in MongoDB
@@ -51,7 +52,6 @@ def register():
 
 # Login endpoint
 @app.route('/login', methods=['POST'])
-@app.route('/login', methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
@@ -77,14 +77,14 @@ def update_profile(user_id):
     data = request.json
 
     # Get the new details from the request body
-    gender = data.get('gender')
-    date_of_birth = data.get('date_of_birth')  # Assuming date is sent in YYYY-MM-DD format
+    industry = data.get('industry')
+    
 
     # Find the user by ID and update their profile
     try:
         result = users.update_one(
             {'_id': ObjectId(user_id)},  # Find the user by ID
-            {'$set': {'gender': gender, 'date_of_birth': date_of_birth}}  # Update new fields
+            {'$set': {'industry': industry}}  # Update new fields
         )
         if result.modified_count > 0:
             return jsonify({'message': 'Profile updated successfully!'}), 200
