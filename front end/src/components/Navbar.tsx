@@ -26,6 +26,9 @@ const Navbar = ({ isSignedIn = true }: Props) => {
           <a className="navbar-item" href="#">
             Internships
           </a>
+          <a className="navbar-item" href="/about/">
+            About
+          </a>
         </div>
       </div>
       {isSignedIn === true ? (
@@ -40,7 +43,7 @@ const Navbar = ({ isSignedIn = true }: Props) => {
           <a className="navbar-item" href="/login/">
             Login
           </a>
-          <a className="sign-up-button" href="/signup/">
+          <a className="sign-up-button" href="/sign-up/">
             Sign Up
           </a>
         </div>

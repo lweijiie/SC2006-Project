@@ -1,0 +1,1529 @@
+{
+    "status": 200,
+    "data": {
+      "courses": [
+        {
+          "referenceNumber": "CRS-Q-0022632-BM",
+          "skillsConnectReferenceNumber": null,
+          "externalReferenceNumber": "TGS-2020123456",
+          "skillsFutureCreditReferenceNumber": 0,
+          "title": "Legal Aspects of Workplace Safety, Health & Environment in Site Supervision",
+          "objective": "This particular module will provide participants with an up-to-date essential knowledge of Singapore s laws and regulations on site safety, health & environmental requirements relevant to the EBC industries and the legal responsibilities and possible of site supervisors.",
+          "content": "This course aims to provide participants with a sound basic accounting knowledge. Elementary subjects include 1 Methods of payment and receipts 2 Preparation of balance sheets, trading and profit and loss accounts 3 Petty cash book and the Imprest System.",
+          "url": "http://www.kaplan.com.sg",
+          "registrationUrl": null,
+          "tileImageURL": null,
+          "detailImageURL": null,
+          "masterSource": "SCN_NON_WSQ_COURSE",
+          "numberOfTrainingDay": 10,
+          "totalTrainingDurationHour": 80.91,
+          "totalCostOfTrainingPerTrainee": 130.1,
+          "lengthOfCourseDuration": 0.31,
+          "tpCode": "1920304A-01",
+          "trainingProviderAlias": "Kaplan Institute",
+          "seoName": "",
+          "disbursedTo": null,
+          "entryRequirement": "Age requirement, Learner must be 25 years old and above, at beginning of the Course.",
+          "displayImageName": "1_10",
+          "initiatives": null,
+          "examinable": null,
+          "petOrganization": false,
+          "redirectUrl": false,
+          "redirectRegisterUrl": false,
+          "targetWorkforceSegment": null,
+          "publicFundingIndicator": null,
+          "cluster": null,
+          "qualificationAttained": null,
+          "contactPerson": [
+            {
+              "id": "2565762f-a57e-44f0-af8c-b5f9f9de72bf",
+              "fullName": "Michael Lenard",
+              "email": {
+                "full": "abc@abc.com",
+                "localPart": "abc",
+                "atSign": "@",
+                "domain": "abc.com"
+              },
+              "salutation": "Mr",
+              "designation": "Manager",
+              "role": "Contact Person for Public Enquiries",
+              "telephone": {
+                "internationalPrefix": "+",
+                "countryCode": 65,
+                "areaCode": null,
+                "number": 61111111
+              },
+              "meta": {
+                "createBy": "Batch Processing From TGS",
+                "createDate": "2023-11-03T11:02:28.367",
+                "updateBy": "Batch Processing From TGS",
+                "updateDate": "2023-11-03T11:02:28.367"
+              }
+            }
+          ],
+          "trainingProvider": null,
+          "status": {
+            "code": "1",
+            "description": "ACTIVE"
+          },
+          "category": {
+            "code": "01",
+            "description": "SSG-WSQ"
+          },
+          "fees": [
+            {
+              "id": 126815,
+              "feeType": "Full Fee",
+              "feeTypeEffectiveDate": 20200529,
+              "feeUpdateDate": null,
+              "meta": null
+            }
+          ],
+          "view": {
+            "code": "01",
+            "description": "Public"
+          },
+          "featuredFlag": false,
+          "popularFlag": false,
+          "newFlag": false,
+          "deleteFlag": false,
+          "meta": {
+            "createBy": "Batch Processing From TGS",
+            "createDate": "2023-08-23T15:48:59.49",
+            "updateBy": "Batch Processing From TGS",
+            "updateDate": "2023-12-11T16:08:53.103"
+          },
+          "support": [
+            {
+              "detailsId": 0,
+              "referenceNumber": "CRS-Q-0022632-BM",
+              "period": {
+                "from": 20200129,
+                "to": 20240130,
+                "taggingCode": "1",
+                "taggingDescription": "SFC"
+              },
+              "effectiveDate": 0,
+              "category": "B",
+              "support": null,
+              "meta": {
+                "createBy": "Batch Processing From TGS",
+                "createDate": "2023-11-03T11:02:28.363",
+                "updateBy": "Batch Processing From TGS",
+                "updateDate": "2023-11-03T11:02:28.363"
+              },
+              "deleted": false
+            }
+          ],
+          "minimumEducationRequirements": null,
+          "taggings": [
+            {
+              "code": "1",
+              "description": "SFC"
+            }
+          ],
+          "tags": [
+            {
+              "text": "SCTP Programme",
+              "count": 1,
+              "nettFee": null
+            }
+          ],
+          "bundles": [],
+          "modules": [
+            {
+              "referenceNumber": "PA-S90PB0005F-01-Bishan 238",
+              "title": "SkillsFuture@PA (SA) Creativity in Community Solutions"
+            },
+            {
+              "referenceNumber": "PA-S90PB0005F-01-Bishan 264",
+              "title": "SkillsFuture@PA (SA) Selling Online"
+            },
+            {
+              "referenceNumber": "TGS-2023018175",
+              "title": "EYTGS-11992 UAT Active PCP"
+            },
+            {
+              "referenceNumber": "TGS-2023018958",
+              "title": "EC-Council Certified Network Defender (CND) (SF) (Synchronous e-learning)"
+            }
+          ],
+          "areaOfTrainings": [
+            {
+              "code": "001",
+              "description": "Accounting, Banking & Finance"
+            }
+          ],
+          "methodOfDeliveries": [],
+          "eduOfTargetAuds": [],
+          "jobLevels": [],
+          "modeOfTrainings": [
+            {
+              "code": "FT",
+              "description": "Full Time"
+            }
+          ],
+          "mediumOfInstructions": [
+            {
+              "code": "EN",
+              "description": null
+            }
+          ],
+          "targetTrainingGroups": [
+            {
+              "code": 1,
+              "description": "In-house"
+            }
+          ],
+          "locationOfTrainings": [
+            {
+              "code": 2,
+              "description": "Overseas"
+            }
+          ],
+          "fieldOfStudies1": [],
+          "fieldOfStudies2": [],
+          "wsqFrameworks": [
+            {
+              "wsqFrameworkCode": "35",
+              "competencyStandardCode": "TH-BF-403C-0",
+              "wsqFrameworkDescription": "ACCOUNTANCY",
+              "competencyStandardDescription": null
+            }
+          ],
+          "runs": [],
+          "statisticsSummary": null,
+          "jobRoles": [],
+          "sectors": [],
+          "facultyName": null,
+          "specialisation": null,
+          "brochure": null,
+          "enquiryUrl": null,
+          "videoUrl": null,
+          "description": null,
+          "shownCourseDescription": false,
+          "feeSubsidy": -1,
+          "quality": null,
+          "outcome": null,
+          "skillsFrameworks": [],
+          "programmeType": {
+            "code": 1,
+            "description": "Career Support Programme"
+          }
+        },
+        {
+          "referenceNumber": "PA-S90PB0005F-01-Bishan 238",
+          "skillsConnectReferenceNumber": null,
+          "externalReferenceNumber": "TGS-2016503481",
+          "skillsFutureCreditReferenceNumber": 10053311,
+          "title": "SkillsFuture@PA (SA) Creativity in Community Solutions",
+          "objective": "Learn basic design thinking processes and creative problem solving skills that will help in community orientation. This course is part of the Senior Academy Advanced Certificate in Senior Wellness (core module that participants must take in order to qualify for the certificate). The course is co-curated with NUS. ",
+          "content": "How does one become creative in solving everyday life problems happening around you? Learn and apply key principles from the Design Thinking process through hands-on activities and team-work, guided by experienced facilitators. Apply newly gained knowledge in future studies and community projects at the PA Senior Academy! ",
+          "url": "www.one.pa.gov.sg",
+          "registrationUrl": null,
+          "tileImageURL": null,
+          "detailImageURL": null,
+          "masterSource": "PUBLIC_AGENCY_PA",
+          "numberOfTrainingDay": 0,
+          "totalTrainingDurationHour": 3,
+          "totalCostOfTrainingPerTrainee": 92,
+          "lengthOfCourseDuration": 0,
+          "tpCode": "S90PB0005F-01",
+          "trainingProviderAlias": "Bishan Community Club",
+          "seoName": "SkillsFuturePA-SA-Creativity-Community-Solutions-4",
+          "disbursedTo": null,
+          "entryRequirement": null,
+          "displayImageName": "37_9",
+          "initiatives": "SkillsFuture Credit",
+          "examinable": null,
+          "petOrganization": false,
+          "redirectUrl": false,
+          "redirectRegisterUrl": false,
+          "targetWorkforceSegment": null,
+          "publicFundingIndicator": {
+            "code": "AS",
+            "description": "Agency Subsidised"
+          },
+          "cluster": null,
+          "qualificationAttained": null,
+          "contactPerson": [
+            {
+              "id": "0c8bab3f-76fb-429f-a2ef-1b4ee646b8b1",
+              "fullName": null,
+              "email": {
+                "full": "Martyn_YAP@wda.gov.sg",
+                "localPart": "Martyn_YAP",
+                "atSign": "@",
+                "domain": "wda.gov.sg"
+              },
+              "salutation": null,
+              "designation": null,
+              "role": null,
+              "telephone": {
+                "internationalPrefix": " ",
+                "countryCode": null,
+                "areaCode": null,
+                "number": null
+              },
+              "meta": {
+                "createBy": "Batch Processing",
+                "createDate": "2017-06-11T06:00:15.227",
+                "updateBy": "Batch Processing",
+                "updateDate": "2017-06-11T06:00:15.227"
+              }
+            }
+          ],
+          "trainingProvider": {
+            "uen": "S90PB0005F",
+            "code": "S90PB0005F-01",
+            "name": "Bishan Community Club",
+            "email": "PA_BISHANCC@pa.gov.sg",
+            "websiteUrl": "www.pa.gov.sg",
+            "yearOfEstablishment": 0,
+            "supportingGovermentAgency": null,
+            "type": null,
+            "registrationTypeDescription": null,
+            "aboutUs": "<p>The People's Association (PA) was established on 1 July 1960 as a statutory board to promote racial harmony and social cohesion in Singapore. Our mission is to build and bridge communities in achieving one people, one Singapore.</p>\n\t<p>PA offers a wide range of programmes to cater to Singaporeans from all walks of life - connecting people to people, and people and government. We do this through our network of 1,800 grassroots organisations (GROs), over 100 Community Clubs, five Community Development Councils, National Community Leadership Institute and Water-Venture.</p>",
+            "logoFilename": null,
+            "bannerFilename": null,
+            "ssic": {
+              "primaryCode": "",
+              "secondaryCode": ""
+            },
+            "numberOfEmployees": 0,
+            "emailSubscriptionCode": " ",
+            "notification": {
+              "applicationReceived": false,
+              "jobPostExpired": false
+            },
+            "employmentAgencyLicenseNumber": "",
+            "tripartite": false,
+            "3rdParty": false,
+            "acraRegistrationStatus": null,
+            "employerBrandMessage": null,
+            "quality": {
+              "numberOfRespondents": 15,
+              "overallQuality": {
+                "average": 4.3,
+                "starsRating": 4.5
+              },
+              "qualityAreas": [
+                {
+                  "areaOfTraining": "Food and Beverages",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4.7,
+                  "starsRating": 4.5,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-07-05T10:55:15.093",
+                    "updateBy": "67B4C9FB-B084-416C-9A02-9A742A4F6F51",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                },
+                {
+                  "areaOfTraining": "Language Skills",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4,
+                  "starsRating": 4,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-11-06T17:25:02.013",
+                    "updateBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                }
+              ]
+            },
+            "outcome": null,
+            "mission": "To Build and to Bridge communities in achieving One People, One Singapore",
+            "vision": "A Great Home and A Caring Community, where we<br/>\n\t<ul><li>Share our Values</li></ul>\n\t<ul><li>Pursue our Passions</li></ul>\n\t<ul><li>Fulfil our Hopes and</li></ul>\n\t<ul><li>Treasure our Memories</li></ul>",
+            "value": "<b>Integrity</b> - I earn trust from my residents by upholding high standards.<br/><br/>\n\t<b>Care</b> - I care for my residents and constantly find ways to meet their needs and aspirations.<br/><br/>\n\t<b>Assurance</b> - I inspire confidence in my residents by delivering what I promise.<br/><br/>\n\t<b>Relationships</b> - I respect and build warm relationships with residents, volunteers and community partners.<br/><br/>\n\t<b>Excellence</b> - I exemplify a \"Can Do Spirit\" and deliver excellent programmes and services through innovation and teamwork.",
+            "socialMediaURL": null,
+            "brandmessage": "test message",
+            "active": true,
+            "deleted": false,
+            "meta": {
+              "createBy": "Batch Full Load",
+              "createDate": "2016-11-02T21:07:33.867",
+              "updateBy": "DataUpload",
+              "updateDate": "2017-06-16T16:06:39.747"
+            },
+            "address": [
+              {
+                "id": 66370,
+                "uen": "S90PB0005F",
+                "typeId": 3,
+                "block": "51 BISHAN ",
+                "street": null,
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66371,
+                "uen": "S90PB0005F",
+                "typeId": 1,
+                "block": "51",
+                "street": "BISHAN STREET 13",
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "contactNumber": [
+              {
+                "id": 66911,
+                "uen": "S90PB0005F",
+                "typeId": "2",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 62594720
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66912,
+                "uen": "S90PB0005F",
+                "typeId": "4",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 63531912
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "foreignAddress": null
+          },
+          "status": {
+            "code": "1",
+            "description": "ACTIVE"
+          },
+          "category": null,
+          "fees": [],
+          "view": {
+            "code": "01",
+            "description": "Public"
+          },
+          "featuredFlag": false,
+          "popularFlag": false,
+          "newFlag": false,
+          "deleteFlag": false,
+          "meta": {
+            "createBy": "Batch Processing",
+            "createDate": "2018-06-27T09:40:34.413",
+            "updateBy": "Batch Processing",
+            "updateDate": "2023-12-11T16:08:53.103"
+          },
+          "support": [
+            {
+              "detailsId": -9999,
+              "referenceNumber": "PA-S90PB0005F-01-Bishan 238",
+              "period": {
+                "from": 20220101,
+                "to": 20231231,
+                "taggingCode": "1",
+                "taggingDescription": "SFC"
+              },
+              "effectiveDate": 0,
+              "category": "PUBLIC_AGENCY",
+              "support": "Public Agency supported courses for SkillFuture Credit (SFC)",
+              "meta": {
+                "createBy": "SYSTEM",
+                "createDate": "2020-01-14T00:00:00",
+                "updateBy": "SYSTEM",
+                "updateDate": "2020-01-14T00:00:00"
+              },
+              "deleted": false
+            }
+          ],
+          "minimumEducationRequirements": {
+            "code": "1",
+            "description": "Primary"
+          },
+          "taggings": [
+            {
+              "code": "1",
+              "description": "SFC"
+            }
+          ],
+          "tags": [],
+          "bundles": [
+            {
+              "referenceNumber": "CRS-Q-0022632-BM",
+              "title": "Legal Aspects of Workplace Safety, Health & Environment in Site Supervision",
+              "code": "SSG-BC-2310-000001",
+              "type": "SCTP",
+              "description": "Baking and Living"
+            },
+            {
+              "referenceNumber": "TGS-2023018958",
+              "title": "EC-Council Certified Network Defender (CND) (SF) (Synchronous e-learning)",
+              "code": "SSG-BC-2310-000001",
+              "type": "SCTP",
+              "description": "Baking and Living"
+            }
+          ],
+          "modules": [],
+          "areaOfTrainings": [
+            {
+              "code": "037",
+              "description": "Productivity and Innovation"
+            }
+          ],
+          "methodOfDeliveries": [],
+          "eduOfTargetAuds": [],
+          "jobLevels": [],
+          "modeOfTrainings": [
+            {
+              "code": "PT",
+              "description": "Part Time"
+            }
+          ],
+          "mediumOfInstructions": [
+            {
+              "code": "EL",
+              "description": "English"
+            }
+          ],
+          "targetTrainingGroups": [],
+          "locationOfTrainings": [],
+          "fieldOfStudies1": [],
+          "fieldOfStudies2": [],
+          "wsqFrameworks": [],
+          "runs": [],
+          "statisticsSummary": {
+            "courseReferenceNumber": "PA-S90PB0005F-01-Bishan 238",
+            "pageViewCount": 350
+          },
+          "jobRoles": [],
+          "sectors": [],
+          "facultyName": null,
+          "specialisation": null,
+          "brochure": null,
+          "enquiryUrl": null,
+          "videoUrl": null,
+          "description": null,
+          "shownCourseDescription": false,
+          "feeSubsidy": -1,
+          "quality": {
+            "numberOfRespondents": 2,
+            "customerService": {
+              "average": 5,
+              "starsRating": 5
+            },
+            "trainerCourseContent": {
+              "average": 5,
+              "starsRating": 5
+            },
+            "learning": {
+              "average": 5,
+              "starsRating": 5
+            },
+            "overallQuality": {
+              "average": 5,
+              "starsRating": 5
+            },
+            "meta": {
+              "createBy": "test",
+              "createDate": "2022-09-19T14:07:45.943",
+              "updateBy": "test",
+              "updateDate": "2022-09-19T14:07:45.943"
+            }
+          },
+          "outcome": null,
+          "skillsFrameworks": [],
+          "programmeType": null
+        },
+        {
+          "referenceNumber": "PA-S90PB0005F-01-Bishan 257",
+          "skillsConnectReferenceNumber": null,
+          "externalReferenceNumber": "TGS-2016504432",
+          "skillsFutureCreditReferenceNumber": 10053862,
+          "title": "SkillsFuture@PA (SA) International Cuisine Cooking:\nCulture & Heritage",
+          "objective": "Learn skills to create international cuisines. This course is recommended for Seniors interested in working in the culinary industry. This course is part of the Senior Academy Advanced Certificate in Senior Wellness (elective module).",
+          "content": "Learn more about the history behind all your favorite dishes? This course takes you on a heritage tour to the roots of different international cultures where you get a chance to understand how each unique dish came about.",
+          "url": "www.one.pa.gov.sg",
+          "registrationUrl": null,
+          "tileImageURL": null,
+          "detailImageURL": null,
+          "masterSource": "PUBLIC_AGENCY_PA",
+          "numberOfTrainingDay": 0,
+          "totalTrainingDurationHour": 6,
+          "totalCostOfTrainingPerTrainee": 40,
+          "lengthOfCourseDuration": 0,
+          "tpCode": "S90PB0005F-01",
+          "trainingProviderAlias": "Bishan Community Club",
+          "seoName": "SkillsFuturePA-SA-International-Cuisine-CookingCulture-Heritage-2",
+          "disbursedTo": null,
+          "entryRequirement": null,
+          "displayImageName": "21_9",
+          "initiatives": "SkillsFuture Credit",
+          "examinable": null,
+          "petOrganization": false,
+          "redirectUrl": false,
+          "redirectRegisterUrl": false,
+          "targetWorkforceSegment": null,
+          "publicFundingIndicator": {
+            "code": "AS",
+            "description": "Agency Subsidised"
+          },
+          "cluster": null,
+          "qualificationAttained": null,
+          "contactPerson": [
+            {
+              "id": "1fee09e7-4efe-4605-9899-272e9d30c1ba",
+              "fullName": null,
+              "email": {
+                "full": "Martyn_YAP@wda.gov.sg",
+                "localPart": "Martyn_YAP",
+                "atSign": "@",
+                "domain": "wda.gov.sg"
+              },
+              "salutation": null,
+              "designation": null,
+              "role": null,
+              "telephone": {
+                "internationalPrefix": " ",
+                "countryCode": null,
+                "areaCode": null,
+                "number": null
+              },
+              "meta": {
+                "createBy": "Batch Processing",
+                "createDate": "2017-06-11T06:00:14.477",
+                "updateBy": "Batch Processing",
+                "updateDate": "2017-06-11T06:00:14.477"
+              }
+            }
+          ],
+          "trainingProvider": {
+            "uen": "S90PB0005F",
+            "code": "S90PB0005F-01",
+            "name": "Bishan Community Club",
+            "email": "PA_BISHANCC@pa.gov.sg",
+            "websiteUrl": "www.pa.gov.sg",
+            "yearOfEstablishment": 0,
+            "supportingGovermentAgency": null,
+            "type": null,
+            "registrationTypeDescription": null,
+            "aboutUs": "<p>The People's Association (PA) was established on 1 July 1960 as a statutory board to promote racial harmony and social cohesion in Singapore. Our mission is to build and bridge communities in achieving one people, one Singapore.</p>\n\t<p>PA offers a wide range of programmes to cater to Singaporeans from all walks of life - connecting people to people, and people and government. We do this through our network of 1,800 grassroots organisations (GROs), over 100 Community Clubs, five Community Development Councils, National Community Leadership Institute and Water-Venture.</p>",
+            "logoFilename": null,
+            "bannerFilename": null,
+            "ssic": {
+              "primaryCode": "",
+              "secondaryCode": ""
+            },
+            "numberOfEmployees": 0,
+            "emailSubscriptionCode": " ",
+            "notification": {
+              "applicationReceived": false,
+              "jobPostExpired": false
+            },
+            "employmentAgencyLicenseNumber": "",
+            "tripartite": false,
+            "3rdParty": false,
+            "acraRegistrationStatus": null,
+            "employerBrandMessage": null,
+            "quality": {
+              "numberOfRespondents": 15,
+              "overallQuality": {
+                "average": 4.3,
+                "starsRating": 4.5
+              },
+              "qualityAreas": [
+                {
+                  "areaOfTraining": "Food and Beverages",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4.7,
+                  "starsRating": 4.5,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-07-05T10:55:15.093",
+                    "updateBy": "67B4C9FB-B084-416C-9A02-9A742A4F6F51",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                },
+                {
+                  "areaOfTraining": "Language Skills",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4,
+                  "starsRating": 4,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-11-06T17:25:02.013",
+                    "updateBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                }
+              ]
+            },
+            "outcome": null,
+            "mission": "To Build and to Bridge communities in achieving One People, One Singapore",
+            "vision": "A Great Home and A Caring Community, where we<br/>\n\t<ul><li>Share our Values</li></ul>\n\t<ul><li>Pursue our Passions</li></ul>\n\t<ul><li>Fulfil our Hopes and</li></ul>\n\t<ul><li>Treasure our Memories</li></ul>",
+            "value": "<b>Integrity</b> - I earn trust from my residents by upholding high standards.<br/><br/>\n\t<b>Care</b> - I care for my residents and constantly find ways to meet their needs and aspirations.<br/><br/>\n\t<b>Assurance</b> - I inspire confidence in my residents by delivering what I promise.<br/><br/>\n\t<b>Relationships</b> - I respect and build warm relationships with residents, volunteers and community partners.<br/><br/>\n\t<b>Excellence</b> - I exemplify a \"Can Do Spirit\" and deliver excellent programmes and services through innovation and teamwork.",
+            "socialMediaURL": null,
+            "brandmessage": "test message",
+            "active": true,
+            "deleted": false,
+            "meta": {
+              "createBy": "Batch Full Load",
+              "createDate": "2016-11-02T21:07:33.867",
+              "updateBy": "DataUpload",
+              "updateDate": "2017-06-16T16:06:39.747"
+            },
+            "address": [
+              {
+                "id": 66370,
+                "uen": "S90PB0005F",
+                "typeId": 3,
+                "block": "51 BISHAN ",
+                "street": null,
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66371,
+                "uen": "S90PB0005F",
+                "typeId": 1,
+                "block": "51",
+                "street": "BISHAN STREET 13",
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "contactNumber": [
+              {
+                "id": 66911,
+                "uen": "S90PB0005F",
+                "typeId": "2",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 62594720
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66912,
+                "uen": "S90PB0005F",
+                "typeId": "4",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 63531912
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "foreignAddress": null
+          },
+          "status": {
+            "code": "1",
+            "description": "ACTIVE"
+          },
+          "category": null,
+          "fees": [],
+          "view": {
+            "code": "01",
+            "description": "Public"
+          },
+          "featuredFlag": false,
+          "popularFlag": false,
+          "newFlag": false,
+          "deleteFlag": false,
+          "meta": {
+            "createBy": "Batch Processing",
+            "createDate": "2018-06-27T09:40:34.413",
+            "updateBy": "Batch Processing",
+            "updateDate": "2023-12-11T16:08:53.103"
+          },
+          "support": [
+            {
+              "detailsId": -9999,
+              "referenceNumber": "PA-S90PB0005F-01-Bishan 257",
+              "period": {
+                "from": 20220101,
+                "to": 20231231,
+                "taggingCode": "1",
+                "taggingDescription": "SFC"
+              },
+              "effectiveDate": 0,
+              "category": "PUBLIC_AGENCY",
+              "support": "Public Agency supported courses for SkillFuture Credit (SFC)",
+              "meta": {
+                "createBy": "SYSTEM",
+                "createDate": "2020-01-14T00:00:00",
+                "updateBy": "SYSTEM",
+                "updateDate": "2020-01-14T00:00:00"
+              },
+              "deleted": false
+            }
+          ],
+          "minimumEducationRequirements": {
+            "code": "1",
+            "description": "Primary"
+          },
+          "taggings": [
+            {
+              "code": "1",
+              "description": "SFC"
+            }
+          ],
+          "tags": [
+            {
+              "text": "Arts and Entertainment",
+              "count": 1,
+              "nettFee": null
+            }
+          ],
+          "bundles": [
+            {
+              "referenceNumber": "TGS-2023035900",
+              "title": "Executive Leadership Series: Leadership and Professionalism (LDPM)",
+              "code": "SSG-BC-2310-000002",
+              "type": "SCTP",
+              "description": "Baking and Living 2"
+            }
+          ],
+          "modules": [],
+          "areaOfTrainings": [
+            {
+              "code": "021",
+              "description": "Food and Beverages"
+            }
+          ],
+          "methodOfDeliveries": [],
+          "eduOfTargetAuds": [],
+          "jobLevels": [],
+          "modeOfTrainings": [
+            {
+              "code": "PT",
+              "description": "Part Time"
+            }
+          ],
+          "mediumOfInstructions": [
+            {
+              "code": "EL",
+              "description": "English"
+            }
+          ],
+          "targetTrainingGroups": [],
+          "locationOfTrainings": [],
+          "fieldOfStudies1": [],
+          "fieldOfStudies2": [],
+          "wsqFrameworks": [],
+          "runs": [],
+          "statisticsSummary": {
+            "courseReferenceNumber": "PA-S90PB0005F-01-Bishan 257",
+            "pageViewCount": 100
+          },
+          "jobRoles": [],
+          "sectors": [],
+          "facultyName": null,
+          "specialisation": null,
+          "brochure": null,
+          "enquiryUrl": null,
+          "videoUrl": null,
+          "description": null,
+          "shownCourseDescription": false,
+          "feeSubsidy": -1,
+          "quality": null,
+          "outcome": null,
+          "skillsFrameworks": [],
+          "programmeType": null
+        },
+        {
+          "referenceNumber": "PA-S90PB0005F-01-Bishan 262",
+          "skillsConnectReferenceNumber": null,
+          "externalReferenceNumber": "TGS-2016503894",
+          "skillsFutureCreditReferenceNumber": 10052629,
+          "title": "SkillsFuture@PA (SA) Shop and Pay Online",
+          "objective": "Learn how to use a simple program to create a mobile application. This course is recommended for individuals with an interest in the creation of applications.  This course is targeted at Seniors in line with the move towards a Smart Nation.  Senior Academy.",
+          "content": "Smart phones have become an integral part of our lives, everything have been simplified through apps which are available at a simple click of a button. So why not start on the road to developing your own app, our experienced facilitators will be on hand to guide you through. So why wait, be a mobile application developer today!",
+          "url": "www.one.pa.gov.sg",
+          "registrationUrl": null,
+          "tileImageURL": null,
+          "detailImageURL": null,
+          "masterSource": "PUBLIC_AGENCY_PA",
+          "numberOfTrainingDay": 0,
+          "totalTrainingDurationHour": 3,
+          "totalCostOfTrainingPerTrainee": 30,
+          "lengthOfCourseDuration": 0,
+          "tpCode": "S90PB0005F-01",
+          "trainingProviderAlias": "Bishan Community Club",
+          "seoName": "SkillsFuturePA-SA-Mobile-Apps-Development-24",
+          "disbursedTo": null,
+          "entryRequirement": null,
+          "displayImageName": "25_9",
+          "initiatives": "SkillsFuture Credit",
+          "examinable": null,
+          "petOrganization": false,
+          "redirectUrl": false,
+          "redirectRegisterUrl": false,
+          "targetWorkforceSegment": null,
+          "publicFundingIndicator": {
+            "code": "AS",
+            "description": "Agency Subsidised"
+          },
+          "cluster": null,
+          "qualificationAttained": null,
+          "contactPerson": [
+            {
+              "id": "f894b8cc-11e5-49f9-84b6-497c0ec1676e",
+              "fullName": null,
+              "email": {
+                "full": "Martyn_YAP@wda.gov.sg",
+                "localPart": "Martyn_YAP",
+                "atSign": "@",
+                "domain": "wda.gov.sg"
+              },
+              "salutation": null,
+              "designation": null,
+              "role": null,
+              "telephone": {
+                "internationalPrefix": " ",
+                "countryCode": null,
+                "areaCode": null,
+                "number": null
+              },
+              "meta": {
+                "createBy": "Batch Processing",
+                "createDate": "2017-06-11T06:00:15.32",
+                "updateBy": "Batch Processing",
+                "updateDate": "2017-06-11T06:00:15.32"
+              }
+            }
+          ],
+          "trainingProvider": {
+            "uen": "S90PB0005F",
+            "code": "S90PB0005F-01",
+            "name": "Bishan Community Club",
+            "email": "PA_BISHANCC@pa.gov.sg",
+            "websiteUrl": "www.pa.gov.sg",
+            "yearOfEstablishment": 0,
+            "supportingGovermentAgency": null,
+            "type": null,
+            "registrationTypeDescription": null,
+            "aboutUs": "<p>The People's Association (PA) was established on 1 July 1960 as a statutory board to promote racial harmony and social cohesion in Singapore. Our mission is to build and bridge communities in achieving one people, one Singapore.</p>\n\t<p>PA offers a wide range of programmes to cater to Singaporeans from all walks of life - connecting people to people, and people and government. We do this through our network of 1,800 grassroots organisations (GROs), over 100 Community Clubs, five Community Development Councils, National Community Leadership Institute and Water-Venture.</p>",
+            "logoFilename": null,
+            "bannerFilename": null,
+            "ssic": {
+              "primaryCode": "",
+              "secondaryCode": ""
+            },
+            "numberOfEmployees": 0,
+            "emailSubscriptionCode": " ",
+            "notification": {
+              "applicationReceived": false,
+              "jobPostExpired": false
+            },
+            "employmentAgencyLicenseNumber": "",
+            "tripartite": false,
+            "3rdParty": false,
+            "acraRegistrationStatus": null,
+            "employerBrandMessage": null,
+            "quality": {
+              "numberOfRespondents": 15,
+              "overallQuality": {
+                "average": 4.3,
+                "starsRating": 4.5
+              },
+              "qualityAreas": [
+                {
+                  "areaOfTraining": "Food and Beverages",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4.7,
+                  "starsRating": 4.5,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-07-05T10:55:15.093",
+                    "updateBy": "67B4C9FB-B084-416C-9A02-9A742A4F6F51",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                },
+                {
+                  "areaOfTraining": "Language Skills",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4,
+                  "starsRating": 4,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-11-06T17:25:02.013",
+                    "updateBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                }
+              ]
+            },
+            "outcome": null,
+            "mission": "To Build and to Bridge communities in achieving One People, One Singapore",
+            "vision": "A Great Home and A Caring Community, where we<br/>\n\t<ul><li>Share our Values</li></ul>\n\t<ul><li>Pursue our Passions</li></ul>\n\t<ul><li>Fulfil our Hopes and</li></ul>\n\t<ul><li>Treasure our Memories</li></ul>",
+            "value": "<b>Integrity</b> - I earn trust from my residents by upholding high standards.<br/><br/>\n\t<b>Care</b> - I care for my residents and constantly find ways to meet their needs and aspirations.<br/><br/>\n\t<b>Assurance</b> - I inspire confidence in my residents by delivering what I promise.<br/><br/>\n\t<b>Relationships</b> - I respect and build warm relationships with residents, volunteers and community partners.<br/><br/>\n\t<b>Excellence</b> - I exemplify a \"Can Do Spirit\" and deliver excellent programmes and services through innovation and teamwork.",
+            "socialMediaURL": null,
+            "brandmessage": "test message",
+            "active": true,
+            "deleted": false,
+            "meta": {
+              "createBy": "Batch Full Load",
+              "createDate": "2016-11-02T21:07:33.867",
+              "updateBy": "DataUpload",
+              "updateDate": "2017-06-16T16:06:39.747"
+            },
+            "address": [
+              {
+                "id": 66370,
+                "uen": "S90PB0005F",
+                "typeId": 3,
+                "block": "51 BISHAN ",
+                "street": null,
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66371,
+                "uen": "S90PB0005F",
+                "typeId": 1,
+                "block": "51",
+                "street": "BISHAN STREET 13",
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "contactNumber": [
+              {
+                "id": 66911,
+                "uen": "S90PB0005F",
+                "typeId": "2",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 62594720
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66912,
+                "uen": "S90PB0005F",
+                "typeId": "4",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 63531912
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "foreignAddress": null
+          },
+          "status": {
+            "code": "1",
+            "description": "ACTIVE"
+          },
+          "category": null,
+          "fees": [],
+          "view": {
+            "code": "01",
+            "description": "Public"
+          },
+          "featuredFlag": false,
+          "popularFlag": false,
+          "newFlag": false,
+          "deleteFlag": false,
+          "meta": {
+            "createBy": "Batch Processing",
+            "createDate": "2018-06-27T09:40:34.413",
+            "updateBy": "SkillsFuture@PA (SA) Mobile Apps Development",
+            "updateDate": "2023-12-11T16:08:53.103"
+          },
+          "support": [
+            {
+              "detailsId": -9999,
+              "referenceNumber": "PA-S90PB0005F-01-Bishan 262",
+              "period": {
+                "from": 20220101,
+                "to": 20231231,
+                "taggingCode": "1",
+                "taggingDescription": "SFC"
+              },
+              "effectiveDate": 0,
+              "category": "PUBLIC_AGENCY",
+              "support": "Public Agency supported courses for SkillFuture Credit (SFC)",
+              "meta": {
+                "createBy": "SYSTEM",
+                "createDate": "2020-01-14T00:00:00",
+                "updateBy": "SYSTEM",
+                "updateDate": "2020-01-14T00:00:00"
+              },
+              "deleted": false
+            }
+          ],
+          "minimumEducationRequirements": {
+            "code": "1",
+            "description": "Primary"
+          },
+          "taggings": [
+            {
+              "code": "1",
+              "description": "SFC"
+            }
+          ],
+          "tags": [],
+          "bundles": [
+            {
+              "referenceNumber": "TGS-2023035904",
+              "title": "WSP - Post-Diploma Certificate in Community Pharmacy (Part of WSP - Advanced Diploma in Pharmaceutical Sciences)",
+              "code": "SSG-BC-2310-000003",
+              "type": "SCTP",
+              "description": "Baking and Living 3"
+            }
+          ],
+          "modules": [],
+          "areaOfTrainings": [
+            {
+              "code": "025",
+              "description": "Information and Communications"
+            }
+          ],
+          "methodOfDeliveries": [],
+          "eduOfTargetAuds": [],
+          "jobLevels": [],
+          "modeOfTrainings": [
+            {
+              "code": "PT",
+              "description": "Part Time"
+            }
+          ],
+          "mediumOfInstructions": [
+            {
+              "code": "EL",
+              "description": "English"
+            }
+          ],
+          "targetTrainingGroups": [],
+          "locationOfTrainings": [],
+          "fieldOfStudies1": [],
+          "fieldOfStudies2": [],
+          "wsqFrameworks": [],
+          "runs": [],
+          "statisticsSummary": {
+            "courseReferenceNumber": "PA-S90PB0005F-01-Bishan 262",
+            "pageViewCount": 100
+          },
+          "jobRoles": [],
+          "sectors": [],
+          "facultyName": null,
+          "specialisation": null,
+          "brochure": null,
+          "enquiryUrl": null,
+          "videoUrl": null,
+          "description": null,
+          "shownCourseDescription": false,
+          "feeSubsidy": -1,
+          "quality": null,
+          "outcome": null,
+          "skillsFrameworks": [],
+          "programmeType": null
+        },
+        {
+          "referenceNumber": "PA-S90PB0005F-01-Bishan 263",
+          "skillsConnectReferenceNumber": null,
+          "externalReferenceNumber": "TGS-2016503957",
+          "skillsFutureCreditReferenceNumber": 10052482,
+          "title": "SkillsFuture@PA (SA) Understanding Augmented Reality",
+          "objective": "Better understand how this new augmented reality has changed the way people interact with the environment. Trainer will also share the difference between AR and VR This course is targeted at Seniors in line with the move towards a Smart Nation.  Senior Academy. ",
+          "content": "Fascinated by the newest trend where you are able to experience the virtual in real world context through a screen? Find out more about the basics of Augmented Reality (AR) and what is the difference between Virtual reality (VR) and Augmented reality and learn tips and tricks in PokemonGo. Be prepared to experience how virtual reality and real life collide.",
+          "url": "www.one.pa.gov.sg",
+          "registrationUrl": null,
+          "tileImageURL": null,
+          "detailImageURL": null,
+          "masterSource": "PUBLIC_AGENCY_PA",
+          "numberOfTrainingDay": 0,
+          "totalTrainingDurationHour": 3,
+          "totalCostOfTrainingPerTrainee": 30,
+          "lengthOfCourseDuration": 0,
+          "tpCode": "S90PB0005F-01",
+          "trainingProviderAlias": "Bishan Community Club",
+          "seoName": "SkillsFuturePA-SA-Understanding-Augmented-Reality-11",
+          "disbursedTo": null,
+          "entryRequirement": null,
+          "displayImageName": "25_9",
+          "initiatives": "SkillsFuture Credit",
+          "examinable": null,
+          "petOrganization": false,
+          "redirectUrl": false,
+          "redirectRegisterUrl": false,
+          "targetWorkforceSegment": null,
+          "publicFundingIndicator": {
+            "code": "AS",
+            "description": "Agency Subsidised"
+          },
+          "cluster": null,
+          "qualificationAttained": null,
+          "contactPerson": [
+            {
+              "id": "8a284bdf-1d5c-4890-bd92-bf9e23f68162",
+              "fullName": null,
+              "email": {
+                "full": "Martyn_YAP@wda.gov.sg",
+                "localPart": "Martyn_YAP",
+                "atSign": "@",
+                "domain": "wda.gov.sg"
+              },
+              "salutation": null,
+              "designation": null,
+              "role": null,
+              "telephone": {
+                "internationalPrefix": " ",
+                "countryCode": null,
+                "areaCode": null,
+                "number": null
+              },
+              "meta": {
+                "createBy": "Batch Processing",
+                "createDate": "2017-06-11T06:00:14.63",
+                "updateBy": "Batch Processing",
+                "updateDate": "2017-06-11T06:00:14.63"
+              }
+            }
+          ],
+          "trainingProvider": {
+            "uen": "S90PB0005F",
+            "code": "S90PB0005F-01",
+            "name": "Bishan Community Club",
+            "email": "PA_BISHANCC@pa.gov.sg",
+            "websiteUrl": "www.pa.gov.sg",
+            "yearOfEstablishment": 0,
+            "supportingGovermentAgency": null,
+            "type": null,
+            "registrationTypeDescription": null,
+            "aboutUs": "<p>The People's Association (PA) was established on 1 July 1960 as a statutory board to promote racial harmony and social cohesion in Singapore. Our mission is to build and bridge communities in achieving one people, one Singapore.</p>\n\t<p>PA offers a wide range of programmes to cater to Singaporeans from all walks of life - connecting people to people, and people and government. We do this through our network of 1,800 grassroots organisations (GROs), over 100 Community Clubs, five Community Development Councils, National Community Leadership Institute and Water-Venture.</p>",
+            "logoFilename": null,
+            "bannerFilename": null,
+            "ssic": {
+              "primaryCode": "",
+              "secondaryCode": ""
+            },
+            "numberOfEmployees": 0,
+            "emailSubscriptionCode": " ",
+            "notification": {
+              "applicationReceived": false,
+              "jobPostExpired": false
+            },
+            "employmentAgencyLicenseNumber": "",
+            "tripartite": false,
+            "3rdParty": false,
+            "acraRegistrationStatus": null,
+            "employerBrandMessage": null,
+            "quality": {
+              "numberOfRespondents": 15,
+              "overallQuality": {
+                "average": 4.3,
+                "starsRating": 4.5
+              },
+              "qualityAreas": [
+                {
+                  "areaOfTraining": "Food and Beverages",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4.7,
+                  "starsRating": 4.5,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-07-05T10:55:15.093",
+                    "updateBy": "67B4C9FB-B084-416C-9A02-9A742A4F6F51",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                },
+                {
+                  "areaOfTraining": "Language Skills",
+                  "numberOfRespondents": 15,
+                  "averageRating": 4,
+                  "starsRating": 4,
+                  "meta": {
+                    "createBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "createDate": "2023-11-06T17:25:02.013",
+                    "updateBy": "7ACCB2C6-883F-439F-AB03-FD70E38FEA8C",
+                    "updateDate": "2023-11-06T17:25:02.013"
+                  }
+                }
+              ]
+            },
+            "outcome": null,
+            "mission": "To Build and to Bridge communities in achieving One People, One Singapore",
+            "vision": "A Great Home and A Caring Community, where we<br/>\n\t<ul><li>Share our Values</li></ul>\n\t<ul><li>Pursue our Passions</li></ul>\n\t<ul><li>Fulfil our Hopes and</li></ul>\n\t<ul><li>Treasure our Memories</li></ul>",
+            "value": "<b>Integrity</b> - I earn trust from my residents by upholding high standards.<br/><br/>\n\t<b>Care</b> - I care for my residents and constantly find ways to meet their needs and aspirations.<br/><br/>\n\t<b>Assurance</b> - I inspire confidence in my residents by delivering what I promise.<br/><br/>\n\t<b>Relationships</b> - I respect and build warm relationships with residents, volunteers and community partners.<br/><br/>\n\t<b>Excellence</b> - I exemplify a \"Can Do Spirit\" and deliver excellent programmes and services through innovation and teamwork.",
+            "socialMediaURL": null,
+            "brandmessage": "test message",
+            "active": true,
+            "deleted": false,
+            "meta": {
+              "createBy": "Batch Full Load",
+              "createDate": "2016-11-02T21:07:33.867",
+              "updateBy": "DataUpload",
+              "updateDate": "2017-06-16T16:06:39.747"
+            },
+            "address": [
+              {
+                "id": 66370,
+                "uen": "S90PB0005F",
+                "typeId": 3,
+                "block": "51 BISHAN ",
+                "street": null,
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66371,
+                "uen": "S90PB0005F",
+                "typeId": 1,
+                "block": "51",
+                "street": "BISHAN STREET 13",
+                "floor": "",
+                "unit": "",
+                "building": null,
+                "postalCode": "579799",
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "contactNumber": [
+              {
+                "id": 66911,
+                "uen": "S90PB0005F",
+                "typeId": "2",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 62594720
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              },
+              {
+                "id": 66912,
+                "uen": "S90PB0005F",
+                "typeId": "4",
+                "telephone": {
+                  "internationalPrefix": "+",
+                  "countryCode": 0,
+                  "areaCode": 0,
+                  "number": 63531912
+                },
+                "meta": {
+                  "createBy": "Batch Full Load",
+                  "createDate": "2016-11-02T21:07:33.867",
+                  "updateBy": "Batch Full Load",
+                  "updateDate": "2016-11-02T21:07:33.867"
+                }
+              }
+            ],
+            "foreignAddress": null
+          },
+          "status": {
+            "code": "1",
+            "description": "ACTIVE"
+          },
+          "category": null,
+          "fees": [],
+          "view": {
+            "code": "01",
+            "description": "Public"
+          },
+          "featuredFlag": false,
+          "popularFlag": false,
+          "newFlag": false,
+          "deleteFlag": false,
+          "meta": {
+            "createBy": "Batch Processing",
+            "createDate": "2018-06-27T09:40:34.413",
+            "updateBy": "Batch Processing",
+            "updateDate": "2023-12-11T16:08:53.103"
+          },
+          "support": [
+            {
+              "detailsId": -9999,
+              "referenceNumber": "PA-S90PB0005F-01-Bishan 263",
+              "period": {
+                "from": 20220101,
+                "to": 20231231,
+                "taggingCode": "1",
+                "taggingDescription": "SFC"
+              },
+              "effectiveDate": 0,
+              "category": "PUBLIC_AGENCY",
+              "support": "Public Agency supported courses for SkillFuture Credit (SFC)",
+              "meta": {
+                "createBy": "SYSTEM",
+                "createDate": "2020-01-14T00:00:00",
+                "updateBy": "SYSTEM",
+                "updateDate": "2020-01-14T00:00:00"
+              },
+              "deleted": false
+            }
+          ],
+          "minimumEducationRequirements": {
+            "code": "1",
+            "description": "Primary"
+          },
+          "taggings": [
+            {
+              "code": "1",
+              "description": "SFC"
+            }
+          ],
+          "tags": [],
+          "bundles": [],
+          "modules": [],
+          "areaOfTrainings": [
+            {
+              "code": "025",
+              "description": "Information and Communications"
+            }
+          ],
+          "methodOfDeliveries": [],
+          "eduOfTargetAuds": [],
+          "jobLevels": [],
+          "modeOfTrainings": [
+            {
+              "code": "PT",
+              "description": "Part Time"
+            }
+          ],
+          "mediumOfInstructions": [
+            {
+              "code": "EL",
+              "description": "English"
+            }
+          ],
+          "targetTrainingGroups": [],
+          "locationOfTrainings": [],
+          "fieldOfStudies1": [],
+          "fieldOfStudies2": [],
+          "wsqFrameworks": [],
+          "runs": [],
+          "statisticsSummary": {
+            "courseReferenceNumber": "PA-S90PB0005F-01-Bishan 263",
+            "pageViewCount": 100
+          },
+          "jobRoles": [],
+          "sectors": [],
+          "facultyName": null,
+          "specialisation": null,
+          "brochure": null,
+          "enquiryUrl": null,
+          "videoUrl": null,
+          "description": null,
+          "shownCourseDescription": false,
+          "feeSubsidy": -1,
+          "quality": null,
+          "outcome": null,
+          "skillsFramedleworks": [],
+          "programmeType": null
+        }
+      ]
+    },
+    "meta": {
+      "total": 7
+    },
+    "errors": null
+  }
