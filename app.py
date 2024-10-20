@@ -6,7 +6,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
 
-uri = "mongodb+srv://user:sc2006@careerpathnow.1wsqb.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
+uri = ""
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
