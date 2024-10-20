@@ -1,13 +1,26 @@
 import { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../constants";
 
 interface Props {
   email: string;
   password: string;
 }
 
-function LoginForm() {
+interface UserProfile {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  industry: string;
+}
+
+interface LoginFormProps {
+  onLogin: (userProfile: UserProfile) => void; // Pass user profile to parent
+}
+
+function LoginForm({ onLogin }: LoginFormProps) {
   const [formData, setFormData] = useState<Props>({
     email: "",
     password: "",
@@ -26,6 +39,29 @@ function LoginForm() {
       ...formData,
       [name]: value,
     });
+  };
+
+  const fetchUserProfile = async (userId: string) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/profile/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to fetch user profile.");
+      }
+
+      const data = await response.json();
+      return data.user; // Expect the user object containing firstName, lastName, email, and industry
+    } catch (err: any) {
+      throw new Error(
+        err.message || "An error occurred while fetching the profile."
+      );
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,7 +96,8 @@ function LoginForm() {
     setError(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/login", {
+      // Perform login request
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,8 +111,16 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
-      navigate("/home");
+      const userId = data.userId; // Assuming the userId is returned in the login response
+
+      // Fetch the user profile after login
+      const userProfile = await fetchUserProfile(userId);
+
+      // Pass user profile to parent (App.tsx)
+      onLogin(userProfile);
+
+      // Navigate to the home page after successful login and profile fetch
+      navigate("/");
     } catch (err: any) {
       setError(err.message || "An error occurred during login.");
     } finally {

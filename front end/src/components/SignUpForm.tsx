@@ -1,12 +1,7 @@
 import { useState } from "react";
 import "./SignUpForm.css";
-import {
-  BrowserRouter as Routers,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../constants";
 
 interface Props {
   firstName: string;
@@ -43,12 +38,14 @@ function SignUpForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Clear previous errors
     setFirstNameError("");
     setLastNameError("");
     setEmailError("");
     setPasswordError("");
     let hasError = false;
 
+    // Validation
     if (formData.firstName === "") {
       setFirstNameError("Please enter your first name");
       hasError = true;
@@ -77,19 +74,21 @@ function SignUpForm() {
       setPasswordError("Please enter a password");
       hasError = true;
     } else if (formData.password.length < 8) {
-      setPasswordError("Password must be 8 character or longer");
+      setPasswordError("Password must be 8 characters or longer");
       hasError = true;
     }
 
+    // Stop submission if there are validation errors
     if (hasError) {
       return;
     }
 
+    // Show loading state and reset errors
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/register", {
+      const response = await fetch(API_BASE_URL + "/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,11 +98,13 @@ function SignUpForm() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Register failed.");
+        throw new Error(errorData.message || "Registration failed.");
       }
 
       const data = await response.json();
-      console.log("Register successful:", data);
+      console.log("Registration successful:", data);
+
+      // Redirect to login page on successful registration
       navigate("/login");
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
@@ -115,7 +116,7 @@ function SignUpForm() {
   return (
     <div className="sign-up-box">
       <h2>Create an Account</h2>
-      <form noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
             type="text"
@@ -123,9 +124,11 @@ function SignUpForm() {
             value={formData.firstName}
             placeholder="Enter first name here"
             onChange={handleChange}
-            className={"user-box"}
+            className="user-box"
           />
-          <label className="errorLabel">{firstNameError}</label>
+          {firstNameError && (
+            <label className="errorLabel">{firstNameError}</label>
+          )}
         </div>
         <div className="user-box">
           <input
@@ -134,9 +137,11 @@ function SignUpForm() {
             value={formData.lastName}
             placeholder="Enter last name here"
             onChange={handleChange}
-            className={"user-box"}
+            className="user-box"
           />
-          <label className="errorLabel">{lastNameError}</label>
+          {lastNameError && (
+            <label className="errorLabel">{lastNameError}</label>
+          )}
         </div>
         <div className="user-box">
           <input
@@ -145,10 +150,9 @@ function SignUpForm() {
             value={formData.email}
             placeholder="Enter email address here"
             onChange={handleChange}
-            className={"user-box"}
+            className="user-box"
           />
-
-          <label className="errorLabel">{emailError}</label>
+          {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
         <div className="user-box">
           <input
@@ -157,16 +161,18 @@ function SignUpForm() {
             value={formData.password}
             placeholder="Enter password here"
             onChange={handleChange}
-            className={"user-box"}
+            className="user-box"
           />
-          <label className="errorLabel">{passwordError}</label>
+          {passwordError && (
+            <label className="errorLabel">{passwordError}</label>
+          )}
         </div>
-        <input
-          onClick={handleSubmit}
-          className={"inputButton"}
-          type="button"
-          value={"Sign Up"}
-        />
+
+        {error && <p className="errorLabel">{error}</p>}
+        <button type="submit" className="inputButton" disabled={loading}>
+          {loading ? "Signing up..." : "Sign Up"}
+        </button>
+
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
           <a id="login-text" href="/login">
