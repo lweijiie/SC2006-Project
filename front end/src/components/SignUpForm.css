@@ -30,20 +30,11 @@
   outline: none;
   background: rgb(249, 232, 212);
 }
-.sign-up-box .user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: grey;
-
-  pointer-events: none;
-  transition: 0.5s;
-}
+.sign-up-box .user-box label,
 .sign-up-box .user-box input:focus ~ label,
 .sign-up-box .user-box input:valid ~ label {
-  top: -25px;
+  position: absolute;
+  top: -1rem;
   left: 0;
   color: rgb(255, 0, 0);
   font-size: 12px;
@@ -66,4 +57,12 @@ input[type="button"] {
   font-size: 15px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+p {
+  display: inline-block;
+}
+
+#login-text {
+  text-decoration: none;
 }
