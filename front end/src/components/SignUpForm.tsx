@@ -1,135 +1,185 @@
 import { useState } from "react";
 import "./SignUpForm.css";
-import {
-  BrowserRouter as Routers,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../constants";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface Props {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+}
+
 function SignUpForm() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<Props>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  //  const navigate = useNavigate();
 
-  const onButtonClick = () => {
+  const navigate = useNavigate();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Clear previous errors
     setFirstNameError("");
     setLastNameError("");
     setEmailError("");
     setPasswordError("");
+    let hasError = false;
 
-    if ("" === firstName) {
+    // Validation
+    if (formData.firstName === "") {
       setFirstNameError("Please enter your first name");
-      return;
+      hasError = true;
+    } else if (!/^[a-zA-Z ]*$/.test(formData.firstName)) {
+      setFirstNameError("Please enter a valid first name");
+      hasError = true;
     }
 
-    if ("" === lastName) {
+    if (formData.lastName === "") {
       setLastNameError("Please enter your last name");
-      return;
+      hasError = true;
+    } else if (!/^[a-zA-Z ]*$/.test(formData.lastName)) {
+      setLastNameError("Please enter a valid last name");
+      hasError = true;
     }
 
-    if ("" === email) {
+    if (formData.email === "") {
       setEmailError("Please enter your email");
-      return;
+      hasError = true;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      setEmailError("Please enter a valid email address");
+      hasError = true;
     }
 
-    if ("" === password) {
+    if (formData.password === "") {
       setPasswordError("Please enter a password");
-      return;
-    }
-    if (password.length < 7) {
-      setPasswordError("password must be 8 character or longer");
-      return;
-    }
-
-    if (!/^[a-zA-Z ]*$/.test(firstName)) {
-      setFirstNameError("please enter a valid first name");
+      hasError = true;
+    } else if (formData.password.length < 8) {
+      setPasswordError("Password must be 8 characters or longer");
+      hasError = true;
     }
 
-    if (!/^[a-zA-Z ]*$/.test(lastName)) {
-      setLastNameError("please enter a valid last name");
-    }
-
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-      setEmailError("please enter a valid email address");
+    // Stop submission if there are validation errors
+    if (hasError) {
       return;
     }
 
-    if (email) {
-      return (
-        <>
-          {
-            <Routers>
-              {
-                <Routes>
-                  <Route path="/home/"></Route>
-                </Routes>
-              }
-            </Routers>
-          }
-        </>
-      );
-    } else {
-      return <Navigate to="/Component/Login/Login" />;
+    // Show loading state and reset errors
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(API_BASE_URL + "/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Registration failed.");
+      }
+
+      const data = await response.json();
+      console.log("Registration successful:", data);
+
+      // Redirect to login page on successful registration
+      navigate("/login");
+    } catch (err: any) {
+      setError(err.message || "An error occurred during registration.");
+    } finally {
+      setLoading(false);
     }
-    //navigate("../Home")
   };
 
   return (
     <div className="sign-up-box">
-      <h2>Sign Up</h2>
-      <form>
+      <h2>Create an Account</h2>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
-            value={firstName}
+            type="text"
+            name="firstName"
+            value={formData.firstName}
             placeholder="Enter first name here"
-            onChange={(ev) => setFirstName(ev.target.value)}
-            className={"user-box"}
+            onChange={handleChange}
+            className="user-box"
           />
-          <label className="errorLabel">{firstNameError}</label>
+          {firstNameError && (
+            <label className="errorLabel">{firstNameError}</label>
+          )}
         </div>
         <div className="user-box">
           <input
-            value={lastName}
+            type="text"
+            name="lastName"
+            value={formData.lastName}
             placeholder="Enter last name here"
-            onChange={(ev) => setLastName(ev.target.value)}
-            className={"user-box"}
+            onChange={handleChange}
+            className="user-box"
           />
-          <label className="errorLabel">{lastNameError}</label>
+          {lastNameError && (
+            <label className="errorLabel">{lastNameError}</label>
+          )}
         </div>
         <div className="user-box">
           <input
-            value={email}
+            type="email"
+            name="email"
+            value={formData.email}
             placeholder="Enter email address here"
-            onChange={(ev) => setEmail(ev.target.value)}
-            className={"user-box"}
+            onChange={handleChange}
+            className="user-box"
           />
-
-          <label className="errorLabel">{emailError}</label>
+          {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
         <div className="user-box">
           <input
-            value={password}
+            type="password"
+            name="password"
+            value={formData.password}
             placeholder="Enter password here"
-            onChange={(ev) => setPassword(ev.target.value)}
-            className={"user-box"}
+            onChange={handleChange}
+            className="user-box"
           />
-          <label className="errorLabel">{passwordError}</label>
+          {passwordError && (
+            <label className="errorLabel">{passwordError}</label>
+          )}
         </div>
-        <input
-          onClick={onButtonClick}
-          className={"inputButton"}
-          type="button"
-          value={"Sign Up"}
-        />
+
+        {error && <p className="errorLabel">{error}</p>}
+        <button type="submit" className="inputButton" disabled={loading}>
+          {loading ? "Signing up..." : "Sign Up"}
+        </button>
+
+        <div className="login-text-box">
+          <p>Already have an account?&nbsp;</p>
+          <a id="login-text" href="/login">
+            Login
+          </a>
+          <p>&nbsp;now!</p>
+        </div>
       </form>
     </div>
   );
