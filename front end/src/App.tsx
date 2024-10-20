@@ -1,17 +1,20 @@
-import { useState } from "react";
-import Navbar from "./components/Navbar";
-import "./App.css";
-import Fetch from "./components/Fetch";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
-const App = () => {
-  const [isSignedIn, setSignInState] = useState(false);
+function App() {
   return (
-    <>
-      <div>
-        <Navbar isSignedIn={isSignedIn}></Navbar>
-      </div>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* other routes */}
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
