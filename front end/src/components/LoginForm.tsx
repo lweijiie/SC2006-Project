@@ -1,20 +1,37 @@
 import { useState } from "react";
 import "./LoginForm.css";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../constants";
 
 interface Props {
-  username: string;
+  email: string;
   password: string;
 }
 
-function LoginForm() {
+interface UserProfile {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  industry: string;
+}
+
+interface LoginFormProps {
+  onLogin: (userProfile: UserProfile) => void; // Pass user profile to parent
+}
+
+function LoginForm({ onLogin }: LoginFormProps) {
   const [formData, setFormData] = useState<Props>({
-    username: "",
+    email: "",
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [usernameError, setUsernameError] = useState<string>("");
+
+  const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -24,24 +41,54 @@ function LoginForm() {
     });
   };
 
+  const fetchUserProfile = async (userId: string) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/profile/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to fetch user profile.");
+      }
+
+      const data = await response.json();
+      return data.user; // Expect the user object containing firstName, lastName, email, and industry
+    } catch (err: any) {
+      throw new Error(
+        err.message || "An error occurred while fetching the profile."
+      );
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Clear previous errors
-    setUsernameError("");
+    setEmailError("");
     setPasswordError("");
+    let hasError = false;
 
-    // Validate username and password
-    if (formData.username === "") {
-      setUsernameError("Please enter your username");
-      return;
+    // Validate email and password
+    if (formData.email === "") {
+      setEmailError("Please enter your email");
+      hasError = true;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      setEmailError("Please enter a valid email address");
+      hasError = true;
     }
     if (formData.password === "") {
       setPasswordError("Please enter a password");
-      return;
-    }
-    if (formData.password.length < 8) {
+      hasError = true;
+    } else if (formData.password.length < 8) {
       setPasswordError("Password must be 8 characters or longer");
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
 
@@ -49,7 +96,8 @@ function LoginForm() {
     setError(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/login", {
+      // Perform login request
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -63,8 +111,16 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
-      // You can redirect the user or save the token here
+      const userId = data.userId; // Assuming the userId is returned in the login response
+
+      // Fetch the user profile after login
+      const userProfile = await fetchUserProfile(userId);
+
+      // Pass user profile to parent (App.tsx)
+      onLogin(userProfile);
+
+      // Navigate to the home page after successful login and profile fetch
+      navigate("/");
     } catch (err: any) {
       setError(err.message || "An error occurred during login.");
     } finally {
@@ -75,20 +131,18 @@ function LoginForm() {
   return (
     <div className="login-box">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
-            type="text"
-            name="username"
-            value={formData.username}
+            type="email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
-            placeholder="Enter username here"
+            placeholder="Enter email address here"
             className={"user-box"}
             required
           />
-          {usernameError && (
-            <label className="errorLabel">{usernameError}</label>
-          )}
+          {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
 
         <div className="user-box">
@@ -111,9 +165,9 @@ function LoginForm() {
           {loading ? "Logging in..." : "Log In"}
         </button>
 
-        <div className="sign-up-box">
+        <div className="sign-up-text-box">
           <p>Not have an account?&nbsp;</p>
-          <a id="sign-up-text" href="/sign-up/">
+          <a id="sign-up-text" href="/sign-up">
             Sign Up
           </a>
           <p>&nbsp;now!</p>
