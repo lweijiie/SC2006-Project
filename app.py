@@ -5,6 +5,7 @@ from flask_cors import CORS
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from bson.objectid import ObjectId
+from enum import Enum
 
 uri = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -32,27 +33,45 @@ except AttributeError as e:
 
 try:
 
-    users = client.AppDB.users
     courses = client.SkillsFutureDB.SkillsFutureCourses
 except AttributeError as e:
     print(f"Error accessing courses collection: {e}")
 
+class UserType(Enum):
+    JOB_SEEKER = "Job Seeker"
+    EMPLOYER = "Employer"
+    
 # Register endpoint
 @app.route('/register', methods=['POST'])
 def register():
     data = request.json
-    username = data.get('username')
+    email = data.get('email')
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
     password = data.get('password')
+    industry = data.get('industry')
+    user_type = data.get('user_type')
 
-    # Check if user already exists
-    if users.find_one({'username': username}):
+    # Validate user_type
+    if user_type not in [UserType.JOB_SEEKER.value, UserType.EMPLOYER.value]:
+        return jsonify({'message': 'Invalid user type'}), 400
+
+    # Check if user already exists based on email
+    if users.find_one({'email': email}):
         return jsonify({'message': 'User already exists'}), 400
 
     # Hash the password
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    # Insert new user
-    users.insert_one({'username': username, 'password': hashed_password})
+    # Insert new user with email, industry, and user_type
+    users.insert_one({
+        'email': email,
+        'first_name' : first_name,
+        'last_name' : last_name,
+        'password': hashed_password,
+        'industry': industry,
+        'user_type': user_type
+    })
 
     return jsonify({'message': 'User registered successfully!'}), 201
 
