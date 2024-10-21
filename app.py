@@ -143,16 +143,26 @@ def update_profile(user_id):
 @app.route('/profile/<user_id>', methods=['GET'])
 def get_profile(user_id):
     try:
-        # Find the user by ID
-        user = users.find_one({'_id': ObjectId(user_id)}, {'password': 0})  # Exclude password from the result
+        # Find the user by ID and exclude the password field from the result
+        user = users.find_one(
+            {'_id': ObjectId(user_id)},
+            {'password': 0}  # Exclude the password field
+        )
 
         if user:
             # Convert ObjectId to string before returning the user document
             user['_id'] = str(user['_id'])
 
+            # Return the user details including new fields
             return jsonify({
                 'message': 'User profile retrieved successfully!',
-                'user': user  # Return user details
+                'user': {
+                    'email': user.get('email'),
+                    'first_name': user.get('first_name'),
+                    'last_name': user.get('last_name'),
+                    'industry': user.get('industry'),
+                    'user_type': user.get('user_type')
+                }
             }), 200
         else:
             return jsonify({'message': 'User not found'}), 404
