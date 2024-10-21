@@ -79,11 +79,11 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.json
-    username = data.get('username')
+    email = data.get('email')
     password = data.get('password')
 
-    # Find the user by username
-    user = users.find_one({'username': username})
+    # Find the user by email
+    user = users.find_one({'email': email})
 
     # Check if user exists and password is correct
     if user and bcrypt.check_password_hash(user['password'], password):
@@ -93,7 +93,7 @@ def login():
             'user_id': str(user['_id'])  # Convert ObjectId to string
         }), 200
     else:
-        return jsonify({'message': 'Invalid username or password'}), 401
+        return jsonify({'message': 'Invalid email or password'}), 401
 
     
 # Update User Details (new route)
@@ -102,14 +102,36 @@ def update_profile(user_id):
     data = request.json
 
     # Get the new details from the request body
+    email = data.get('email')
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    password = data.get('password')
     industry = data.get('industry')
-    
+    user_type = data.get('user_type')
+
+    # Build the update dictionary dynamically based on the fields provided
+    update_fields = {}
+
+    if email:
+        update_fields['email'] = email
+    if first_name:
+        update_fields['first_name'] = first_name
+    if last_name:
+        update_fields['last_name'] = last_name
+    if password:
+        # Hash the new password before updating
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        update_fields['password'] = hashed_password
+    if industry:
+        update_fields['industry'] = industry
+    if user_type:
+        update_fields['user_type'] = user_type
 
     # Find the user by ID and update their profile
     try:
         result = users.update_one(
             {'_id': ObjectId(user_id)},  # Find the user by ID
-            {'$set': {'industry': industry}}  # Update new fields
+            {'$set': update_fields}  # Update new fields dynamically
         )
         if result.modified_count > 0:
             return jsonify({'message': 'Profile updated successfully!'}), 200
