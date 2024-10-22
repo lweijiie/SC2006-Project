@@ -2,18 +2,18 @@ import { useState } from "react";
 import "./LoginForm.css";
 
 interface Props {
-  username: string;
+  email: string; // Change from username to email
   password: string;
 }
 
 function LoginForm() {
   const [formData, setFormData] = useState<Props>({
-    username: "",
+    email: "", // Initialize email state
     password: "",
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [usernameError, setUsernameError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>(""); // Change to emailError
   const [passwordError, setPasswordError] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,12 +28,16 @@ function LoginForm() {
     e.preventDefault();
 
     // Clear previous errors
-    setUsernameError("");
+    setEmailError(""); // Clear email error
     setPasswordError("");
 
-    // Validate username and password
-    if (formData.username === "") {
-      setUsernameError("Please enter your username");
+    // Validate email and password
+    if (formData.email === "") {
+      setEmailError("Please enter your email");
+      return;
+    }
+    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      setEmailError("Please enter a valid email address");
       return;
     }
     if (formData.password === "") {
@@ -78,16 +82,16 @@ function LoginForm() {
       <form onSubmit={handleSubmit}>
         <div className="user-box">
           <input
-            type="text"
-            name="username"
-            value={formData.username}
+            type="email" // Change type to email
+            name="email" // Change name to email
+            value={formData.email}
             onChange={handleChange}
-            placeholder="Enter username here"
+            placeholder="Enter email here" // Update placeholder
             className={"user-box"}
             required
           />
-          {usernameError && (
-            <label className="errorLabel">{usernameError}</label>
+          {emailError && (
+            <label className="errorLabel">{emailError}</label>
           )}
         </div>
 
@@ -112,7 +116,7 @@ function LoginForm() {
         </button>
 
         <div className="sign-up-box">
-          <p>Not have an account?&nbsp;</p>
+          <p>Don't have an account?&nbsp;</p>
           <a id="sign-up-text" href="/sign-up/">
             Sign Up
           </a>
