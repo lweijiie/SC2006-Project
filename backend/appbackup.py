@@ -20,7 +20,7 @@ app = Flask(__name__)
 CORS(app)
 
 # MongoDB configuration
-app.config["MONGO_URI"] = ""
+app.config["MONGO_URI"] = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)  # For hashing passwords
 
@@ -208,5 +208,5 @@ def get_courses(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#   app.run(debug=True)
