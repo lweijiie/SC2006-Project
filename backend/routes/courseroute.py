@@ -1,18 +1,19 @@
 from flask import Blueprint, request, jsonify
 from bson.objectid import ObjectId
-from backend.appbackup import users, courses
+from __init__ import jobseekers, courses, app
+
 
 courses_bp = Blueprint('courses', __name__)
 
 # Get matched courses based on user's industry with pagination
-@courses_bp.route('/get-personalised-courses/<user_id>', methods=['GET'])
+@app.route('/get-personalised-courses/<user_id>', methods=['GET'])
 def get_courses(user_id):
     try:
-        user = users.find_one({'_id': ObjectId(user_id)})
-        if not user:
+        jobseeker = jobseekers.find_one({'_id': ObjectId(user_id)})
+        if not jobseeker:
             return jsonify({'message': 'User not found'}), 404
         
-        industry = user.get('industry')
+        industry = jobseeker.get('industry')
         if not industry:
             return jsonify({'message': 'User does not have an industry specified'}), 400
 
