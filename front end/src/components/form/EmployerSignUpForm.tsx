@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL, NAV_LINKS } from "../../constants";
 import "./SignUpForm.css";
 
 interface Props {
@@ -87,7 +87,7 @@ function EmployerSignUpForm() {
       console.log("Registration successful:", data);
 
       // Redirect to login page on successful registration
-      navigate("/login/employer");
+      navigate(NAV_LINKS.EMPLOYER_LOGIN);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
@@ -131,7 +131,7 @@ function EmployerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href="/login/employer">
+          <a id="login-text" href={NAV_LINKS.EMPLOYER_LOGIN}>
             Login
           </a>
           <p>&nbsp;now!</p>

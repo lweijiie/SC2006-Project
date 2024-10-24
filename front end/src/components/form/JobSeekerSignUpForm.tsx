@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../constants";
 import "./SignUpForm.css";
 
 interface Props {
@@ -31,7 +31,7 @@ function JobSeekerSignUpForm() {
 
   const navigate = useNavigate();
 
-  const industries = ["Technology", "Healthcare", "Finance", "Education"];
+  const industries = INDUSTRY_LIST;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -119,7 +119,7 @@ function JobSeekerSignUpForm() {
       console.log("Registration successful:", data);
 
       // Redirect to login page on successful registration
-      navigate("/login/job-seeker");
+      navigate(NAV_LINKS.JOB_SEEKER_LOGIN);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
@@ -208,7 +208,7 @@ function JobSeekerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href="/login/job-seeker">
+          <a id="login-text" href={NAV_LINKS.JOB_SEEKER_LOGIN}>
             Login
           </a>
           <p>&nbsp;now!</p>
