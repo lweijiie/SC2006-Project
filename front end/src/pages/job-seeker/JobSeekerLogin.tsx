@@ -2,7 +2,6 @@ import React from "react";
 import LoginForm from "../../components/form/LoginForm"; // Adjust the import path as necessary
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
-import { USER_TYPE } from "../../constants";
 
 const JobSeekerLogin: React.FC<{ onLogin: (userId: string) => void }> = ({
   onLogin,
@@ -15,7 +14,7 @@ const JobSeekerLogin: React.FC<{ onLogin: (userId: string) => void }> = ({
 
   return (
     <div>
-      <LoginForm onLogin={onLogin} loginType={USER_TYPE.JOB_SEEKER} />
+      <LoginForm onLogin={onLogin} loginType="Job Seeker" />
       <img
         src={logo}
         alt="Go Back"

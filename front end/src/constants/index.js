@@ -15,3 +15,10 @@ export const USER_TYPE = {
   JOB_SEEKER: "Job Seeker",
   EMPLOYER: "Employer",
 };
+
+export const INDUSTRY_LIST = [
+  "Technology",
+  "Healthcare",
+  "Finance",
+  "Education",
+];
