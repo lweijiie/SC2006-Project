@@ -1,13 +1,14 @@
-import { useState } from "react";
-import "./SignUpForm.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../constants";
+import "./SignUpForm.css";
 
 interface Props {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+  industry: string;
 }
 
 function SignUpForm() {
@@ -16,7 +17,9 @@ function SignUpForm() {
     lastName: "",
     email: "",
     password: "",
+    industry: "",
   });
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -24,10 +27,15 @@ function SignUpForm() {
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [industryError, setIndustryError] = useState("");
 
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const industries = ["Technology", "Healthcare", "Finance", "Education"];
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -43,6 +51,7 @@ function SignUpForm() {
     setLastNameError("");
     setEmailError("");
     setPasswordError("");
+    setIndustryError("");
     let hasError = false;
 
     // Validation
@@ -75,6 +84,11 @@ function SignUpForm() {
       hasError = true;
     } else if (formData.password.length < 8) {
       setPasswordError("Password must be 8 characters or longer");
+      hasError = true;
+    }
+
+    if (formData.industry === "") {
+      setIndustryError("Please select an industry");
       hasError = true;
     }
 
@@ -165,6 +179,25 @@ function SignUpForm() {
           />
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
+          )}
+        </div>
+
+        <div className="user-box">
+          <select
+            name="industry"
+            value={formData.industry}
+            onChange={handleChange}
+            className="user-box"
+          >
+            <option value="">Select Industry</option>
+            {industries.map((industry, index) => (
+              <option key={index} value={industry}>
+                {industry}
+              </option>
+            ))}
+          </select>
+          {industryError && (
+            <label className="errorLabel">{industryError}</label>
           )}
         </div>
 
