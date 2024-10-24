@@ -1,0 +1,1 @@
+app.register_blueprint(personalisedcourses_bp)

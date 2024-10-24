@@ -1,39 +1,30 @@
-import { useState } from "react";
-import "./LoginForm.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../constants";
+import { API_BASE_URL } from "../../constants";
+import "./SignUpForm.css";
 
 interface Props {
   email: string;
   password: string;
 }
 
-interface UserProfile {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  industry: string;
-}
-
-interface LoginFormProps {
-  onLogin: (userProfile: UserProfile) => void; // Pass user profile to parent
-}
-
-function LoginForm({ onLogin }: LoginFormProps) {
+function EmployerSignUpForm() {
   const [formData, setFormData] = useState<Props>({
     email: "",
     password: "",
   });
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [emailError, setEmailError] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<string>("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -41,38 +32,18 @@ function LoginForm({ onLogin }: LoginFormProps) {
     });
   };
 
-  const fetchUserProfile = async (userId: string) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/profile/${userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to fetch user profile.");
-      }
-
-      const data = await response.json();
-      return data.user; // Expect the user object containing firstName, lastName, email, and industry
-    } catch (err: any) {
-      throw new Error(
-        err.message || "An error occurred while fetching the profile."
-      );
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Clear previous errors
+
     setEmailError("");
     setPasswordError("");
+
     let hasError = false;
 
-    // Validate email and password
+    // Validation
+
     if (formData.email === "") {
       setEmailError("Please enter your email");
       hasError = true;
@@ -80,6 +51,7 @@ function LoginForm({ onLogin }: LoginFormProps) {
       setEmailError("Please enter a valid email address");
       hasError = true;
     }
+
     if (formData.password === "") {
       setPasswordError("Please enter a password");
       hasError = true;
@@ -88,16 +60,17 @@ function LoginForm({ onLogin }: LoginFormProps) {
       hasError = true;
     }
 
+    // Stop submission if there are validation errors
     if (hasError) {
       return;
     }
 
+    // Show loading state and reset errors
     setLoading(true);
     setError(null);
 
     try {
-      // Perform login request
-      const response = await fetch(`${API_BASE_URL}/login`, {
+      const response = await fetch(API_BASE_URL + "/register-employer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,53 +80,44 @@ function LoginForm({ onLogin }: LoginFormProps) {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Login failed.");
+        throw new Error(errorData.message || "Registration failed.");
       }
 
       const data = await response.json();
-      const userId = data.userId; // Assuming the userId is returned in the login response
+      console.log("Registration successful:", data);
 
-      // Fetch the user profile after login
-      const userProfile = await fetchUserProfile(userId);
-
-      // Pass user profile to parent (App.tsx)
-      onLogin(userProfile);
-
-      // Navigate to the home page after successful login and profile fetch
-      navigate("/");
+      // Redirect to login page on successful registration
+      navigate("/login/employer");
     } catch (err: any) {
-      setError(err.message || "An error occurred during login.");
+      setError(err.message || "An error occurred during registration.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-box">
-      <h2>Login</h2>
+    <div className="sign-up-box">
+      <h2>Create an Account</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
             type="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}
             placeholder="Enter email address here"
-            className={"user-box"}
-            required
+            onChange={handleChange}
+            className="user-box"
           />
           {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
-
         <div className="user-box">
           <input
             type="password"
             name="password"
             value={formData.password}
-            onChange={handleChange}
             placeholder="Enter password here"
-            className={"user-box"}
-            required
+            onChange={handleChange}
+            className="user-box"
           />
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
@@ -162,13 +126,13 @@ function LoginForm({ onLogin }: LoginFormProps) {
 
         {error && <p className="errorLabel">{error}</p>}
         <button type="submit" className="inputButton" disabled={loading}>
-          {loading ? "Logging in..." : "Log In"}
+          {loading ? "Signing up..." : "Sign Up"}
         </button>
 
-        <div className="sign-up-text-box">
-          <p>Not have an account?&nbsp;</p>
-          <a id="sign-up-text" href="/sign-up">
-            Sign Up
+        <div className="login-text-box">
+          <p>Already have an account?&nbsp;</p>
+          <a id="login-text" href="/login/employer">
+            Login
           </a>
           <p>&nbsp;now!</p>
         </div>
@@ -177,4 +141,4 @@ function LoginForm({ onLogin }: LoginFormProps) {
   );
 }
 
-export default LoginForm;
+export default EmployerSignUpForm;

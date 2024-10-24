@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../constants";
+import { API_BASE_URL } from "../../constants";
 import "./SignUpForm.css";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   industry: string;
 }
 
-function SignUpForm() {
+function JobSeekerSignUpForm() {
   const [formData, setFormData] = useState<Props>({
     firstName: "",
     lastName: "",
@@ -102,7 +102,7 @@ function SignUpForm() {
     setError(null);
 
     try {
-      const response = await fetch(API_BASE_URL + "/register", {
+      const response = await fetch(API_BASE_URL + "/register-jobseeker", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -119,7 +119,7 @@ function SignUpForm() {
       console.log("Registration successful:", data);
 
       // Redirect to login page on successful registration
-      navigate("/login");
+      navigate("/login/job-seeker");
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
@@ -208,7 +208,7 @@ function SignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href="/login">
+          <a id="login-text" href="/login/job-seeker">
             Login
           </a>
           <p>&nbsp;now!</p>
@@ -218,4 +218,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default JobSeekerSignUpForm;

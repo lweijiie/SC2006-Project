@@ -55,10 +55,19 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-p {
+.sign-up-text-box {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.sign-up-text-box p {
   display: inline-block;
+  font-size: 14px;
+  color: black;
 }
 
 #sign-up-text {
   text-decoration: none;
+  color: cornflowerblue;
+  font-weight: bold;
 }
