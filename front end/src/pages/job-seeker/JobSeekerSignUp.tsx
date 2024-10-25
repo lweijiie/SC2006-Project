@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import JobSeekerSignUpForm from "../../components/form/JobSeekerSignUpForm";
+import JobSeekerSignUpForm from "../../components/Form/JobSeekerSignUpForm";
 import logo from "../../assets/logo.svg";
 import { NAV_LINKS } from "../../constants";
 
