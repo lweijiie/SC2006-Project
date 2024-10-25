@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import NavbarJobSeeker from "../components/NavbarJobSeeker";
+import NavbarJobSeeker from "../components/Navbar/NavbarJobSeeker";
 import NavbarCompany from "../components/NavbarCompany";
 
 // Job Seeker and Company Profile Interfaces

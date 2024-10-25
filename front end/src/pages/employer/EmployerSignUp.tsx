@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/logo.svg";
-import EmployerSignUpForm from "../../components/form/EmployerSignUpForm";
+import EmployerSignUpForm from "../../components/Form/EmployerSignUpForm";
 
 const EmployerSignUp: React.FC = () => {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/NavbarJobSeeker";
+import Navbar from "../components/Navbar/NavbarJobSeeker";
 import { useNavigate } from "react-router-dom";
 
 interface UserProfile {
