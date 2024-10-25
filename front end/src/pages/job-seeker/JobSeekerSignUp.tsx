@@ -7,7 +7,7 @@ import { NAV_LINKS } from "../../constants";
 const JobSeekerSignUp: React.FC = () => {
   const navigate = useNavigate();
   const handleGoBack = () => {
-    navigate(NAV_LINKS.HOME);
+    navigate(NAV_LINKS.home);
   };
   return (
     <div>

@@ -87,7 +87,7 @@ function EmployerSignUpForm() {
       console.log("Registration successful:", data);
 
       // Redirect to login page on successful registration
-      navigate(NAV_LINKS.EMPLOYER_LOGIN);
+      navigate(NAV_LINKS.employer_login);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
@@ -131,7 +131,7 @@ function EmployerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.EMPLOYER_LOGIN}>
+          <a id="login-text" href={NAV_LINKS.employer_login}>
             Login
           </a>
           <p>&nbsp;now!</p>
