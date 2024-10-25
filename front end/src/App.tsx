@@ -6,6 +6,8 @@ import JobSeekerSignUp from "./pages/job-seeker/JobSeekerSignUp";
 import JobSeekerLogin from "./pages/job-seeker/JobSeekerLogin";
 import EmployerLogin from "./pages/employer/EmployerLogin";
 import EmployerSignUp from "./pages/employer/EmployerSignUp";
+import JobSeekerHome from "./pages/job-seeker/JobSeekerHome";
+import JobSeekerProfilePage from "./pages/job-seeker/JobSeekerProfilePage";
 
 interface JobSeekerProfile {
   _id: string;
@@ -111,19 +113,27 @@ const App: React.FC = () => {
     <Router>
       <Routes>
         <Route path={NAV_LINKS.HOME} element={<LandingPage />} />
+
         <Route
           path={NAV_LINKS.JOB_SEEKER_SIGN_UP}
           element={<JobSeekerSignUp />}
         />
-        <Route path={NAV_LINKS.EMPLOYER_SIGN_UP} element={<EmployerSignUp />} />
         <Route
           path={NAV_LINKS.JOB_SEEKER_LOGIN}
           element={<JobSeekerLogin onLogin={handleJobSeekerLogin} />}
         />
+        <Route path={NAV_LINKS.JOB_SEEKER_HOME} element={<JobSeekerHome />} />
+        <Route
+          path={NAV_LINKS.JOB_SEEKER_PROFILE}
+          element={<JobSeekerProfilePage />}
+        />
+
+        <Route path={NAV_LINKS.EMPLOYER_SIGN_UP} element={<EmployerSignUp />} />
         <Route
           path={NAV_LINKS.EMPLOYER_LOGIN}
           element={<EmployerLogin onLogin={handleEmployerLogin} />}
         />
+
         {/* <Route
           path="/home"
           element={
