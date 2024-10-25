@@ -119,7 +119,7 @@ function JobSeekerSignUpForm() {
       console.log("Registration successful:", data);
 
       // Redirect to login page on successful registration
-      navigate(NAV_LINKS.JOB_SEEKER_LOGIN);
+      navigate(NAV_LINKS.job_seeker_login);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
@@ -208,7 +208,7 @@ function JobSeekerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.JOB_SEEKER_LOGIN}>
+          <a id="login-text" href={NAV_LINKS.job_seeker_login}>
             Login
           </a>
           <p>&nbsp;now!</p>

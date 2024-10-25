@@ -1,41 +1,23 @@
-import React from "react";
-import "./Navbar.css";
+import Navbar from "./Navbar";
 import { NAV_LINKS } from "../../constants";
 
-interface JobSeekerProps {
-  firstName: string;
-  lastName: string;
-}
+const navbarLeftItems = [
+  { label: "Home", link: `${NAV_LINKS.job_seeker_home}` },
+  { label: "Jobs", link: `${NAV_LINKS.job_seeker_job_search}` },
+  { label: "Courses", link: `${NAV_LINKS.job_seeker_find_course}` },
+];
 
-const NavbarJobSeeker: React.FC<JobSeekerProps> = ({ firstName, lastName }) => {
+const navbarRightItems = [
+  { label: "Profile", link: `${NAV_LINKS.job_seeker_profile}` },
+];
+
+const NavbarJobSeeker = () => {
   return (
-    <div className="navbar">
-      <div className="navbar-left">
-        <a className="navbar-brand" href={NAV_LINKS.JOB_SEEKER_HOME}>
-          <img src="../assets/logo.svg" alt="CareerPathNow" />
-        </a>
-        <div className="navbar-items">
-          <a className="navbar-item" href={NAV_LINKS.JOB_SEEKER_HOME}>
-            Home
-          </a>
-          <a className="navbar-item" href={NAV_LINKS.JOB_SEEKER_JOB_SEARCH}>
-            Jobs
-          </a>
-          <a className="navbar-item" href={NAV_LINKS.JOB_SEEKER_FIND_COURSE}>
-            Courses
-          </a>
-        </div>
-      </div>
-      <div className="navbar-right">
-        <span className="welcome-message">
-          Welcome, {firstName} {lastName}
-        </span>
-        <a className="profile-button" href={NAV_LINKS.JOB_SEEKER_PROFILE}>
-          Profile
-        </a>
-        <input type="button" className="menu-dropdown" />
-      </div>
-    </div>
+    <Navbar
+      homeLink={NAV_LINKS.job_seeker_home}
+      navLeftItems={navbarLeftItems}
+      navRightItems={navbarRightItems}
+    />
   );
 };
 

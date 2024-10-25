@@ -7,11 +7,11 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleJobSeekerLogin = () => {
-    navigate(NAV_LINKS.JOB_SEEKER_LOGIN);
+    navigate(NAV_LINKS.job_seeker_login);
   };
 
   const handleEmployerLogin = () => {
-    navigate(NAV_LINKS.EMPLOYER_LOGIN);
+    navigate(NAV_LINKS.employer_login);
   };
 
   return (

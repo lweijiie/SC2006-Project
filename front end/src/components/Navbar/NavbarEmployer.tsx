@@ -1,30 +1,22 @@
-import React from "react";
-import "./Navbar.css";
+import Navbar from "./Navbar";
 import { NAV_LINKS } from "../../constants";
 
-const NavbarEmployer: React.FC = () => {
+const navbarLeftItems = [
+  { label: "Home", link: `${NAV_LINKS.employer_home}` },
+  { label: "Jobs Post", link: `${NAV_LINKS.employer_job_post}` },
+];
+
+const navbarRightItems = [
+  { label: "Profile", link: `${NAV_LINKS.employer_profile}` },
+];
+
+const NavbarEmployer = () => {
   return (
-    <div className="navbar">
-      <div className="navbar-left">
-        <a className="navbar-brand" href={NAV_LINKS.EMPLOYER_HOME}>
-          <img src="../assets/logo.svg" alt="CareerPathNow" />
-        </a>
-        <div className="navbar-items">
-          <a className="navbar-item" href={NAV_LINKS.EMPLOYER_HOME}>
-            Home
-          </a>
-          <a className="navbar-item" href={NAV_LINKS.EMPLOYER_JOB_POST}>
-            Jobs Post
-          </a>
-        </div>
-      </div>
-      <div className="navbar-right">
-        <a className="profile-button" href={NAV_LINKS.EMPLOYER_PROFILE}>
-          Profile
-        </a>
-        <input type="button" className="menu-dropdown" />
-      </div>
-    </div>
+    <Navbar
+      homeLink={NAV_LINKS.employer_home}
+      navLeftItems={navbarLeftItems}
+      navRightItems={navbarRightItems}
+    />
   );
 };
 

@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { API_BASE_URL, NAV_LINKS } from "./constants";
+import { NAV_LINKS } from "./constants";
 import LandingPage from "./pages/landing/LandingPage";
 import JobSeekerSignUp from "./pages/job-seeker/JobSeekerSignUp";
 import JobSeekerLogin from "./pages/job-seeker/JobSeekerLogin";
 import EmployerLogin from "./pages/employer/EmployerLogin";
 import EmployerSignUp from "./pages/employer/EmployerSignUp";
-import JobSeekerHome from "./pages/job-seeker/JobSeekerHome";
 import JobSeekerProfilePage from "./pages/job-seeker/JobSeekerProfilePage";
+import FetchJobSeekerProfile from "./services/FetchJobSeekerProfile";
+import FetchEmployerProfile from "./services/FetchEmployerProfile";
+import JobSeekerHome from "./pages/job-seeker/JobSeekerHome";
+import EmployerHome from "./pages/employer/EmployerHome";
+import EmployerProfilePage from "./pages/employer/EmployerProfilePage";
 
 interface JobSeekerProfile {
   _id: string;
@@ -31,126 +35,45 @@ const App: React.FC = () => {
   const [EmployerProfile, setEmployerProfile] =
     useState<EmployerProfile | null>(null);
 
-  const fetchJobSeekerProfile = async (
-    userId: string
-  ): Promise<JobSeekerProfile> => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/jobseeker-profile/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to fetch user profile.");
-      }
-
-      const data = await response.json();
-      return {
-        _id: data.user._id,
-        email: data.user.email,
-        firstName: data.user.firstName,
-        lastName: data.user.lastName,
-        industry: data.user.industry,
-      };
-    } catch (err: any) {
-      throw new Error(
-        err.message || "An error occurred while fetching the profile."
-      );
-    }
-  };
-
-  const fetchEmployerProfile = async (
-    userId: string
-  ): Promise<EmployerProfile> => {
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/employer-profile/${userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to fetch user profile.");
-      }
-
-      const data = await response.json();
-      return {
-        _id: data.user._id,
-        email: data.user.email,
-        companyName: data.user.companyName,
-        industry: data.user.industry,
-        companyDescription: data.user.companyDescription,
-      };
-    } catch (err: any) {
-      throw new Error(
-        err.message || "An error occurred while fetching the profile."
-      );
-    }
-  };
-
   const handleJobSeekerLogin = async (userId: string) => {
-    const jobSeekerProfile = await fetchJobSeekerProfile(userId);
+    const jobSeekerProfile = await FetchJobSeekerProfile(userId);
     setJobUserProfile(jobSeekerProfile);
   };
 
   const handleEmployerLogin = async (userId: string) => {
-    const employerProfile = await fetchEmployerProfile(userId);
+    const employerProfile = await FetchEmployerProfile(userId);
     setEmployerProfile(employerProfile);
   };
 
   return (
     <Router>
       <Routes>
-        <Route path={NAV_LINKS.HOME} element={<LandingPage />} />
+        <Route path={NAV_LINKS.home} element={<LandingPage />} />
 
         <Route
-          path={NAV_LINKS.JOB_SEEKER_SIGN_UP}
+          path={NAV_LINKS.job_seeker_sign_up}
           element={<JobSeekerSignUp />}
         />
         <Route
-          path={NAV_LINKS.JOB_SEEKER_LOGIN}
+          path={NAV_LINKS.job_seeker_login}
           element={<JobSeekerLogin onLogin={handleJobSeekerLogin} />}
         />
-        <Route path={NAV_LINKS.JOB_SEEKER_HOME} element={<JobSeekerHome />} />
+        <Route path={NAV_LINKS.job_seeker_home} element={<JobSeekerHome />} />
         <Route
-          path={NAV_LINKS.JOB_SEEKER_PROFILE}
+          path={NAV_LINKS.job_seeker_profile}
           element={<JobSeekerProfilePage />}
         />
 
-        <Route path={NAV_LINKS.EMPLOYER_SIGN_UP} element={<EmployerSignUp />} />
+        <Route path={NAV_LINKS.employer_sign_up} element={<EmployerSignUp />} />
         <Route
-          path={NAV_LINKS.EMPLOYER_LOGIN}
+          path={NAV_LINKS.employer_login}
           element={<EmployerLogin onLogin={handleEmployerLogin} />}
         />
-
-        {/* <Route
-          path="/home"
-          element={
-            userProfile ? (
-              userProfile.userType === "job-seeker" ? (
-                <Navigate to="/job-seeker/home" /> // Redirect to job-seeker homepage
-              ) : (
-                <Navigate to="/company/home" /> // Redirect to company homepage
-              )
-            ) : (
-              <Navigate to="/" /> // Redirect to landing page if not logged in
-            )
-          }
-        /> */}
-        {/* Define specific home pages for job seekers and companies */}
-        {/* <Route path="/job-seeker/home" element={<JobSeekerHomePage />} />
-        <Route path="/company/home" element={<CompanyHomePage />} /> */}
+        <Route path={NAV_LINKS.employer_home} element={<EmployerHome />} />
+        <Route
+          path={NAV_LINKS.employer_profile}
+          element={<EmployerProfilePage />}
+        />
       </Routes>
     </Router>
   );
