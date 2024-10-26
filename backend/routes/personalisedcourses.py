@@ -1,16 +1,25 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 # Initialize the blueprint
-courses_bp = Blueprint('courses', __name__)
+personalisedcourses_bp = Blueprint('personalisedcourses', __name__)
 uri = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
 client = MongoClient(uri)
 courses = client.SkillsFutureDB.SkillsFutureCourses
 jobseekers = client.AppDB.jobseekers
 
-@courses_bp.route('/get-personalised-courses/<user_id>', methods=['GET'])
+@personalisedcourses_bp.route('/get-personalised-courses/<user_id>', methods=['GET'])
+@jwt_required()
 def get_courses(user_id):
+
+    current_user = get_jwt_identity()
+
+    # Ensure the user is authorised to access this profile
+    if current_user != user_id:
+        return jsonify({"message": "Access denied"}), 403
+
     try:
         # Step 1: Find the user by ID and get their industry
         user = jobseekers.find_one({'_id': ObjectId(user_id)})
