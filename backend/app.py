@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from routes.auth import auth_bp
 from routes.personalisedcourses import personalisedcourses_bp
@@ -7,6 +8,12 @@ from routes.profile import profile_bp
 
 app = Flask(__name__)
 CORS(app)
+
+# Set up JWT secret key (change this to a strong, unique key in production)
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
+
+#Initialise JWTManager
+jwt = JWTManager(app)
 
 # Register blueprints
 app.register_blueprint(auth_bp)
