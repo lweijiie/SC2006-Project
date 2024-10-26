@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 from models.models import UserType
@@ -14,14 +13,8 @@ jobseekers = client.AppDB.jobseekers
 employers = client.AppDB.employers
 
 @profile_bp.route('/update-jobseeker-profile/<user_id>', methods=['POST'])
-@jwt_required()
 def update_jobseeker_profile(user_id):
     data = request.json
-    current_user = get_jwt_identity()  # Get the current user's identity from the token
-
-    # Ensure the user is authorised to update this profile
-    if current_user != user_id:
-        return jsonify({"message": "Access denied"}), 403
 
     # Get the new details from the request body
     email = data.get('email')
@@ -60,15 +53,7 @@ def update_jobseeker_profile(user_id):
         return jsonify({'error': str(e)}), 500
 
 @profile_bp.route('/jobseeker-profile/<user_id>', methods=['GET'])
-@jwt_required()
 def get_jobseeker_profile(user_id):
-
-    current_user = get_jwt_identity()  # Get the current user's identity from the token
-
-    # Ensure the user is authorised to access this profile
-    if current_user != user_id:
-        return jsonify({"message": "Access denied"}), 403
-
     try:
         # Find the user by ID and exclude the password field from the result
         user = jobseekers.find_one(
@@ -98,15 +83,8 @@ def get_jobseeker_profile(user_id):
     
 
 @profile_bp.route('/update-employer-profile/<user_id>', methods=['POST'])
-@jwt_required()
 def update_employer_profile(user_id):
     data = request.json
-
-    current_user = get_jwt_identity()
-
-    # Ensure the user is authorised to update this profile
-    if current_user != user_id:
-        return jsonify({"message": "Access denied"}), 403
 
     # Get the new details from the request body
     email = data.get('email')
@@ -146,15 +124,7 @@ def update_employer_profile(user_id):
         return jsonify({'error': str(e)}), 500
     
 @profile_bp.route('/employer-profile/<user_id>', methods=['GET'])
-@jwt_required()
 def get_employer_profile(user_id):
-
-    current_user = get_jwt_identity()
-
-    # Ensure the user is authorised to access this profile
-    if current_user != user_id:
-        return jsonify({"message": "Access denied"}), 403
-
     try:
         # Find the user by ID and exclude the password field from the result
         user = employers.find_one(
