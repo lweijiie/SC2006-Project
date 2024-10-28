@@ -1,20 +1,33 @@
 import { useState } from "react";
 import "./LoginForm.css";
+import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../constants";
 
-interface Props {
-  email: string;
-  password: string;
+interface LoginFormProps {
+  onLogin: (userId: string) => void;
+  loginType: "Job Seeker" | "Employer";
 }
 
-function LoginForm() {
-  const [formData, setFormData] = useState<Props>({
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
+  const [formData, setFormData] = useState<{
+    email: string;
+    password: string;
+    user_type: "Job Seeker" | "Employer";
+  }>({
     email: "",
     password: "",
+    user_type: loginType,
   });
+  const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
+  const formTitle =
+    loginType === "Job Seeker" ? "Login for Job Seeker" : "Login for Employer";
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,25 +40,26 @@ function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Clear previous errors
     setEmailError("");
     setPasswordError("");
+    let hasError = false;
 
-    // Validate email and password
     if (formData.email === "") {
       setEmailError("Please enter your email");
-      return;
-    }
-    if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+      hasError = true;
+    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
       setEmailError("Please enter a valid email address");
-      return;
+      hasError = true;
     }
     if (formData.password === "") {
       setPasswordError("Please enter a password");
-      return;
-    }
-    if (formData.password.length < 8) {
+      hasError = true;
+    } else if (formData.password.length < 8) {
       setPasswordError("Password must be 8 characters or longer");
+      hasError = true;
+    }
+
+    if (hasError) {
       return;
     }
 
@@ -53,7 +67,8 @@ function LoginForm() {
     setError(null);
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/login", {
+      // Perform login request
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,8 +82,13 @@ function LoginForm() {
       }
 
       const data = await response.json();
-      console.log("Login successful:", data);
-      // You can redirect the user or save the token here
+      const userId = data.userId; // Assuming the userId is returned in the login response
+
+      // Pass user profile to parent (App.tsx)
+      onLogin(userId);
+
+      // Navigate to the home page after successful login and profile fetch
+      navigate(`/home/${userPageType}`);
     } catch (err: any) {
       setError(err.message || "An error occurred during login.");
     } finally {
@@ -78,8 +98,8 @@ function LoginForm() {
 
   return (
     <div className="login-box">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
+      <h2>{formTitle}</h2>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
             type="email"
@@ -87,7 +107,6 @@ function LoginForm() {
             value={formData.email}
             onChange={handleChange}
             placeholder="Enter email address here"
-            className={"user-box"}
             required
           />
           {emailError && <label className="errorLabel">{emailError}</label>}
@@ -100,7 +119,6 @@ function LoginForm() {
             value={formData.password}
             onChange={handleChange}
             placeholder="Enter password here"
-            className={"user-box"}
             required
           />
           {passwordError && (
@@ -112,17 +130,16 @@ function LoginForm() {
         <button type="submit" className="inputButton" disabled={loading}>
           {loading ? "Logging in..." : "Log In"}
         </button>
-
-        <div className="signup-box">
-          <p>Not have an account?&nbsp;</p>
-          <a id="sign-up-text" href="/sign-up/">
-            Sign Up
-          </a>
-          <p>&nbsp;now!</p>
-        </div>
       </form>
+      <div className="sign-up-text-box">
+        <p>Don't have an account?&nbsp;</p>
+        <a id="sign-up-text" href={`/sign-up/${userPageType}`}>
+          Sign Up
+        </a>
+        <p>&nbsp;now!</p>
+      </div>
     </div>
   );
-}
+};
 
 export default LoginForm;

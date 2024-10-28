@@ -1,4 +1,4 @@
-.sign-up-box {
+.login-box {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -10,16 +10,19 @@
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
-.sign-up-box h2 {
+
+.login-box h2 {
   margin: 0 0 30px;
   padding: 0;
   color: black;
   text-align: center;
 }
-.sign-up-box .user-box {
+
+.login-box .user-box {
   position: relative;
 }
-.sign-up-box .user-box input {
+
+.login-box .user-box input {
   width: 100%;
   padding: 10px 0;
   padding-left: 10px;
@@ -30,34 +33,18 @@
   outline: none;
   background: rgb(249, 232, 212);
 }
-.sign-up-box .user-box label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px 0;
-  font-size: 16px;
-  color: grey;
 
-  pointer-events: none;
-  transition: 0.5s;
-}
-.sign-up-box .user-box input:focus ~ label,
-.sign-up-box .user-box input:valid ~ label {
-  top: -25px;
+.login-box .user-box label,
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+  position: absolute;
+  top: -1rem;
   left: 0;
   color: rgb(255, 0, 0);
   font-size: 12px;
 }
 
-.inputBox {
-  height: 48px;
-  width: 400px;
-  font-size: large;
-  border-radius: 8px;
-  border: 1px solid grey;
-  padding-left: 8px;
-}
-input[type="button"] {
+button[type="submit"] {
   border: none;
   background: cornflowerblue;
   color: white;
@@ -66,4 +53,21 @@ input[type="button"] {
   font-size: 15px;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.sign-up-text-box {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.sign-up-text-box p {
+  display: inline-block;
+  font-size: 14px;
+  color: black;
+}
+
+#sign-up-text {
+  text-decoration: none;
+  color: cornflowerblue;
+  font-weight: bold;
 }
