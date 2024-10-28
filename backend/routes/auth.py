@@ -22,6 +22,7 @@ def register_jobseeker():
     last_name = data.get('last_name')
     password = data.get('password')
     industry = data.get('industry')
+    education = data.get('education')
     user_type = UserType.JOB_SEEKER.value
 
     # Check if user already exists based on email
@@ -38,6 +39,7 @@ def register_jobseeker():
         'last_name' : last_name,
         'password': hashed_password,
         'industry': industry,
+        'education' : education,
         'user_type': user_type
     })
 
