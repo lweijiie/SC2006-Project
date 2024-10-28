@@ -4,8 +4,6 @@ from flask_pymongo import PyMongo
 from pymongo import MongoClient
 from flask_jwt_extended import JWTManager
 
-
-
 # MongoDB connection URI
 mongo_uri = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
 
