@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 from models.models import UserType
 from datetime import timedelta
-
+#w
 # Initialize the blueprint
 auth_bp = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
