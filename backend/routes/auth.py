@@ -20,7 +20,7 @@ def register_jobseeker():
     last_name = data.get('last_name')
     password = data.get('password')
     industry = data.get('industry')
-    user_type = "Job_Seeker"
+    user_type = UserType.JOB_SEEKER.value
 
     # Check if user already exists based on email
     if jobseekers.find_one({'email': email}):
@@ -46,7 +46,7 @@ def register_employer():
     data = request.json
     email = data.get('email')
     password = data.get('password')
-    user_type = "Employer"
+    user_type = UserType.EMPLOYER.value
 
     # Check if user already exists based on email
     if employers.find_one({'email': email}):
