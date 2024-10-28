@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from models.models import UserType
 from flask_jwt_extended import create_access_token
 from datetime import timedelta
-#hello testing git
+
 # Initialize the blueprint
 auth_bp = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
