@@ -1,0 +1,86 @@
+.sign-up-box {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 145, 0, 0.9); /* Adjusted background opacity */
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+.sign-up-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: black;
+  text-align: center;
+}
+.sign-up-box .user-box {
+  position: relative;
+}
+.sign-up-box .user-box input,
+.sign-up-box .user-box select {
+  width: 100%;
+  padding: 10px 0;
+  padding-left: 10px;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 2rem;
+  border: 1px solid black;
+  outline: none;
+  background: rgb(249, 232, 212); /* Same background for inputs and dropdown */
+  border-radius: 5px;
+}
+.sign-up-box .user-box select {
+  height: 40px; /* Make dropdown consistent in height with input fields */
+}
+
+.sign-up-box .user-box label,
+.sign-up-box .user-box input:focus ~ label,
+.sign-up-box .user-box input:valid ~ label,
+.sign-up-box .user-box select:focus ~ label {
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  color: rgb(255, 0, 0);
+  font-size: 12px;
+}
+
+.inputButton {
+  width: 100%;
+  padding: 10px;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.inputButton:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.errorLabel {
+  color: red;
+  font-size: 12px;
+}
+
+.login-text-box {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-text-box p {
+  display: inline-block;
+  font-size: 14px;
+  color: black;
+}
+
+#login-text {
+  text-decoration: none;
+  color: cornflowerblue;
+  font-weight: bold;
+}
