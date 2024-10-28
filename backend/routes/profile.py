@@ -29,7 +29,11 @@ def update_jobseeker_profile(user_id):
     last_name = data.get('last_name')
     password = data.get('password')
     industry = data.get('industry')
+    education = data.get('education')
 
+    if jobseekers.find_one({'email': email}):
+        return jsonify({'message': 'Email already exists'}), 400
+    
     # Build the update dictionary dynamically based on the fields provided
     update_fields = {}
 
@@ -45,6 +49,8 @@ def update_jobseeker_profile(user_id):
         update_fields['password'] = hashed_password
     if industry:
         update_fields['industry'] = industry
+    if education:
+        update_fields['education'] = education
 
     # Find the user by ID and update their profile
     try:
@@ -87,7 +93,8 @@ def get_jobseeker_profile(user_id):
                     'email': user.get('email'),
                     'first_name': user.get('first_name'),
                     'last_name': user.get('last_name'),
-                    'industry': user.get('industry')
+                    'industry': user.get('industry'),
+                    'education' : user.get('education')
                 }
             }), 200
         else:
@@ -115,7 +122,9 @@ def update_employer_profile(user_id):
     company_name = data.get('company_name')
     company_description = data.get('company_description')
 
-
+    if employers.find_one({'email': email}):
+        return jsonify({'message': 'Email already exists'}), 400
+    
     # Build the update dictionary dynamically based on the fields provided
     update_fields = {}
 
