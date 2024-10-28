@@ -1,7 +1,5 @@
-from flask import Flask, jsonify
-from flask_pymongo import PyMongo
+from flask import Blueprint, jsonify
 from pymongo import MongoClient
-from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 import os
 
@@ -24,10 +22,10 @@ collection = db['SkillsFutureCourses']
 # Initialise Blueprint
 allcourses_bp = Blueprint('allcourses', __name__)
 
-@app.route('/api/courses', methods=['GET'])
+@allcourses_bp.route('/api/courses', methods=['GET'])
 def get_courses():
     # Fetch courses from the database
-    courses = mongo.db.SkillsFutureCourses.find()  # Your collection name
+    courses = collection.find()  # Access the correct MongoDB collection
     courses_list = list(courses)  # Convert cursor to list
 
     # Optionally format the courses to exclude certain fields
@@ -35,6 +33,3 @@ def get_courses():
         course['_id'] = str(course['_id'])  # Convert ObjectId to string
 
     return jsonify(courses_list), 200  # Return JSON response
-
-if __name__ == '__main__':
-    app.run(debug=True)
