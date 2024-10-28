@@ -2,8 +2,9 @@ from flask import Blueprint, request, jsonify
 from flask_bcrypt import Bcrypt
 from pymongo import MongoClient
 from models.models import UserType
+from flask_jwt_extended import create_access_token
 from datetime import timedelta
-#w
+
 # Initialize the blueprint
 auth_bp = Blueprint('auth', __name__)
 bcrypt = Bcrypt()
@@ -84,6 +85,12 @@ def login():
 
     # Validate user existence and password match
     if user and bcrypt.check_password_hash(user['password'], password):
+        # Create a JWT token with the user's ID as the identity
+        access_token = create_access_token(
+            identity=str(user['_id']),
+            expires_delta=timedelta(hours=1)  # Token expires in 1 hour, After logging in, the client should save the access_token and send it in the Authorization header for any protected endpoints, Authorization: Bearer <access_token>
+        )
+        
         return jsonify({
             'message': 'Login successful!',
             'user_id': str(user['_id']),
