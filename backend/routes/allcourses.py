@@ -21,13 +21,8 @@ client = MongoClient(mongo_uri)
 db = client[database_name]
 collection = db['SkillsFutureCourses']
 
-# Flask app initialization
-app = Flask(__name__)
-app.config['MONGO_URI'] = mongo_uri  # Set MongoDB URI in Flask config
-mongo = PyMongo(app)
-
-# Optional: JWT Manager initialization (if you plan to use JWT)
-# jwt = JWTManager(app)
+# Initialise Blueprint
+allcourses_bp = Blueprint('allcourses', __name__)
 
 @app.route('/api/courses', methods=['GET'])
 def get_courses():
