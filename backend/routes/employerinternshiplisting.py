@@ -41,3 +41,63 @@ def create_internship():
     }
     internship_id = internships.insert_one(internship).inserted_id
     return jsonify({"message": "Internship created successfully", "internship_id": str(internship_id)}), 201
+
+# Edit Internship
+@employerinternship_bp.route('/employer/edit-internship/<internship_id>', methods=['PUT'])
+@jwt_required()
+def edit_internship(internship_id):
+    current_user = get_jwt_identity()
+
+    # Verify that the internship exists 
+    internship = internships.find_one({"_id": ObjectId(internship_id)})
+    if not internship:
+        return jsonify({"message": "Internship not found."}), 404
+
+    # Verify that the current user is the owner
+    if internship["employer_id"] != current_user:
+        print("Access denied: The employer IDs do not match.")
+        return jsonify({"message": "Access denied. You do not have permission to edit this internship."}), 403
+
+    data = request.json
+    if not data:  
+        return jsonify({"message": "No fields provided to update."}), 400
+
+    updated_fields = {
+        "title": data.get("title", internship["title"]),
+        "description": data.get("description", internship["description"]),
+        "requirements": data.get("requirements", internship["requirements"]),
+        "location": data.get("location", internship["location"]),
+        "duration": data.get("duration", internship["duration"]),
+        "salary": data.get("salary", internship.get("salary", "Not specified")),
+        "updated_date": datetime.utcnow()  # Track the update time
+    }
+
+    # Perform the update operation
+    result = internships.update_one({"_id": ObjectId(internship_id)}, {"$set": updated_fields})
+    if result.modified_count == 0:
+        return jsonify({"message": "No changes were made to the internship."}), 200
+
+    return jsonify({"message": "Internship updated successfully", "updated_internship": updated_fields}), 200
+
+
+@employerinternship_bp.route('/employer/delete-internship/<internship_id>', methods=['DELETE'])
+@jwt_required()
+def delete_internship(internship_id):
+    # Get the current user's ID from the JWT token
+    current_user = get_jwt_identity()
+
+    # Verify that the internship exists
+    internship = internships.find_one({"_id": ObjectId(internship_id)})
+    if not internship:
+        return jsonify({"message": "Internship not found."}), 404
+
+    # Verify that the current user is the owner of the internship
+    if internship["employer_id"] != current_user:
+        return jsonify({"message": "Access denied. You do not have permission to delete this internship."}), 403
+
+    result = internships.delete_one({"_id": ObjectId(internship_id)})
+    if result.deleted_count == 1:
+        return jsonify({"message": "Internship deleted successfully."}), 200
+    else:
+        return jsonify({"message": "Failed to delete internship."}), 500
+
