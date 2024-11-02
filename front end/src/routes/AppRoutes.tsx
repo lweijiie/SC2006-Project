@@ -1,0 +1,75 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { NAV_LINKS } from "../constants";
+import LandingPage from "../pages/landing/LandingPage";
+import JobSeekerSignUp from "../pages/job-seeker/JobSeekerSignUp";
+import JobSeekerLogin from "../pages/job-seeker/JobSeekerLogin";
+import JobSeekerHome from "../pages/job-seeker/JobSeekerHome";
+import JobSeekerProfilePage from "../pages/job-seeker/JobSeekerProfilePage";
+import EmployerSignUp from "../pages/employer/EmployerSignUp";
+import EmployerLogin from "../pages/employer/EmployerLogin";
+import EmployerHome from "../pages/employer/EmployerHome";
+import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
+import React from "react";
+
+interface JobSeekerProfile {
+  email: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  industry: string | null;
+}
+
+interface EmployerProfile {
+  email: string | null;
+  companyName: string | null;
+  industry: string | null;
+  companyDescription: string | null;
+}
+
+interface Props {
+  handleJobSeekerLogin: (userId: string) => void;
+  handleEmployerLogin: (userId: string) => void;
+  jobSeekerProfile: JobSeekerProfile;
+  employerProfile: EmployerProfile;
+}
+
+const AppRoutes: React.FC<Props> = ({
+  handleJobSeekerLogin,
+  handleEmployerLogin,
+  jobSeekerProfile,
+  employerProfile,
+}) => {
+  return (
+    <Router>
+      <Routes>
+        <Route path={NAV_LINKS.home} element={<LandingPage />} />
+
+        <Route
+          path={NAV_LINKS.job_seeker_sign_up}
+          element={<JobSeekerSignUp />}
+        />
+        <Route
+          path={NAV_LINKS.job_seeker_login}
+          element={<JobSeekerLogin onLogin={handleJobSeekerLogin} />}
+        />
+        <Route path={NAV_LINKS.job_seeker_home} element={<JobSeekerHome />} />
+        <Route
+          path={NAV_LINKS.job_seeker_profile}
+          element={<JobSeekerProfilePage profileData={jobSeekerProfile} />}
+        />
+
+        <Route path={NAV_LINKS.employer_sign_up} element={<EmployerSignUp />} />
+        <Route
+          path={NAV_LINKS.employer_login}
+          element={<EmployerLogin onLogin={handleEmployerLogin} />}
+        />
+        <Route path={NAV_LINKS.employer_home} element={<EmployerHome />} />
+        <Route
+          path={NAV_LINKS.employer_profile}
+          element={<EmployerProfilePage />}
+        />
+      </Routes>
+    </Router>
+  );
+};
+
+export default AppRoutes;

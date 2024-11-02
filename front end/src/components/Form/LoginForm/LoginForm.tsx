@@ -1,30 +1,35 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, NAV_LINKS } from "../../constants";
-import "./SignUpForm.css";
+import { API_BASE_URL } from "../../../constants";
 
-interface Props {
-  email: string;
-  password: string;
+interface LoginFormProps {
+  onLogin: (userId: string) => void;
+  loginType: "Job Seeker" | "Employer";
 }
 
-function EmployerSignUpForm() {
-  const [formData, setFormData] = useState<Props>({
+const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
+  const [formData, setFormData] = useState<{
+    email: string;
+    password: string;
+    user_type: "Job Seeker" | "Employer";
+  }>({
     email: "",
     password: "",
+    user_type: loginType,
   });
+  const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
+  const formTitle =
+    loginType === "Job Seeker" ? "Login for Job Seeker" : "Login for Employer";
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
 
   const navigate = useNavigate();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -35,14 +40,9 @@ function EmployerSignUpForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Clear previous errors
-
     setEmailError("");
     setPasswordError("");
-
     let hasError = false;
-
-    // Validation
 
     if (formData.email === "") {
       setEmailError("Please enter your email");
@@ -51,7 +51,6 @@ function EmployerSignUpForm() {
       setEmailError("Please enter a valid email address");
       hasError = true;
     }
-
     if (formData.password === "") {
       setPasswordError("Please enter a password");
       hasError = true;
@@ -60,17 +59,16 @@ function EmployerSignUpForm() {
       hasError = true;
     }
 
-    // Stop submission if there are validation errors
     if (hasError) {
       return;
     }
 
-    // Show loading state and reset errors
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(API_BASE_URL + "/register-employer", {
+      // Perform login request
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,44 +78,48 @@ function EmployerSignUpForm() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Registration failed.");
+        throw new Error(errorData.message || "Login failed.");
       }
 
       const data = await response.json();
-      console.log("Registration successful:", data);
+      const userId = data.userId; // Assuming the userId is returned in the login response
 
-      // Redirect to login page on successful registration
-      navigate(NAV_LINKS.employer_login);
+      // Pass user profile to parent (App.tsx)
+      onLogin(userId);
+
+      // Navigate to the home page after successful login and profile fetch
+      navigate(`/home/${userPageType}`);
     } catch (err: any) {
-      setError(err.message || "An error occurred during registration.");
+      setError(err.message || "An error occurred during login.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="sign-up-box">
-      <h2>Create an Account</h2>
+    <div className="login-box">
+      <h2>{formTitle}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
             type="email"
             name="email"
             value={formData.email}
-            placeholder="Enter email address here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter email address here"
+            required
           />
           {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
+
         <div className="user-box">
           <input
             type="password"
             name="password"
             value={formData.password}
-            placeholder="Enter password here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter password here"
+            required
           />
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
@@ -126,19 +128,18 @@ function EmployerSignUpForm() {
 
         {error && <p className="errorLabel">{error}</p>}
         <button type="submit" className="inputButton" disabled={loading}>
-          {loading ? "Signing up..." : "Sign Up"}
+          {loading ? "Logging in..." : "Log In"}
         </button>
-
-        <div className="login-text-box">
-          <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.employer_login}>
-            Login
-          </a>
-          <p>&nbsp;now!</p>
-        </div>
       </form>
+      <div className="sign-up-text-box">
+        <p>Don't have an account?&nbsp;</p>
+        <a id="sign-up-text" href={`/sign-up/${userPageType}`}>
+          Sign Up
+        </a>
+        <p>&nbsp;now!</p>
+      </div>
     </div>
   );
-}
+};
 
-export default EmployerSignUpForm;
+export default LoginForm;

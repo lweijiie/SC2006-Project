@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../constants";
+import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../../constants";
 import "./SignUpForm.css";
 
 interface Props {
