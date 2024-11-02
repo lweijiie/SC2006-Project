@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ProfileData {
   firstName: string | null;
@@ -13,13 +13,22 @@ interface Props {
 
 const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
   const [profile, setProfile] = useState<ProfileData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    industry: "",
+    firstName: profileData.firstName ?? "",
+    lastName: profileData.lastName ?? "",
+    email: profileData.email ?? "",
+    industry: profileData.industry ?? "",
   });
 
   const [isEditing, setIsEditing] = useState(false);
+
+  useEffect(() => {
+    setProfile({
+      firstName: profileData.firstName ?? "",
+      lastName: profileData.lastName ?? "",
+      email: profileData.email ?? "",
+      industry: profileData.industry ?? "",
+    });
+  }, [profileData]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,6 +44,7 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
     console.log("Profile updated:", profile);
     setIsEditing(false);
   };
+
   return (
     <div className="profile-box">
       <form onSubmit={handleSubmit}>
@@ -43,7 +53,7 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
           <input
             type="text"
             name="firstName"
-            value={profile.firstName}
+            value={profile.firstName ?? ""}
             onChange={handleInputChange}
             disabled={!isEditing}
           />
@@ -53,7 +63,7 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
           <input
             type="text"
             name="lastName"
-            value={profile.lastName}
+            value={profile.lastName ?? ""}
             onChange={handleInputChange}
             disabled={!isEditing}
           />
@@ -63,7 +73,7 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
           <input
             type="email"
             name="email"
-            value={profile.email}
+            value={profile.email ?? ""}
             onChange={handleInputChange}
             disabled={!isEditing}
           />
@@ -73,7 +83,7 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
           <input
             type="text"
             name="industry"
-            value={profile.industry}
+            value={profile.industry ?? ""}
             onChange={handleInputChange}
             disabled={!isEditing}
           />
