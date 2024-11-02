@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../../constants";
+import {
+  API_BASE_URL,
+  EDUCATION_LIST,
+  INDUSTRY_LIST,
+  NAV_LINKS,
+} from "../../../constants";
 import "./SignUpForm.css";
 
 interface Props {
@@ -9,6 +14,7 @@ interface Props {
   email: string;
   password: string;
   industry: string;
+  education: string;
 }
 
 function JobSeekerSignUpForm() {
@@ -18,6 +24,7 @@ function JobSeekerSignUpForm() {
     email: "",
     password: "",
     industry: "",
+    education: "",
   });
 
   const [error, setError] = useState<string | null>(null);
@@ -28,10 +35,11 @@ function JobSeekerSignUpForm() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [industryError, setIndustryError] = useState("");
+  const [educationError, setEducationError] = useState("");
 
   const navigate = useNavigate();
-
   const industries = INDUSTRY_LIST;
+  const educations = EDUCATION_LIST;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -52,6 +60,7 @@ function JobSeekerSignUpForm() {
     setEmailError("");
     setPasswordError("");
     setIndustryError("");
+    setEducationError("");
     let hasError = false;
 
     // Validation
@@ -89,6 +98,11 @@ function JobSeekerSignUpForm() {
 
     if (formData.industry === "") {
       setIndustryError("Please select an industry");
+      hasError = true;
+    }
+
+    if (formData.education === "") {
+      setEducationError("Please select an education");
       hasError = true;
     }
 
@@ -198,6 +212,25 @@ function JobSeekerSignUpForm() {
           </select>
           {industryError && (
             <label className="errorLabel">{industryError}</label>
+          )}
+        </div>
+
+        <div className="user-box">
+          <select
+            name="education"
+            value={formData.education}
+            onChange={handleChange}
+            className="user-box"
+          >
+            <option value="">Select Education</option>
+            {educations.map((education, index) => (
+              <option key={index} value={education}>
+                {education}
+              </option>
+            ))}
+          </select>
+          {educationError && (
+            <label className="errorLabel">{educationError}</label>
           )}
         </div>
 

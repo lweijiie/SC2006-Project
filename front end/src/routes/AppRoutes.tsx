@@ -10,26 +10,13 @@ import EmployerLogin from "../pages/employer/EmployerLogin";
 import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import React from "react";
-
-interface JobSeekerProfile {
-  email: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  industry: string | null;
-}
-
-interface EmployerProfile {
-  email: string | null;
-  companyName: string | null;
-  industry: string | null;
-  companyDescription: string | null;
-}
+import { EmployerData, JobSeekerData } from "../store/auth/interface";
 
 interface Props {
   handleJobSeekerLogin: (userId: string) => void;
   handleEmployerLogin: (userId: string) => void;
-  jobSeekerProfile: JobSeekerProfile;
-  employerProfile: EmployerProfile;
+  jobSeekerProfile: JobSeekerData;
+  employerProfile: EmployerData;
 }
 
 const AppRoutes: React.FC<Props> = ({

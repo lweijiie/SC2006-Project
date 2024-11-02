@@ -1,15 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import JobSeekerProfileUpdateForm from "../../components/Form/ProfileUpdateForm/JobSeekerProfileUpdateForm";
-
-interface ProfileData {
-  firstName: string | null;
-  lastName: string | null;
-  email: string | null;
-  industry: string | null;
-}
+import { JobSeekerData } from "../../store/auth/interface";
 
 interface Props {
-  profileData: ProfileData;
+  profileData: JobSeekerData;
 }
 
 const JobSeekerProfilePage: React.FC<Props> = ({ profileData }) => {
