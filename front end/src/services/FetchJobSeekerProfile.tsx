@@ -1,15 +1,9 @@
 import { API_BASE_URL } from "../constants";
-
-interface JobSeekerProfile {
-  email: string;
-  firstName: string;
-  lastName: string;
-  industry: string;
-}
+import { JobSeekerData } from "../store/auth/interface";
 
 const FetchJobSeekerProfile = async (
   userId: string
-): Promise<JobSeekerProfile> => {
+): Promise<JobSeekerData> => {
   try {
     const response = await fetch(
       `${API_BASE_URL}/jobseeker-profile/${userId}`,
@@ -28,6 +22,7 @@ const FetchJobSeekerProfile = async (
 
     const data = await response.json();
     return {
+      _id: data.user._id,
       email: data.user.email,
       firstName: data.user.firstName,
       lastName: data.user.lastName,
