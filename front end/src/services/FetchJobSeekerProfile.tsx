@@ -1,7 +1,6 @@
 import { API_BASE_URL } from "../constants";
 
 interface JobSeekerProfile {
-  _id: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -29,7 +28,6 @@ const FetchJobSeekerProfile = async (
 
     const data = await response.json();
     return {
-      _id: data.user._id,
       email: data.user.email,
       firstName: data.user.firstName,
       lastName: data.user.lastName,

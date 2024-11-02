@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../components/Form/LoginForm"; // Adjust the import path as necessary
+import LoginForm from "../../components/Form/LoginForm/LoginForm"; // Adjust the import path as necessary
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg"; // Adjust the import path as necessary
 

@@ -1,35 +1,30 @@
-import { useState } from "react";
-import "./LoginForm.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL, NAV_LINKS } from "../../../constants";
+import "./SignUpForm.css";
 
-interface LoginFormProps {
-  onLogin: (userId: string) => void;
-  loginType: "Job Seeker" | "Employer";
+interface Props {
+  email: string;
+  password: string;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
-  const [formData, setFormData] = useState<{
-    email: string;
-    password: string;
-    user_type: "Job Seeker" | "Employer";
-  }>({
+function EmployerSignUpForm() {
+  const [formData, setFormData] = useState<Props>({
     email: "",
     password: "",
-    user_type: loginType,
   });
-  const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
-  const formTitle =
-    loginType === "Job Seeker" ? "Login for Job Seeker" : "Login for Employer";
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<string>("");
+
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -40,9 +35,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Clear previous errors
+
     setEmailError("");
     setPasswordError("");
+
     let hasError = false;
+
+    // Validation
 
     if (formData.email === "") {
       setEmailError("Please enter your email");
@@ -51,6 +51,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
       setEmailError("Please enter a valid email address");
       hasError = true;
     }
+
     if (formData.password === "") {
       setPasswordError("Please enter a password");
       hasError = true;
@@ -59,16 +60,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
       hasError = true;
     }
 
+    // Stop submission if there are validation errors
     if (hasError) {
       return;
     }
 
+    // Show loading state and reset errors
     setLoading(true);
     setError(null);
 
     try {
-      // Perform login request
-      const response = await fetch(`${API_BASE_URL}/login`, {
+      const response = await fetch(API_BASE_URL + "/register-employer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,48 +80,44 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Login failed.");
+        throw new Error(errorData.message || "Registration failed.");
       }
 
       const data = await response.json();
-      const userId = data.userId; // Assuming the userId is returned in the login response
+      console.log("Registration successful:", data);
 
-      // Pass user profile to parent (App.tsx)
-      onLogin(userId);
-
-      // Navigate to the home page after successful login and profile fetch
-      navigate(`/home/${userPageType}`);
+      // Redirect to login page on successful registration
+      navigate(NAV_LINKS.employer_login);
     } catch (err: any) {
-      setError(err.message || "An error occurred during login.");
+      setError(err.message || "An error occurred during registration.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-box">
-      <h2>{formTitle}</h2>
+    <div className="sign-up-box">
+      <h2>Create an Account</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
             type="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}
             placeholder="Enter email address here"
-            required
+            onChange={handleChange}
+            className="user-box"
           />
           {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
-
         <div className="user-box">
           <input
             type="password"
             name="password"
             value={formData.password}
-            onChange={handleChange}
             placeholder="Enter password here"
-            required
+            onChange={handleChange}
+            className="user-box"
           />
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
@@ -128,18 +126,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
 
         {error && <p className="errorLabel">{error}</p>}
         <button type="submit" className="inputButton" disabled={loading}>
-          {loading ? "Logging in..." : "Log In"}
+          {loading ? "Signing up..." : "Sign Up"}
         </button>
+
+        <div className="login-text-box">
+          <p>Already have an account?&nbsp;</p>
+          <a id="login-text" href={NAV_LINKS.employer_login}>
+            Login
+          </a>
+          <p>&nbsp;now!</p>
+        </div>
       </form>
-      <div className="sign-up-text-box">
-        <p>Don't have an account?&nbsp;</p>
-        <a id="sign-up-text" href={`/sign-up/${userPageType}`}>
-          Sign Up
-        </a>
-        <p>&nbsp;now!</p>
-      </div>
     </div>
   );
-};
+}
 
-export default LoginForm;
+export default EmployerSignUpForm;
