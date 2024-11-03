@@ -15,14 +15,12 @@ import { EmployerData, JobSeekerData } from "../store/auth/interface";
 interface Props {
   handleJobSeekerLogin: (userId: string, access_token: string) => void;
   handleEmployerLogin: (userId: string, access_token: string) => void;
-  jobSeekerProfile: JobSeekerData;
   employerProfile: EmployerData;
 }
 
 const AppRoutes: React.FC<Props> = ({
   handleJobSeekerLogin,
   handleEmployerLogin,
-  jobSeekerProfile,
   employerProfile,
 }) => {
   return (
@@ -41,7 +39,7 @@ const AppRoutes: React.FC<Props> = ({
         <Route path={NAV_LINKS.job_seeker_home} element={<JobSeekerHome />} />
         <Route
           path={NAV_LINKS.job_seeker_profile}
-          element={<JobSeekerProfilePage profileData={jobSeekerProfile} />}
+          element={<JobSeekerProfilePage />}
         />
 
         <Route path={NAV_LINKS.employer_sign_up} element={<EmployerSignUp />} />

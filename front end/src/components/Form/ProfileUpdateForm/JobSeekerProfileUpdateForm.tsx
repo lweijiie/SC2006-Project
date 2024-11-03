@@ -1,53 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { JobSeekerData } from "../../../store/auth/interface";
+import FetchJobSeekerProfile from "../../../services/FetchJobSeekerProfile";
 import "./ProfileUpdateForm.css";
+import { API_BASE_URL } from "../../../constants";
 
-interface Props {
-  profileData: JobSeekerData;
-}
+const JobSeekerProfileUpdateForm: React.FC = () => {
+  const access_token = localStorage.getItem("access_token") || "";
+  const user_id = localStorage.getItem("user_id") || "";
 
-const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
-  const [profile, setProfile] = useState<JobSeekerData>({
-    _id: profileData._id,
-    firstName: profileData.firstName,
-    lastName: profileData.lastName,
-    email: profileData.email,
-    industry: profileData.industry,
-    education: profileData.education,
-  });
-
+  const [profile, setProfile] = useState<JobSeekerData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState<string | null>(null); // For success or error messages
 
   useEffect(() => {
-    setProfile({
-      _id: profileData._id,
-      firstName: profileData.firstName,
-      lastName: profileData.lastName,
-      email: profileData.email,
-      industry: profileData.industry,
-      education: profileData.education,
-    });
-  }, [profileData]);
+    const fetchProfileData = async () => {
+      try {
+        const data = await FetchJobSeekerProfile(user_id, access_token);
+        setProfile(data);
+      } catch (error) {
+        setMessage("Failed to load profile data");
+      }
+    };
+
+    fetchProfileData();
+  }, [user_id, access_token]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
+    if (profile) {
+      setProfile(
+        (prevProfile) => ({ ...prevProfile, [name]: value } as JobSeekerData)
+      );
+    }
   };
 
   const toggleEdit = () => {
     setIsEditing(!isEditing);
+    setMessage(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!profile) return;
+
     try {
       const response = await fetch(
-        `/update-jobseeker-profile/${profileData._id}`,
+        `${API_BASE_URL}/update-jobseeker-profile/${user_id}`,
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${access_token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -75,67 +78,71 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
   return (
     <div className="profile-box">
       {message && <div className="message">{message}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="profile-field">
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={profile.firstName ?? ""}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="profile-field">
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={profile.lastName ?? ""}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="profile-field">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={profile.email ?? ""}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="profile-field">
-          <label>Industry</label>
-          <input
-            type="text"
-            name="industry"
-            value={profile.industry ?? ""}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="profile-field">
-          <label>Education</label>
-          <input
-            type="text"
-            name="education"
-            value={profile.education ?? ""}
-            onChange={handleInputChange}
-            disabled={!isEditing}
-          />
-        </div>
-        <div className="button-group">
-          {isEditing ? (
-            <button type="submit">Save</button>
-          ) : (
-            <button type="button" onClick={toggleEdit}>
-              Edit Profile
-            </button>
-          )}
-        </div>
-      </form>
+      {profile ? (
+        <form onSubmit={handleSubmit}>
+          <div className="profile-field">
+            <label>First Name</label>
+            <input
+              type="text"
+              name="firstName"
+              value={profile.firstName ?? ""}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="profile-field">
+            <label>Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={profile.lastName ?? ""}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="profile-field">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={profile.email ?? ""}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="profile-field">
+            <label>Industry</label>
+            <input
+              type="text"
+              name="industry"
+              value={profile.industry ?? ""}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="profile-field">
+            <label>Education</label>
+            <input
+              type="text"
+              name="education"
+              value={profile.education ?? ""}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="button-group">
+            {isEditing ? (
+              <button type="submit">Save</button>
+            ) : (
+              <button type="button" onClick={toggleEdit}>
+                Edit Profile
+              </button>
+            )}
+          </div>
+        </form>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };

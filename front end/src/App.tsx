@@ -1,19 +1,9 @@
 import React, { useState } from "react";
-import FetchJobSeekerProfile from "./services/FetchJobSeekerProfile";
 import FetchEmployerProfile from "./services/FetchEmployerProfile";
 import AppRoutes from "./routes/AppRoutes";
-import { EmployerData, JobSeekerData, Token } from "./store/auth/interface";
+import { EmployerData } from "./store/auth/interface";
 
 const App: React.FC = () => {
-  const [jobSeekerProfile, setJobUserProfile] = useState<JobSeekerData>({
-    _id: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    industry: "",
-    education: "",
-  });
-
   const [employerProfile, setEmployerProfile] = useState<EmployerData>({
     _id: "",
     email: "",
@@ -22,23 +12,12 @@ const App: React.FC = () => {
     companyDescription: "",
   });
 
-  const [accessToken, setAccessToken] = useState<Token>({ token: "" });
-
   const handleJobSeekerLogin = async (userId: string, access_token: string) => {
-    setAccessToken({ token: access_token });
     localStorage.setItem("access_token", access_token);
-
-    try {
-      const jobSeekerProfile = await FetchJobSeekerProfile(
-        userId,
-        access_token
-      );
-      setJobUserProfile(jobSeekerProfile);
-    } catch (error) {}
+    localStorage.setItem("user_id", userId);
   };
 
   const handleEmployerLogin = async (userId: string, access_token: string) => {
-    setAccessToken({ token: access_token });
     localStorage.setItem("access_token", access_token);
 
     try {
@@ -52,7 +31,6 @@ const App: React.FC = () => {
       <AppRoutes
         handleJobSeekerLogin={handleJobSeekerLogin}
         handleEmployerLogin={handleEmployerLogin}
-        jobSeekerProfile={jobSeekerProfile}
         employerProfile={employerProfile}
       />
     </div>

@@ -2,11 +2,10 @@ import { API_BASE_URL } from "../constants";
 import { JobSeekerData } from "../store/auth/interface";
 
 const FetchJobSeekerProfile = async (
-  userId: string,
-  access_token: string
+  userId: string | null,
+  access_token: string | null
 ): Promise<JobSeekerData> => {
   try {
-    console.log(`ACCESS_TOKEN: ${access_token}`);
     const response = await fetch(
       `${API_BASE_URL}/jobseeker-profile/${userId}`,
       {
@@ -24,6 +23,7 @@ const FetchJobSeekerProfile = async (
     }
 
     const data = await response.json();
+
     return {
       _id: data.user._id,
       email: data.user.email,
