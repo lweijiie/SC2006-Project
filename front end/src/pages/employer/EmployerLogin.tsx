@@ -1,11 +1,11 @@
 import React from "react";
-import LoginForm from "../../components/Form/LoginForm"; // Adjust the import path as necessary
+import LoginForm from "../../components/Form/LoginForm/LoginForm"; // Adjust the import path as necessary
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg"; // Adjust the import path as necessary
 
-const EmployerLogin: React.FC<{ onLogin: (userId: string) => void }> = ({
-  onLogin,
-}) => {
+const EmployerLogin: React.FC<{
+  onLogin: (userId: string, access_token: string) => void;
+}> = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
