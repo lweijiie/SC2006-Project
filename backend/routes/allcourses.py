@@ -29,5 +29,3 @@ def get_courses():
 
     return jsonify(courses_list), 200  # Return JSON response
 
-if __name__ == '__main__':
-    app.run(debug=True)
