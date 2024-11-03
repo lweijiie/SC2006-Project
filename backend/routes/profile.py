@@ -162,7 +162,7 @@ def update_employer_profile(user_id):
         if result.modified_count > 0:
             return jsonify({'message': 'Profile updated successfully!'}), 200
         else:
-            return jsonify({'message': 'No changes made or user not found'}), 400
+            return jsonify({'message': 'No changes made'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
