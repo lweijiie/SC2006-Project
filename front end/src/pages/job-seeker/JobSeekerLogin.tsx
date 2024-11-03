@@ -3,9 +3,9 @@ import LoginForm from "../../components/Form/LoginForm/LoginForm"; // Adjust the
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 
-const JobSeekerLogin: React.FC<{ onLogin: (userId: string) => void }> = ({
-  onLogin,
-}) => {
+const JobSeekerLogin: React.FC<{
+  onLogin: (userId: string, access_token: string) => void;
+}> = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {

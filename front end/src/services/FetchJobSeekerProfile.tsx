@@ -2,14 +2,17 @@ import { API_BASE_URL } from "../constants";
 import { JobSeekerData } from "../store/auth/interface";
 
 const FetchJobSeekerProfile = async (
-  userId: string
+  userId: string,
+  access_token: string
 ): Promise<JobSeekerData> => {
   try {
+    console.log(`ACCESS_TOKEN: ${access_token}`);
     const response = await fetch(
       `${API_BASE_URL}/jobseeker-profile/${userId}`,
       {
         method: "GET",
         headers: {
+          Authorization: `Bearer ${access_token}`,
           "Content-Type": "application/json",
         },
       }
@@ -27,6 +30,7 @@ const FetchJobSeekerProfile = async (
       firstName: data.user.firstName,
       lastName: data.user.lastName,
       industry: data.user.industry,
+      education: data.user.education,
     };
   } catch (err: any) {
     throw new Error(
