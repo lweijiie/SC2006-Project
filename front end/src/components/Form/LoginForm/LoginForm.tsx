@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../constants";
-import { Token } from "../../../store/auth/interface";
 
 interface LoginFormProps {
   onLogin: (userId: string, access_token: string) => void;
