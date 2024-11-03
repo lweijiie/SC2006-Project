@@ -26,7 +26,7 @@ const JobSeekerProfileUpdateForm: React.FC<Props> = ({ profileData }) => {
       lastName: profileData.lastName,
       email: profileData.email,
       industry: profileData.industry,
-      education: profile.education,
+      education: profileData.education,
     });
   }, [profileData]);
 
