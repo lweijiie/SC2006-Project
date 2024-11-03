@@ -1,1 +1,1 @@
-app.register_blueprint(personalisedcourses_bp)
+your_secret_key_here
