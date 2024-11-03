@@ -10,9 +10,6 @@ client = MongoClient(uri)
 courses = client.SkillsFutureDB.SkillsFutureCourses
 jobseekers = client.AppDB.jobseekers
 
-training_modes = courses.distinct("modeOfTrainings.description")
-print(training_modes)
-
 @personalisedcourses_bp.route('/get-personalised-courses/<user_id>', methods=['GET'])
 @jwt_required()
 def get_courses(user_id):
