@@ -31,8 +31,14 @@ def update_jobseeker_profile(user_id):
     industry = data.get('industry')
     education = data.get('education')
 
-    if jobseekers.find_one({'email': email}):
-        return jsonify({'message': 'Email already exists'}), 400
+    jobSeeker = jobseekers.find_one({'_id': ObjectId(user_id)})
+    if not jobSeeker:
+        return jsonify({"message": "Job Seeker not found"}), 404
+
+    # Check if the new email already exists and is not the current email
+    if email and email != jobSeeker['email']:
+        if jobSeeker.find_one({'email': email}):
+            return jsonify({'message': 'Email already exists'}), 400
     
     # Build the update dictionary dynamically based on the fields provided
     update_fields = {}
@@ -122,8 +128,14 @@ def update_employer_profile(user_id):
     company_name = data.get('company_name')
     company_description = data.get('company_description')
 
-    if employers.find_one({'email': email}):
-        return jsonify({'message': 'Email already exists'}), 400
+    employer = employers.find_one({'_id': ObjectId(user_id)})
+    if not employer:
+        return jsonify({"message": "Employer not found"}), 404
+
+    # Check if the new email already exists and is not the current email
+    if email and email != employer['email']:
+        if employers.find_one({'email': email}):
+            return jsonify({'message': 'Email already exists'}), 400
     
     # Build the update dictionary dynamically based on the fields provided
     update_fields = {}
