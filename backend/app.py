@@ -6,6 +6,7 @@ from routes.personalisedcourses import personalisedcourses_bp
 from routes.allcourses import allcourses_bp
 from routes.profile import profile_bp
 from routes.employerinternshiplisting import employerinternship_bp
+from routes.jobseekerinternships import jobseekerinternship_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -22,6 +23,7 @@ app.register_blueprint(personalisedcourses_bp)
 app.register_blueprint(profile_bp)
 app.register_blueprint(allcourses_bp)
 app.register_blueprint(employerinternship_bp)
+app.register_blueprint(jobseekerinternship_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)

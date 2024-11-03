@@ -10,9 +10,6 @@ client = MongoClient(uri)
 courses = client.SkillsFutureDB.SkillsFutureCourses
 jobseekers = client.AppDB.jobseekers
 
-training_modes = courses.distinct("modeOfTrainings.description")
-print(training_modes)
-
 @personalisedcourses_bp.route('/get-personalised-courses/<user_id>', methods=['GET'])
 @jwt_required()
 def get_courses(user_id):
@@ -38,7 +35,15 @@ def get_courses(user_id):
 
         # Step 2: Get pagination parameters (page number and number of courses per page)
         page = int(request.args.get('page', 1))  # Default to page 1 if not provided
+        # if page is less than 1 or more than 100 return error 400
+        if page<1 or page>100:
+            return jsonify({'message': 'Page must be within [1,100]'}), 400
+        
         per_page = int(request.args.get('per_page', 10))  # Default to 10 courses per page
+        if per_page<1 or per_page>10:
+            return jsonify({'message': 'Per_Page must be within [1,10]'}), 400
+
+
         training_type = request.args.get('modeOfTrainings')
 
         # Step 3: Query SkillsFutureCourses where areaOfTrainings.description matches the user's industry
