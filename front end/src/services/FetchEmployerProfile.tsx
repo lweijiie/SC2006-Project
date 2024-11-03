@@ -1,11 +1,15 @@
 import { API_BASE_URL } from "../constants";
 import { EmployerData } from "../store/auth/interface";
 
-const FetchEmployerProfile = async (userId: string): Promise<EmployerData> => {
+const FetchEmployerProfile = async (
+  userId: string,
+  access_token: string
+): Promise<EmployerData> => {
   try {
     const response = await fetch(`${API_BASE_URL}/employer-profile/${userId}`, {
       method: "GET",
       headers: {
+        Authorization: `Bearer ${access_token}`,
         "Content-Type": "application/json",
       },
     });

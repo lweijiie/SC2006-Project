@@ -13,8 +13,8 @@ import React from "react";
 import { EmployerData, JobSeekerData } from "../store/auth/interface";
 
 interface Props {
-  handleJobSeekerLogin: (userId: string) => void;
-  handleEmployerLogin: (userId: string) => void;
+  handleJobSeekerLogin: (userId: string, access_token: string) => void;
+  handleEmployerLogin: (userId: string, access_token: string) => void;
   jobSeekerProfile: JobSeekerData;
   employerProfile: EmployerData;
 }
