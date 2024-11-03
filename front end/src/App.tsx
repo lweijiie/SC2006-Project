@@ -11,6 +11,7 @@ const App: React.FC = () => {
     firstName: "",
     lastName: "",
     industry: "",
+    education: "",
   });
 
   const [employerProfile, setEmployerProfile] = useState<EmployerData>({
