@@ -84,7 +84,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
       }
 
       const data = await response.json();
-      const userId = data.userId;
+      const userId = data.user_id;
       const access_token = data.access_token;
 
       onLogin(userId, access_token);
