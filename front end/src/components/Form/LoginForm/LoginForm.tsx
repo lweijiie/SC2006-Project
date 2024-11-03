@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../constants";
+import { API_BASE_URL } from "../../../constants";
 
 interface LoginFormProps {
-  onLogin: (userId: string) => void;
+  onLogin: (userId: string, access_token: string) => void;
   loginType: "Job Seeker" | "Employer";
 }
 
@@ -18,6 +18,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
     password: "",
     user_type: loginType,
   });
+
   const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
   const formTitle =
     loginType === "Job Seeker" ? "Login for Job Seeker" : "Login for Employer";
@@ -82,10 +83,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
       }
 
       const data = await response.json();
-      const userId = data.userId; // Assuming the userId is returned in the login response
+      const userId = data.user_id;
+      const access_token = data.access_token;
 
-      // Pass user profile to parent (App.tsx)
-      onLogin(userId);
+      onLogin(userId, access_token);
 
       // Navigate to the home page after successful login and profile fetch
       navigate(`/home/${userPageType}`);

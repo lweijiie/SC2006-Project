@@ -1,37 +1,26 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../constants";
+import { API_BASE_URL, NAV_LINKS } from "../../../constants";
 import "./SignUpForm.css";
 
 interface Props {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
-  industry: string;
 }
 
-function JobSeekerSignUpForm() {
+function EmployerSignUpForm() {
   const [formData, setFormData] = useState<Props>({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
-    industry: "",
   });
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [firstNameError, setFirstNameError] = useState("");
-  const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [industryError, setIndustryError] = useState("");
 
   const navigate = useNavigate();
-
-  const industries = INDUSTRY_LIST;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -47,29 +36,13 @@ function JobSeekerSignUpForm() {
     e.preventDefault();
 
     // Clear previous errors
-    setFirstNameError("");
-    setLastNameError("");
+
     setEmailError("");
     setPasswordError("");
-    setIndustryError("");
+
     let hasError = false;
 
     // Validation
-    if (formData.firstName === "") {
-      setFirstNameError("Please enter your first name");
-      hasError = true;
-    } else if (!/^[a-zA-Z ]*$/.test(formData.firstName)) {
-      setFirstNameError("Please enter a valid first name");
-      hasError = true;
-    }
-
-    if (formData.lastName === "") {
-      setLastNameError("Please enter your last name");
-      hasError = true;
-    } else if (!/^[a-zA-Z ]*$/.test(formData.lastName)) {
-      setLastNameError("Please enter a valid last name");
-      hasError = true;
-    }
 
     if (formData.email === "") {
       setEmailError("Please enter your email");
@@ -87,11 +60,6 @@ function JobSeekerSignUpForm() {
       hasError = true;
     }
 
-    if (formData.industry === "") {
-      setIndustryError("Please select an industry");
-      hasError = true;
-    }
-
     // Stop submission if there are validation errors
     if (hasError) {
       return;
@@ -102,7 +70,7 @@ function JobSeekerSignUpForm() {
     setError(null);
 
     try {
-      const response = await fetch(API_BASE_URL + "/register-jobseeker", {
+      const response = await fetch(API_BASE_URL + "/register-employer", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -119,7 +87,7 @@ function JobSeekerSignUpForm() {
       console.log("Registration successful:", data);
 
       // Redirect to login page on successful registration
-      navigate(NAV_LINKS.job_seeker_login);
+      navigate(NAV_LINKS.employer_login);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
@@ -131,32 +99,6 @@ function JobSeekerSignUpForm() {
     <div className="sign-up-box">
       <h2>Create an Account</h2>
       <form onSubmit={handleSubmit} noValidate>
-        <div className="user-box">
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            placeholder="Enter first name here"
-            onChange={handleChange}
-            className="user-box"
-          />
-          {firstNameError && (
-            <label className="errorLabel">{firstNameError}</label>
-          )}
-        </div>
-        <div className="user-box">
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            placeholder="Enter last name here"
-            onChange={handleChange}
-            className="user-box"
-          />
-          {lastNameError && (
-            <label className="errorLabel">{lastNameError}</label>
-          )}
-        </div>
         <div className="user-box">
           <input
             type="email"
@@ -182,25 +124,6 @@ function JobSeekerSignUpForm() {
           )}
         </div>
 
-        <div className="user-box">
-          <select
-            name="industry"
-            value={formData.industry}
-            onChange={handleChange}
-            className="user-box"
-          >
-            <option value="">Select Industry</option>
-            {industries.map((industry, index) => (
-              <option key={index} value={industry}>
-                {industry}
-              </option>
-            ))}
-          </select>
-          {industryError && (
-            <label className="errorLabel">{industryError}</label>
-          )}
-        </div>
-
         {error && <p className="errorLabel">{error}</p>}
         <button type="submit" className="inputButton" disabled={loading}>
           {loading ? "Signing up..." : "Sign Up"}
@@ -208,7 +131,7 @@ function JobSeekerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.job_seeker_login}>
+          <a id="login-text" href={NAV_LINKS.employer_login}>
             Login
           </a>
           <p>&nbsp;now!</p>
@@ -218,4 +141,4 @@ function JobSeekerSignUpForm() {
   );
 }
 
-export default JobSeekerSignUpForm;
+export default EmployerSignUpForm;

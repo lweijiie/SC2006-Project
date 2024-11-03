@@ -28,3 +28,10 @@ export const INDUSTRY_LIST = [
   "Finance",
   "Education",
 ];
+
+export const EDUCATION_LIST = [
+  "Secondary",
+  "Junior College",
+  "Undergraduate",
+  "Postgraduate",
+];
