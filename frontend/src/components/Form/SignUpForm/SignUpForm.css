@@ -33,7 +33,7 @@
   border-radius: 5px;
 }
 .sign-up-box .user-box select {
-  height: 40px; /* Make dropdown consistent in height with input fields */
+  height: 40px;
 }
 
 .sign-up-box .user-box label,
