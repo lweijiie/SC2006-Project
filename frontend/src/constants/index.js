@@ -36,3 +36,10 @@ export const EDUCATION_LIST = [
   "Undergraduate",
   "Postgraduate",
 ];
+
+export const ERROR_TEXT_FIELD_MESSAGE = {
+  no_email_error: "Please enter your email",
+  invalid_email_error: "Please enter a valid email address",
+  no_password_error: "Please enter a password",
+  under_length_password_error: "Password must be 8 characters or longer",
+};
