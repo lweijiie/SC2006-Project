@@ -1,4 +1,4 @@
-.sign-up-box {
+.container {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -10,17 +10,17 @@
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 10px;
 }
-.sign-up-box h2 {
+.container .form-title {
   margin: 0 0 30px;
   padding: 0;
   color: black;
   text-align: center;
 }
-.sign-up-box .user-box {
+.container .user-box {
   position: relative;
 }
-.sign-up-box .user-box input,
-.sign-up-box .user-box select {
+.container .user-box input,
+.container .user-box select {
   width: 100%;
   padding: 10px 0;
   padding-left: 10px;
@@ -29,17 +29,17 @@
   margin-bottom: 2rem;
   border: 1px solid black;
   outline: none;
-  background: rgb(249, 232, 212); /* Same background for inputs and dropdown */
+  background: rgb(249, 232, 212);
   border-radius: 5px;
 }
-.sign-up-box .user-box select {
+.container .user-box select {
   height: 40px;
 }
 
-.sign-up-box .user-box label,
-.sign-up-box .user-box input:focus ~ label,
-.sign-up-box .user-box input:valid ~ label,
-.sign-up-box .user-box select:focus ~ label {
+.container .user-box label,
+.container .user-box input:focus ~ label,
+.container .user-box input:valid ~ label,
+.container .user-box select:focus ~ label {
   position: absolute;
   top: -1rem;
   left: 0;
@@ -47,7 +47,7 @@
   font-size: 12px;
 }
 
-.inputButton {
+.input-button {
   width: 100%;
   padding: 10px;
   background-color: cornflowerblue;
@@ -68,18 +68,18 @@
   font-size: 12px;
 }
 
-.login-text-box {
+#redirect {
   text-align: center;
   margin-top: 1rem;
 }
 
-.login-text-box p {
+#redirect-text {
   display: inline-block;
   font-size: 14px;
   color: black;
 }
 
-#login-text {
+#redirect-link {
   text-decoration: none;
   color: cornflowerblue;
   font-weight: bold;
