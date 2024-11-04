@@ -27,6 +27,8 @@ function JobSeekerSignUpForm() {
     education: "",
   });
 
+  const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.job_seeker_login}`;
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -54,7 +56,6 @@ function JobSeekerSignUpForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Clear previous errors
     setFirstNameError("");
     setLastNameError("");
     setEmailError("");
@@ -241,7 +242,7 @@ function JobSeekerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.job_seeker_login}>
+          <a id="login-text" href={loginLink}>
             Login
           </a>
           <p>&nbsp;now!</p>

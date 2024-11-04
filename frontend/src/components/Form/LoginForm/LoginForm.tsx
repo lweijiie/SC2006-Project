@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL } from "../../../constants";
+import {
+  API_BASE_URL,
+  ERROR_TEXT_FIELD_MESSAGE,
+  NAV_LINKS,
+} from "../../../constants";
 
 interface LoginFormProps {
   onLogin: (userId: string, access_token: string) => void;
@@ -22,6 +26,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
   const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
   const formTitle =
     loginType === "Job Seeker" ? "Login for Job Seeker" : "Login for Employer";
+  const signUpLink = `${NAV_LINKS.base_link}/sign-up/${userPageType}`;
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -46,17 +51,17 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
     let hasError = false;
 
     if (formData.email === "") {
-      setEmailError("Please enter your email");
+      setEmailError(ERROR_TEXT_FIELD_MESSAGE.no_email_error);
       hasError = true;
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError(ERROR_TEXT_FIELD_MESSAGE.invalid_email_error);
       hasError = true;
     }
     if (formData.password === "") {
-      setPasswordError("Please enter a password");
+      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.no_password_error);
       hasError = true;
     } else if (formData.password.length < 8) {
-      setPasswordError("Password must be 8 characters or longer");
+      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.under_length_password_error);
       hasError = true;
     }
 
@@ -134,7 +139,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
       </form>
       <div className="sign-up-text-box">
         <p>Don't have an account?&nbsp;</p>
-        <a id="sign-up-text" href={`/sign-up/${userPageType}`}>
+        <a id="sign-up-text" href={signUpLink}>
           Sign Up
         </a>
         <p>&nbsp;now!</p>

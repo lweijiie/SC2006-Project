@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, NAV_LINKS } from "../../../constants";
+import {
+  API_BASE_URL,
+  ERROR_TEXT_FIELD_MESSAGE,
+  NAV_LINKS,
+} from "../../../constants";
 import "./SignUpForm.css";
 
 interface Props {
@@ -13,6 +17,8 @@ function EmployerSignUpForm() {
     email: "",
     password: "",
   });
+
+  const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.employer_login}`;
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,18 +51,18 @@ function EmployerSignUpForm() {
     // Validation
 
     if (formData.email === "") {
-      setEmailError("Please enter your email");
+      setEmailError(ERROR_TEXT_FIELD_MESSAGE.no_email_error);
       hasError = true;
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError(ERROR_TEXT_FIELD_MESSAGE.invalid_email_error);
       hasError = true;
     }
 
     if (formData.password === "") {
-      setPasswordError("Please enter a password");
+      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.no_password_error);
       hasError = true;
     } else if (formData.password.length < 8) {
-      setPasswordError("Password must be 8 characters or longer");
+      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.under_length_password_error);
       hasError = true;
     }
 
@@ -131,7 +137,7 @@ function EmployerSignUpForm() {
 
         <div className="login-text-box">
           <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.employer_login}>
+          <a id="login-text" href={loginLink}>
             Login
           </a>
           <p>&nbsp;now!</p>
