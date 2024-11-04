@@ -8,16 +8,10 @@ const outDir = resolve(__dirname, "dist");
 // https://vitejs.dev/config/
 export default defineConfig({
   root,
+  base: "/career-path-now/",
   plugins: [react()],
   build: {
     outDir,
     emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        main: resolve(root, "index.html"),
-        about: resolve(root, "about", "index.html"),
-        signup: resolve(root, "signup", "index.html"),
-      },
-    },
   },
 });
