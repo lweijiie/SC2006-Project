@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from "react-router-dom"; // Change to HashRouter
 import { NAV_LINKS } from "../constants";
 import LandingPage from "../pages/landing/LandingPage";
 import JobSeekerSignUp from "../pages/job-seeker/JobSeekerSignUp";
@@ -10,7 +10,7 @@ import EmployerLogin from "../pages/employer/EmployerLogin";
 import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import React from "react";
-import { EmployerData, JobSeekerData } from "../store/auth/interface";
+import { EmployerData } from "../store/auth/interface";
 
 interface Props {
   handleJobSeekerLogin: (userId: string, access_token: string) => void;

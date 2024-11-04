@@ -1,6 +1,7 @@
 export const API_BASE_URL = "http://127.0.0.1:5000";
 
 export const NAV_LINKS = {
+  base_link: "/career-path-now/#",
   home: "/",
 
   job_seeker_home: "/home/job-seeker",
