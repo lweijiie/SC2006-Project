@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./LoginForm.css";
+import "../Form.css";
 import { useNavigate } from "react-router-dom";
 import {
   API_BASE_URL,
@@ -103,8 +103,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
   };
 
   return (
-    <div className="login-box">
-      <h2>{formTitle}</h2>
+    <div className="container">
+      <h2 className="form-title">{formTitle}</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
@@ -133,16 +133,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
         </div>
 
         {error && <p className="errorLabel">{error}</p>}
-        <button type="submit" className="inputButton" disabled={loading}>
+        <button type="submit" className="input-button" disabled={loading}>
           {loading ? "Logging in..." : "Log In"}
         </button>
       </form>
-      <div className="sign-up-text-box">
-        <p>Don't have an account?&nbsp;</p>
-        <a id="sign-up-text" href={signUpLink}>
+      <div id="redirect">
+        <p id="redirect-text">Don't have an account?&nbsp;</p>
+        <a id="redirect-link" href={signUpLink}>
           Sign Up
         </a>
-        <p>&nbsp;now!</p>
+        <p id="redirect-text">&nbsp;now!</p>
       </div>
     </div>
   );

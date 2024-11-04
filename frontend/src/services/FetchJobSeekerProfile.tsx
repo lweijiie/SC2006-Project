@@ -27,8 +27,8 @@ const FetchJobSeekerProfile = async (
     return {
       _id: data.user._id,
       email: data.user.email,
-      firstName: data.user.firstName,
-      lastName: data.user.lastName,
+      firstName: data.user.first_name,
+      lastName: data.user.last_name,
       industry: data.user.industry,
       education: data.user.education,
     };

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { JobSeekerData } from "../../../store/auth/interface";
 import FetchJobSeekerProfile from "../../../services/FetchJobSeekerProfile";
-import "./ProfileUpdateForm.css";
 import {
   API_BASE_URL,
   EDUCATION_LIST,
   INDUSTRY_LIST,
+  NAV_LINKS,
 } from "../../../constants";
+import { useNavigate } from "react-router-dom";
 
 const JobSeekerProfileUpdateForm: React.FC = () => {
   const access_token = localStorage.getItem("access_token") || "";
@@ -28,6 +29,8 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   const [emailError, setEmailError] = useState("");
   const [industryError, setIndustryError] = useState("");
   const [educationError, setEducationError] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -127,6 +130,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
+        navigate(NAV_LINKS.job_seeker_home);
       } else {
         setMessage(data.message || "Failed to update profile");
       }
@@ -136,11 +140,11 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   };
 
   return (
-    <div className="profile-box">
-      {message && <div className="message">{message}</div>}
+    <div className="container">
+      <h2 className="form-title">Your Profile</h2>
       {profile ? (
         <form onSubmit={handleSubmit}>
-          <div className="profile-field">
+          <div className="user-box">
             <label className="field-label">First Name</label>
             <input
               type="text"
@@ -153,7 +157,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               <label className="errorLabel">{firstNameError}</label>
             )}
           </div>
-          <div className="profile-field">
+          <div className="user-box">
             <label className="field-label">Last Name</label>
             <input
               type="text"
@@ -166,7 +170,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               <label className="errorLabel">{lastNameError}</label>
             )}
           </div>
-          <div className="profile-field">
+          <div className="user-box">
             <label className="field-label">Email</label>
             <input
               type="email"
@@ -177,13 +181,13 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
             />
             {emailError && <label className="errorLabel">{emailError}</label>}
           </div>
-          <div className="profile-field">
+          <div className="user-box">
             <label className="field-label">Industry</label>
             <select
               name="industry"
               value={profile.industry ?? ""}
               onChange={handleInputChange}
-              className="profile-field"
+              className="user-box"
             >
               <option value="">Select Industry</option>
               {INDUSTRY_LIST.map((industry, index) => (
@@ -196,13 +200,13 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               <label className="errorLabel">{industryError}</label>
             )}
           </div>
-          <div className="profile-field">
+          <div className="user-box">
             <label className="field-label">Education</label>
             <select
               name="education"
               value={profile.education ?? ""}
               onChange={handleInputChange}
-              className="profile-field"
+              className="user-box"
             >
               <option value="">Select Education</option>
               {EDUCATION_LIST.map((education, index) => (
@@ -218,9 +222,15 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
 
           <div className="button-group">
             {isEditing ? (
-              <button type="submit">Save</button>
+              <button type="submit" className="input-button">
+                Save
+              </button>
             ) : (
-              <button type="button" onClick={toggleEdit}>
+              <button
+                type="button"
+                className="input-button"
+                onClick={toggleEdit}
+              >
                 Edit Profile
               </button>
             )}
@@ -229,6 +239,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       ) : (
         <div>Loading...</div>
       )}
+      {message && <div className="message">{message}</div>}
     </div>
   );
 };
