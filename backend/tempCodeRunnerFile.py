@@ -1,1 +1,1 @@
-your_secret_key_here
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
