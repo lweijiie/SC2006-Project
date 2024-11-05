@@ -12,9 +12,22 @@ const EmployerLogin: React.FC<{
     navigate("/"); // Navigate back to the landing page
   };
 
+  const handleLogin = (userId: string, access_token: string) => {
+    // Store userId and access_token in localStorage
+    localStorage.setItem("user_id", userId);
+    localStorage.setItem("access_token", access_token);
+
+    // Call the parent onLogin function to update the app state
+    onLogin(userId, access_token);
+
+    // Redirect to the employer home page (or any other page you want after login)
+    navigate("/employer/home");
+  };
+
   return (
     <div>
-      <LoginForm onLogin={onLogin} loginType="Employer" />
+      {/* Pass the custom handleLogin function to LoginForm */}
+      <LoginForm onLogin={handleLogin} loginType="Employer" />
       <img
         src={logo}
         alt="Go Back"

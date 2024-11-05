@@ -6,7 +6,6 @@ import {
   INDUSTRY_LIST,
   NAV_LINKS,
 } from "../../../constants";
-import "./SignUpForm.css";
 
 interface Props {
   firstName: string;
@@ -26,6 +25,8 @@ function JobSeekerSignUpForm() {
     industry: "",
     education: "",
   });
+
+  const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.job_seeker_login}`;
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -54,7 +55,6 @@ function JobSeekerSignUpForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Clear previous errors
     setFirstNameError("");
     setLastNameError("");
     setEmailError("");
@@ -142,8 +142,8 @@ function JobSeekerSignUpForm() {
   };
 
   return (
-    <div className="sign-up-box">
-      <h2>Create an Account</h2>
+    <div className="container">
+      <h2 className="form-title">Create an Account</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
@@ -235,16 +235,16 @@ function JobSeekerSignUpForm() {
         </div>
 
         {error && <p className="errorLabel">{error}</p>}
-        <button type="submit" className="inputButton" disabled={loading}>
+        <button type="submit" className="input-button" disabled={loading}>
           {loading ? "Signing up..." : "Sign Up"}
         </button>
 
-        <div className="login-text-box">
-          <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.job_seeker_login}>
+        <div id="redirect">
+          <p id="redirect-text">Already have an account?&nbsp;</p>
+          <a id="redirect-link" href={loginLink}>
             Login
           </a>
-          <p>&nbsp;now!</p>
+          <p id="redirect-text">&nbsp;now!</p>
         </div>
       </form>
     </div>

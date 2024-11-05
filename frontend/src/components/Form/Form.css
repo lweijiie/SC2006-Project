@@ -1,0 +1,161 @@
+.container {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 145, 0, 0.9); /* Adjusted background opacity */
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+.container .form-title {
+  margin: 0 0 30px;
+  padding: 0;
+  color: black;
+  text-align: center;
+}
+.container .user-box {
+  position: relative;
+}
+.container .user-box input,
+.container .user-box select {
+  width: 100%;
+  padding: 10px 0;
+  padding-left: 10px;
+  font-size: 16px;
+  color: black;
+  margin-bottom: 2rem;
+  border: 1px solid black;
+  outline: none;
+  background: rgb(249, 232, 212);
+  border-radius: 5px;
+}
+.container .user-box select {
+  height: 40px;
+}
+
+.container .user-box label,
+.container .user-box input:focus ~ label,
+.container .user-box input:valid ~ label,
+.container .user-box select:focus ~ label {
+  position: absolute;
+  top: -1rem;
+  left: 0;
+  color: rgb(255, 0, 0);
+  font-size: 12px;
+}
+
+.input-button {
+  width: 100%;
+  padding: 10px;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.inputButton:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.errorLabel {
+  color: red;
+  font-size: 12px;
+}
+
+#redirect {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#redirect-text {
+  display: inline-block;
+  font-size: 14px;
+  color: black;
+}
+
+#redirect-link {
+  text-decoration: none;
+  color: cornflowerblue;
+  font-weight: bold;
+}
+
+/* New styles for EmployerPostInternshipForm */
+.internship-form-container {
+  position: relative;
+  margin: auto;
+  width: 400px;
+  padding: 40px;
+  background: rgba(255, 145, 0, 0.9); /* Adjusted background opacity */
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.internship-form-container .form-title {
+  margin: 0 0 20px;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.internship-form-container .user-box {
+  margin-bottom: 1.5rem;
+}
+
+.internship-form-container .user-box label {
+  display: block;
+  color: rgb(31, 30, 30);
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.internship-form-container .user-box input,
+.internship-form-container .user-box textarea,
+.internship-form-container .user-box select {
+  width: 100%;
+  padding: 12px 10px;
+  font-size: 1rem;
+  color: black;
+  border: 1px solid black;
+  outline: none;
+  background: rgb(249, 232, 212);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.internship-form-container .user-box textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+.internship-form-container .input-button {
+  width: 100%;
+  padding: 10px;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.internship-form-container .input-button:hover {
+  background-color: #547ecb;
+}
+
+.internship-form-container .errorLabel {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}

@@ -1,41 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { JobSeekerData } from "../../../store/auth/interface";
-import FetchJobSeekerProfile from "../../../services/FetchJobSeekerProfile";
-import {
-  API_BASE_URL,
-  EDUCATION_LIST,
-  INDUSTRY_LIST,
-  NAV_LINKS,
-} from "../../../constants";
+import { EmployerData } from "../../../store/auth/interface";
+import FetchEmployerProfile from "../../../services/FetchEmployerProfile";
+import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 
-const JobSeekerProfileUpdateForm: React.FC = () => {
+interface EmployerProfileUpdateFormProps {}
+
+const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () => {
   const access_token = localStorage.getItem("access_token") || "";
   const user_id = localStorage.getItem("user_id") || "";
 
-  const [profile, setProfile] = useState<JobSeekerData>({
+  const [profile, setProfile] = useState<EmployerData>({
     _id: "",
-    firstName: "",
-    lastName: "",
     email: "",
     industry: "",
-    education: "",
+    companyName: "",
+    companyDescription: "",
   });
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  const [firstNameError, setFirstNameError] = useState("");
-  const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [industryError, setIndustryError] = useState("");
-  const [educationError, setEducationError] = useState("");
+  const [companyNameError, setCompanyNameError] = useState("");
+  const [companyDescriptionError, setCompanyDescriptionError] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const data = await FetchJobSeekerProfile(user_id, access_token);
+        const data = await FetchEmployerProfile(user_id, access_token);
         setProfile(data);
       } catch (error) {
         setMessage("Failed to load profile data");
@@ -46,14 +41,10 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   }, [user_id, access_token]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    if (profile) {
-      setProfile(
-        (prevProfile) => ({ ...prevProfile, [name]: value } as JobSeekerData)
-      );
-    }
+    setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
   };
 
   const toggleEdit = () => {
@@ -64,28 +55,11 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    setFirstNameError("");
-    setLastNameError("");
     setEmailError("");
     setIndustryError("");
-    setEducationError("");
+    setCompanyNameError("");
+    setCompanyDescriptionError("");
     let hasError = false;
-
-    if (profile.firstName === "") {
-      setFirstNameError("Please enter your first name");
-      hasError = true;
-    } else if (!/^[a-zA-Z ]*$/.test(profile.firstName)) {
-      setFirstNameError("Please enter a valid first name");
-      hasError = true;
-    }
-
-    if (profile.lastName === "") {
-      setLastNameError("Please enter your last name");
-      hasError = true;
-    } else if (!/^[a-zA-Z ]*$/.test(profile.lastName)) {
-      setLastNameError("Please enter a valid last name");
-      hasError = true;
-    }
 
     if (profile.email === "") {
       setEmailError("Please enter your email");
@@ -100,16 +74,21 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       hasError = true;
     }
 
-    if (profile.education === "") {
-      setEducationError("Please select an education");
+    if (profile.companyName === "") {
+      setCompanyNameError("Please enter your company name");
       hasError = true;
     }
 
-    if (!profile) return;
+    if (profile.companyDescription === "") {
+      setCompanyDescriptionError("Please enter your company description");
+      hasError = true;
+    }
+
+    if (hasError) return;
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/update-jobseeker-profile/${user_id}`,
+        `${API_BASE_URL}/update-employer-profile/${user_id}`,
         {
           method: "POST",
           headers: {
@@ -118,10 +97,9 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
           },
           body: JSON.stringify({
             email: profile.email,
-            first_name: profile.firstName,
-            last_name: profile.lastName,
             industry: profile.industry,
-            education: profile.education,
+            company_name: profile.companyName,
+            company_description: profile.companyDescription,
           }),
         }
       );
@@ -130,7 +108,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
-        navigate(NAV_LINKS.job_seeker_home);
+        navigate(NAV_LINKS.employer_home);
       } else {
         setMessage(data.message || "Failed to update profile");
       }
@@ -145,37 +123,11 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       {profile ? (
         <form onSubmit={handleSubmit}>
           <div className="user-box">
-            <label className="field-label">First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              value={profile.firstName ?? ""}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-            />
-            {firstNameError && (
-              <label className="errorLabel">{firstNameError}</label>
-            )}
-          </div>
-          <div className="user-box">
-            <label className="field-label">Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              value={profile.lastName ?? ""}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-            />
-            {lastNameError && (
-              <label className="errorLabel">{lastNameError}</label>
-            )}
-          </div>
-          <div className="user-box">
             <label className="field-label">Email</label>
             <input
               type="email"
               name="email"
-              value={profile.email ?? ""}
+              value={profile.email}
               onChange={handleInputChange}
               disabled={!isEditing}
             />
@@ -185,9 +137,9 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
             <label className="field-label">Industry</label>
             <select
               name="industry"
-              value={profile.industry ?? ""}
+              value={profile.industry}
               onChange={handleInputChange}
-              className="user-box"
+              disabled={!isEditing}
             >
               <option value="">Select Industry</option>
               {INDUSTRY_LIST.map((industry, index) => (
@@ -201,25 +153,30 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
             )}
           </div>
           <div className="user-box">
-            <label className="field-label">Education</label>
-            <select
-              name="education"
-              value={profile.education ?? ""}
+            <label className="field-label">Company Name</label>
+            <input
+              type="text"
+              name="companyName"
+              value={profile.companyName}
               onChange={handleInputChange}
-              className="user-box"
-            >
-              <option value="">Select Education</option>
-              {EDUCATION_LIST.map((education, index) => (
-                <option key={index} value={education}>
-                  {education}
-                </option>
-              ))}
-            </select>
-            {educationError && (
-              <label className="errorLabel">{educationError}</label>
+              disabled={!isEditing}
+            />
+            {companyNameError && (
+              <label className="errorLabel">{companyNameError}</label>
             )}
           </div>
-
+          <div className="user-box">
+            <label className="field-label">Company Description</label>
+            <textarea
+              name="companyDescription"
+              value={profile.companyDescription}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+            {companyDescriptionError && (
+              <label className="errorLabel">{companyDescriptionError}</label>
+            )}
+          </div>
           <div className="button-group">
             {isEditing ? (
               <button type="submit" className="input-button">
@@ -244,4 +201,4 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   );
 };
 
-export default JobSeekerProfileUpdateForm;
+export default EmployerProfileUpdateForm;
