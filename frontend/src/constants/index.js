@@ -15,7 +15,7 @@ export const NAV_LINKS = {
   employer_sign_up: "/sign-up/employer",
   employer_login: "/login/employer",
   employer_profile: "/profile/employer",
-  employer_job_post: "/job/employer",
+  employer_list_internship: "/employer/post-internship",
 };
 
 export const USER_TYPE = {
