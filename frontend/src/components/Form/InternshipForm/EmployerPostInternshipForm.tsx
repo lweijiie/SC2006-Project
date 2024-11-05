@@ -1,14 +1,14 @@
-// src/components/Form/EmployerPostInternshipForm.tsx
 import React, { useState } from "react";
 import PostEmployerInternship from "../../../services/PostEmployerInternship";
-// import "../../../components/ProfileUpdateForm/ProfileUpdateForm.css"; 
+import { InternshipData } from "../../../store/auth/interface";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  onPostSuccess: () => void; // Callback after a successful post
+interface EmployerPostInternshipFormProps {
+  onPostSuccess: () => void; // Callback for when posting is successful
 }
 
-const EmployerPostInternshipForm: React.FC<Props> = ({ onPostSuccess }) => {
-  const [formData, setFormData] = useState({
+const EmployerPostInternshipForm: React.FC<EmployerPostInternshipFormProps> = ({ onPostSuccess }) => {
+  const [internship, setInternship] = useState<InternshipData>({
     title: "",
     description: "",
     requirements: "",
@@ -17,56 +17,152 @@ const EmployerPostInternshipForm: React.FC<Props> = ({ onPostSuccess }) => {
     salary: "",
   });
   const [message, setMessage] = useState<string | null>(null);
-  const access_token = localStorage.getItem("access_token");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const [titleError, setTitleError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [requirementsError, setRequirementsError] = useState("");
+  const [locationError, setLocationError] = useState("");
+  const [durationError, setDurationError] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setInternship((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const validateForm = (): boolean => {
+    setTitleError("");
+    setDescriptionError("");
+    setRequirementsError("");
+    setLocationError("");
+    setDurationError("");
+
+    let hasError = false;
+
+    if (internship.title.trim() === "") {
+      setTitleError("Please enter the title");
+      hasError = true;
+    }
+
+    if (internship.description.trim() === "") {
+      setDescriptionError("Please enter the description");
+      hasError = true;
+    }
+
+    if (internship.requirements.trim() === "") {
+      setRequirementsError("Please enter the requirements");
+      hasError = true;
+    }
+
+    if (internship.location.trim() === "") {
+      setLocationError("Please enter the location");
+      hasError = true;
+    }
+
+    if (internship.duration.trim() === "") {
+      setDurationError("Please enter the duration");
+      hasError = true;
+    }
+
+    return !hasError;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setMessage(null);
+
+    if (!validateForm()) {
+      return;
+    }
+
     try {
-      await PostEmployerInternship(access_token, formData);
-      setMessage("Internship posted successfully!");
-      onPostSuccess();
-    } catch (error: any) {
-      setMessage(error.message || "An error occurred while posting the internship.");
+      const accessToken = localStorage.getItem("access_token");
+      await PostEmployerInternship(accessToken, internship);
+      onPostSuccess(); // Call the success callback here
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Failed to post internship.");
     }
   };
 
   return (
-    <div className="profile-box">
-      {message && <div className="message">{message}</div>}
+    <div className="internship-form-container">
+      <h2 className="form-title">Post a New Internship</h2>
       <form onSubmit={handleSubmit}>
-        <div className="profile-field">
-          <label>Title</label>
-          <input type="text" name="title" value={formData.title} onChange={handleChange} />
+        <div className="user-box">
+          <label className="field-label">Title</label>
+          <input
+            type="text"
+            name="title"
+            value={internship.title}
+            onChange={handleInputChange}
+            required
+          />
+          {titleError && <label className="errorLabel">{titleError}</label>}
         </div>
-        <div className="profile-field">
-          <label>Description</label>
-          <textarea name="description" value={formData.description} onChange={handleChange} />
+        
+        <div className="user-box">
+          <label className="field-label">Description</label>
+          <textarea
+            name="description"
+            value={internship.description}
+            onChange={handleInputChange}
+            required
+          />
+          {descriptionError && <label className="errorLabel">{descriptionError}</label>}
         </div>
-        <div className="profile-field">
-          <label>Requirements</label>
-          <textarea name="requirements" value={formData.requirements} onChange={handleChange} />
+        
+        <div className="user-box">
+          <label className="field-label">Requirements</label>
+          <textarea
+            name="requirements"
+            value={internship.requirements}
+            onChange={handleInputChange}
+            required
+          />
+          {requirementsError && <label className="errorLabel">{requirementsError}</label>}
         </div>
-        <div className="profile-field">
-          <label>Location</label>
-          <input type="text" name="location" value={formData.location} onChange={handleChange} />
+        
+        <div className="user-box">
+          <label className="field-label">Location</label>
+          <input
+            type="text"
+            name="location"
+            value={internship.location}
+            onChange={handleInputChange}
+            required
+          />
+          {locationError && <label className="errorLabel">{locationError}</label>}
         </div>
-        <div className="profile-field">
-          <label>Duration</label>
-          <input type="text" name="duration" value={formData.duration} onChange={handleChange} />
+        
+        <div className="user-box">
+          <label className="field-label">Duration</label>
+          <input
+            type="text"
+            name="duration"
+            value={internship.duration}
+            onChange={handleInputChange}
+            required
+          />
+          {durationError && <label className="errorLabel">{durationError}</label>}
         </div>
-        <div className="profile-field">
-          <label>Salary (optional)</label>
-          <input type="text" name="salary" value={formData.salary} onChange={handleChange} />
+        
+        <div className="user-box">
+          <label className="field-label">Salary (optional)</label>
+          <input
+            type="text"
+            name="salary"
+            value={internship.salary || ""}
+            onChange={handleInputChange}
+          />
         </div>
-        <div className="button-group">
-          <button type="submit">Post Internship</button>
-        </div>
+
+        <button type="submit" className="input-button">
+          Post Internship
+        </button>
       </form>
+      {message && <div className="message">{message}</div>}
     </div>
   );
 };
