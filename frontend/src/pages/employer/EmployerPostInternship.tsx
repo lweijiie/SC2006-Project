@@ -1,6 +1,6 @@
 // src/pages/employer/EmployerPostInternship.tsx
 import React from "react";
-import EmployerPostInternshipForm from "../../../src/components/Form/InternshipForm/EmployerPostInternshipForm";
+import EmployerPostInternshipForm from "../../components/Form/InternshipForm/EmployerPostInternshipForm";
 import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
 
 const EmployerPostInternship: React.FC = () => {
