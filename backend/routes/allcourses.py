@@ -30,11 +30,6 @@ def get_courses():
 
     return jsonify(courses_list), 200  # Return JSON response
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
-
->>>>>>> Stashed changes
 @app.route('/endorse_course/<course_id>', methods=['POST'])
 @jwt_required()
 def endorse_course(course_id):
@@ -93,5 +88,4 @@ def endorse_course(course_id):
 if __name__ == '__main__':
     app.register_blueprint(allcourses_bp)
     app.run(debug=True)
-=======
->>>>>>> 94ae07e69e9f5299254b5fb8cba5945257bdb81d
+
