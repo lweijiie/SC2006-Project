@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_BASE_URL, NAV_LINKS } from "../../../constants";
-import "./SignUpForm.css";
+import {
+  API_BASE_URL,
+  ERROR_TEXT_FIELD_MESSAGE,
+  NAV_LINKS,
+} from "../../../constants";
 
 interface Props {
   email: string;
@@ -13,6 +16,8 @@ function EmployerSignUpForm() {
     email: "",
     password: "",
   });
+
+  const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.employer_login}`;
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,18 +50,18 @@ function EmployerSignUpForm() {
     // Validation
 
     if (formData.email === "") {
-      setEmailError("Please enter your email");
+      setEmailError(ERROR_TEXT_FIELD_MESSAGE.no_email_error);
       hasError = true;
     } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError("Please enter a valid email address");
+      setEmailError(ERROR_TEXT_FIELD_MESSAGE.invalid_email_error);
       hasError = true;
     }
 
     if (formData.password === "") {
-      setPasswordError("Please enter a password");
+      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.no_password_error);
       hasError = true;
     } else if (formData.password.length < 8) {
-      setPasswordError("Password must be 8 characters or longer");
+      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.under_length_password_error);
       hasError = true;
     }
 
@@ -96,8 +101,8 @@ function EmployerSignUpForm() {
   };
 
   return (
-    <div className="sign-up-box">
-      <h2>Create an Account</h2>
+    <div className="container">
+      <h2 className="form-title">Create an Account</h2>
       <form onSubmit={handleSubmit} noValidate>
         <div className="user-box">
           <input
@@ -125,16 +130,16 @@ function EmployerSignUpForm() {
         </div>
 
         {error && <p className="errorLabel">{error}</p>}
-        <button type="submit" className="inputButton" disabled={loading}>
+        <button type="submit" className="input-button" disabled={loading}>
           {loading ? "Signing up..." : "Sign Up"}
         </button>
 
-        <div className="login-text-box">
-          <p>Already have an account?&nbsp;</p>
-          <a id="login-text" href={NAV_LINKS.employer_login}>
+        <div id="redirect">
+          <p id="redirect-text">Already have an account?&nbsp;</p>
+          <a id="redirect-link" href={loginLink}>
             Login
           </a>
-          <p>&nbsp;now!</p>
+          <p id="redirect-text">&nbsp;now!</p>
         </div>
       </form>
     </div>

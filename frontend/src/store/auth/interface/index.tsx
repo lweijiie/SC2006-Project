@@ -15,6 +15,15 @@ export interface EmployerData {
   companyDescription: string;
 }
 
+export interface InternshipData {
+  title: string;
+  description: string;
+  requirements: string;
+  location: string;
+  duration: string;
+  salary?: string;
+}
+
 export interface AuthBody {
   email: string;
   password: string;
