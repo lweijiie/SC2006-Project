@@ -9,6 +9,7 @@ import EmployerSignUp from "../pages/employer/EmployerSignUp";
 import EmployerLogin from "../pages/employer/EmployerLogin";
 import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
+import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
 import React from "react";
 import { EmployerData } from "../store/auth/interface";
 
@@ -52,6 +53,7 @@ const AppRoutes: React.FC<Props> = ({
           path={NAV_LINKS.employer_profile}
           element={<EmployerProfilePage />}
         />
+        <Route path="/employer/post-internship" element={<EmployerPostInternship />} />
       </Routes>
     </Router>
   );
