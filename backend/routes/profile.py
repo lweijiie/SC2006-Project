@@ -64,10 +64,8 @@ def update_jobseeker_profile(user_id):
             {'_id': ObjectId(user_id)},  # Find the user by ID
             {'$set': update_fields}  # Update new fields dynamically
         )
-        if result.modified_count > 0:
+        if result:
             return jsonify({'message': 'Profile updated successfully!'}), 200
-        else:
-            return jsonify({'message': 'No changes made.'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
