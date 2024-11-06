@@ -1,0 +1,16 @@
+.go-back-button {
+  background-color: orange;
+  color: white;
+  font-size: 16px; /* Font size for readability */
+  padding: 10px 20px; /* Padding for size */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  text-decoration: none; /* Remove text underline */
+  font-weight: bold; /* Bold font */
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.go-back-button:hover {
+  background-color: darkorange; /* Darken color on hover */
+}
