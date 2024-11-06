@@ -4,8 +4,8 @@ import { NAV_LINKS } from "../../constants";
 const navbarLeftItems = [
   { label: "Home", link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_home}` },
   {
-    label: "Jobs Post",
-    link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_job_post}`,
+    label: "List Internship",
+    link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_list_internship}`,
   },
 ];
 
