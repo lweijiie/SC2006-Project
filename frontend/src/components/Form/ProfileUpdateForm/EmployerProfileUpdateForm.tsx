@@ -24,6 +24,8 @@ const EmployerProfileUpdateForm: React.FC = () => {
   const [companyDescriptionError, setCompanyDescriptionError] = useState("");
 
   const navigate = useNavigate();
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -92,7 +94,7 @@ const EmployerProfileUpdateForm: React.FC = () => {
       hasError = true;
     }
 
-    if (!profile) return;
+    if (hasError) return;
 
     try {
       const response = await fetch(
@@ -116,6 +118,7 @@ const EmployerProfileUpdateForm: React.FC = () => {
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
+        await delay(1000);
         navigate(NAV_LINKS.employer_home);
       } else {
         setMessage(data.message || "Failed to update profile");
