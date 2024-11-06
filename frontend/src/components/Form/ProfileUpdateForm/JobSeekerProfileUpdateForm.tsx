@@ -31,6 +31,8 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   const [educationError, setEducationError] = useState("");
 
   const navigate = useNavigate();
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -130,6 +132,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
+        await delay(1000);
         navigate(NAV_LINKS.job_seeker_home);
       } else {
         setMessage(data.message || "Failed to update profile");
