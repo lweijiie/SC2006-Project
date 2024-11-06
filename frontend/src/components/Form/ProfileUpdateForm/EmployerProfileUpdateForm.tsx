@@ -116,7 +116,7 @@ const EmployerProfileUpdateForm: React.FC = () => {
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
-        navigate(NAV_LINKS.job_seeker_home);
+        navigate(NAV_LINKS.employer_home);
       } else {
         setMessage(data.message || "Failed to update profile");
       }

@@ -10,10 +10,21 @@
   text-align: center;
 }
 
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: #333;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.header h1 {
+  margin: 0;
+  margin-right: 15px; /* Adds space between h1 and Logo */
+  white-space: nowrap; /* Prevents line breaks */
+}
+
+.header .Logo {
+  margin-left: auto; /* Keeps the Logo aligned to the right */
 }
 
 p {
