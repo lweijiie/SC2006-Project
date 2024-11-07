@@ -6,16 +6,13 @@ const FetchEmployerProfile = async (
   access_token: string | null
 ): Promise<EmployerData> => {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/employer-profile/${userId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/employer-profile/${userId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
