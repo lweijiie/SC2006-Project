@@ -101,3 +101,29 @@ def delete_internship(internship_id):
     else:
         return jsonify({"message": "Failed to delete internship."}), 500
 
+@employerinternship_bp.route('/employer-internships/<employer_id>', methods=['GET'])
+@jwt_required()
+def get_employer_internships(employer_id):
+    current_user = get_jwt_identity()
+    
+    # Check if the current user is the employer requesting their own internships
+    if current_user != employer_id:
+        return jsonify({"message": "Access denied"}), 403
+
+    # Query the internships collection for the given employer_id
+    employer_internships = internships.find({"employer_id": employer_id})
+    internship_list = [
+        {
+            "id": str(internship["_id"]),
+            "title": internship.get("title", ""),
+            "description": internship.get("description", ""),
+            "requirements": internship.get("requirements", ""),
+            "location": internship.get("location", ""),
+            "duration": internship.get("duration", ""),
+            "salary": internship.get("salary", ""),
+            "posted_date": internship.get("posted_date", "")
+        }
+        for internship in employer_internships
+    ]
+
+    return jsonify({"internships": internship_list}), 200

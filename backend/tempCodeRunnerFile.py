@@ -1,1 +1,1 @@
-app.register_blueprint(personalisedcourses_bp)
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
