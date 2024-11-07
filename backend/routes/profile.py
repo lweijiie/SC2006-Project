@@ -75,10 +75,6 @@ def get_jobseeker_profile(user_id):
 
     current_user = get_jwt_identity()  # Get the current user's identity from the token
 
-    # Ensure the user is authorised to access this profile
-    if current_user != user_id:
-        return jsonify({"message": "Access denied"}), 403
-
     try:
         # Find the user by ID and exclude the password field from the result
         user = jobseekers.find_one(
@@ -172,10 +168,6 @@ def update_employer_profile(user_id):
 def get_employer_profile(user_id):
 
     current_user = get_jwt_identity()
-
-    # Ensure the user is authorised to access this profile
-    if current_user != user_id:
-        return jsonify({"message": "Access denied"}), 403
 
     try:
         # Find the user by ID and exclude the password field from the result
