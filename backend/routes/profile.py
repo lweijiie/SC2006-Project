@@ -134,7 +134,7 @@ def update_employer_profile(user_id):
     if email and email != employer['email']:
         if employers.find_one({'email': email}):
             return jsonify({'message': 'Email already exists'}), 400
-    
+
     # Build the update dictionary dynamically based on the fields provided
     update_fields = {}
 
@@ -151,6 +151,10 @@ def update_employer_profile(user_id):
     if company_description:
         update_fields['company_description'] = company_description
 
+    # Initialize endorsed_courses if it doesn't exist
+    if 'endorsed_courses' not in employer:
+        update_fields['endorsed_courses'] = []
+
     # Find the user by ID and update their profile
     try:
         result = employers.update_one(
@@ -163,6 +167,7 @@ def update_employer_profile(user_id):
             return jsonify({'message': 'No changes made.'}), 400
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
     
 @profile_bp.route('/employer-profile/<user_id>', methods=['GET'])
 @jwt_required()
