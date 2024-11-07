@@ -10,7 +10,6 @@ import EmployerLogin from "../pages/employer/EmployerLogin";
 import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
-import EmployerInternshipList from "../pages/employer/EmployerInternshipList"; // Import your new component
 import React from "react";
 import JobSeekerCourses from "../pages/job-seeker/JobSeekerCourses";
 import JobSeekerJobs from "../pages/job-seeker/JobSeekerJobs";
@@ -61,12 +60,6 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
           path={NAV_LINKS.employer_list_internship}
           element={<EmployerPostInternship />}
         />
-
-        <Route
-          path="/employer/internships" 
-          element={<EmployerInternshipList  />} 
-        />
-
       </Routes>
     </Router>
   );
