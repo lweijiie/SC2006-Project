@@ -32,13 +32,13 @@ const JobSeekerJobs: React.FC = () => {
         {internships.map((internship) => (
           <Card
             title={internship.title}
-            description={`${internship.description} | Duration: ${
+            description={`${internship.description} \n Duration: ${
               internship.duration
-            } | Location: ${internship.location} | Requirements: ${
+            } \n Location: ${internship.location} \n Requirements: ${
               Array.isArray(internship.requirements)
                 ? internship.requirements.join(", ")
                 : internship.requirements
-            } | Salary: ${internship.salary}`}
+            } \n Salary: ${internship.salary}`}
             link={`${NAV_LINKS.base_link}${NAV_LINKS.job_seeker_home}`}
           />
         ))}
