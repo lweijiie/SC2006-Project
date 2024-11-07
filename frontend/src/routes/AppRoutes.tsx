@@ -11,6 +11,7 @@ import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
 import React from "react";
+import JobSeekerCourses from "../pages/job-seeker/JobSeekerCourses";
 
 interface Props {
   handleLogin: (userId: string, access_token: string) => void;
@@ -35,6 +36,10 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
           path={NAV_LINKS.job_seeker_profile}
           element={<JobSeekerProfilePage />}
         />
+        <Route
+          path={NAV_LINKS.job_seeker_find_course}
+          element={<JobSeekerCourses />}
+        />
 
         <Route path={NAV_LINKS.employer_sign_up} element={<EmployerSignUp />} />
         <Route
@@ -47,7 +52,7 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
           element={<EmployerProfilePage />}
         />
         <Route
-          path="/employer/post-internship"
+          path={NAV_LINKS.employer_list_internship}
           element={<EmployerPostInternship />}
         />
       </Routes>
