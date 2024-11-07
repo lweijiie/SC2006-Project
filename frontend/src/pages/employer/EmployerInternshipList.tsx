@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import FetchEmployerInternships from "../../services/FetchEmployerInternships";
 import { InternshipData } from "../../store/auth/interface";
+import Card from "../../components/Card/Card";
+import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
+import "../job-seeker/JobSeekerCourses.css";
 
 const EmployerInternshipList: React.FC = () => {
     const [internships, setInternships] = useState<InternshipData[]>([]);
@@ -39,20 +42,21 @@ const EmployerInternshipList: React.FC = () => {
   }
 
   return (
-    <div className="internship-list">
-      <h2>Posted Internships</h2>
-      {internships.length === 0 ? (
-        <p>No internships found.</p>
-      ) : (
-        <ul>
-          {internships.map((internship) => (
-            <li key={internship.id}>
-              <h3>{internship.title}</h3>
-              <p>{internship.description}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="employer-internship-list-page">
+      <NavbarEmployer />
+      <div className="card-list">
+        {internships.length === 0 ? (
+          <p>No internships found.</p>
+        ) : (
+          internships.map((internship) => (
+            <Card
+              title={internship.title}
+              description={`Description: ${internship.description} | Requirements: ${internship.requirements} | Location: ${internship.location} | Duration: ${internship.duration} | Salary: ${internship.salary || "Not specified"}`}
+              link={``} 
+            />
+          ))
+        )}
+      </div>
     </div>
   );
 };

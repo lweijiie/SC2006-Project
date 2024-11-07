@@ -19,7 +19,7 @@ jwt = JWTManager(app)
 @jwt_required()
 def get_courses():
     # Fetch courses from the database
-    courses = mongo.db.SkillsFutureCourses.find()  # Your collection name
+    courses = mongo.db.SkillsFutureCourses.find()  
     courses_list = list(courses)  # Convert cursor to list
 
     # Format the courses to set a default for endorsement if it doesn’t exist
