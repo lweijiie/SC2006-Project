@@ -2,7 +2,6 @@ from flask import Flask, Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from bson import ObjectId
 
 # Initialise Blueprint
 allcourses_bp = Blueprint('allcourses', __name__)
@@ -14,6 +13,15 @@ mongo = PyMongo(app)
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # Change this to a random secret key
 jwt = JWTManager(app)
 
+# Helper function to recursively convert ObjectId to string
+def convert_objectid(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    elif isinstance(obj, dict):
+        return {key: convert_objectid(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_objectid(item) for item in obj]
+    return obj
 
 @allcourses_bp.route('/api/courses', methods=['GET'])
 @jwt_required()
@@ -27,6 +35,9 @@ def get_courses():
         course['_id'] = str(course['_id'])  # Convert ObjectId to string
         if 'endorsement' not in course:
             course['endorsement'] = 0  # Initialize endorsement if it is missing
+
+    # Recursively convert all ObjectId fields to string before returning
+    courses_list = convert_objectid(courses_list)
 
     return jsonify(courses_list), 200  # Return JSON response
 
@@ -76,8 +87,7 @@ def endorse_course(course_id):
             updated_employer = mongo.cx['AppDB'].employers.find_one({'_id': employer_id})
             if updated_employer:
                 # Convert the ObjectId fields to strings for JSON serialization
-                updated_employer['_id'] = str(updated_employer['_id'])
-                updated_employer['endorsed_courses'] = [str(cid) for cid in updated_employer.get('endorsed_courses', [])]
+                updated_employer = convert_objectid(updated_employer)
             return jsonify({"message": "Endorsement added successfully.", "employer": updated_employer}), 200
         else:
             return jsonify({"error": "Failed to update employer's endorsed courses."}), 500
@@ -88,4 +98,3 @@ def endorse_course(course_id):
 if __name__ == '__main__':
     app.register_blueprint(allcourses_bp)
     app.run(debug=True)
-
