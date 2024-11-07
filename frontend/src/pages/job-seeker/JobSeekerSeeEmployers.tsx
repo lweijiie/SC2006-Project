@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // Import useParams to get the dynamic route params
 import FetchEmployerProfile from "../../services/FetchEmployerProfile"; // Service to fetch the profile
+import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
 
 const JobSeekerSeeEmployers: React.FC = () => {
   const { user_id } = useParams(); // Get the user_id from the URL params
@@ -37,49 +38,52 @@ const JobSeekerSeeEmployers: React.FC = () => {
   }
 
   return (
-    <div className="container">
-      <h2 className="form-title">Employer Profile</h2>
-      {profile ? (
-        <div>
-          <div className="user-box">
-            <label className="field-label">Company Name</label>
-            <input
-              type="text"
-              name="companyName"
-              value={profile.companyName ?? ""}
-              disabled={true}
-            />
+    <div>
+      <NavbarJobSeeker />
+      <div className="container">
+        <h2 className="form-title">Employer Profile</h2>
+        {profile ? (
+          <div>
+            <div className="user-box">
+              <label className="field-label">Company Name</label>
+              <input
+                type="text"
+                name="companyName"
+                value={profile.companyName ?? ""}
+                disabled={true}
+              />
+            </div>
+            <div className="user-box">
+              <label className="field-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={profile.email ?? ""}
+                disabled={true}
+              />
+            </div>
+            <div className="user-box">
+              <label className="field-label">Industry</label>
+              <input
+                name="industry"
+                value={profile.industry ?? ""}
+                disabled={true}
+              />
+            </div>
+            <div className="user-box">
+              <label className="field-label">Company Description</label>
+              <input
+                type="text"
+                name="companyDescription"
+                value={profile.companyDescription ?? ""}
+                disabled={true}
+              />
+            </div>
           </div>
-          <div className="user-box">
-            <label className="field-label">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={profile.email ?? ""}
-              disabled={true}
-            />
-          </div>
-          <div className="user-box">
-            <label className="field-label">Industry</label>
-            <input
-              name="industry"
-              value={profile.industry ?? ""}
-              disabled={true}
-            />
-          </div>
-          <div className="user-box">
-            <label className="field-label">Company Description</label>
-            <input
-              type="text"
-              name="companyDescription"
-              value={profile.companyDescription ?? ""}
-              disabled={true}
-            />
-          </div>
-        </div>
-      ) : (
-        <div>No profile data found.</div>
-      )}
+        ) : (
+          <div>No profile data found.</div>
+        )}
+      </div>
     </div>
   );
 };
