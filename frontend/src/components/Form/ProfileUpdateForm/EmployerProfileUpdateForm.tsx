@@ -4,28 +4,28 @@ import FetchEmployerProfile from "../../../services/FetchEmployerProfile";
 import { API_BASE_URL, INDUSTRY_LIST, NAV_LINKS } from "../../../constants";
 import { useNavigate } from "react-router-dom";
 
-interface EmployerProfileUpdateFormProps {}
-
-const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () => {
+const EmployerProfileUpdateForm: React.FC = () => {
   const access_token = localStorage.getItem("access_token") || "";
   const user_id = localStorage.getItem("user_id") || "";
 
   const [profile, setProfile] = useState<EmployerData>({
     _id: "",
+    companyName: "",
     email: "",
     industry: "",
-    companyName: "",
     companyDescription: "",
   });
   const [isEditing, setIsEditing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
+  const [companyNameError, setCompanyNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [industryError, setIndustryError] = useState("");
-  const [companyNameError, setCompanyNameError] = useState("");
   const [companyDescriptionError, setCompanyDescriptionError] = useState("");
 
   const navigate = useNavigate();
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -41,10 +41,14 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
   }, [user_id, access_token]);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setProfile((prevProfile) => ({ ...prevProfile, [name]: value }));
+    if (profile) {
+      setProfile(
+        (prevProfile) => ({ ...prevProfile, [name]: value } as EmployerData)
+      );
+    }
   };
 
   const toggleEdit = () => {
@@ -55,11 +59,19 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    setCompanyNameError("");
     setEmailError("");
     setIndustryError("");
-    setCompanyNameError("");
     setCompanyDescriptionError("");
     let hasError = false;
+
+    if (profile.companyName === "") {
+      setCompanyNameError("Please enter your company name");
+      hasError = true;
+    } else if (!/^[a-zA-Z ]*$/.test(profile.companyName)) {
+      setCompanyNameError("Please enter a valid company name");
+      hasError = true;
+    }
 
     if (profile.email === "") {
       setEmailError("Please enter your email");
@@ -74,13 +86,11 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
       hasError = true;
     }
 
-    if (profile.companyName === "") {
-      setCompanyNameError("Please enter your company name");
-      hasError = true;
-    }
-
     if (profile.companyDescription === "") {
       setCompanyDescriptionError("Please enter your company description");
+      hasError = true;
+    } else if (!/^[a-zA-Z ]*$/.test(profile.companyDescription)) {
+      setCompanyDescriptionError("Please enter a valid company description");
       hasError = true;
     }
 
@@ -97,8 +107,8 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
           },
           body: JSON.stringify({
             email: profile.email,
-            industry: profile.industry,
             company_name: profile.companyName,
+            industry: profile.industry,
             company_description: profile.companyDescription,
           }),
         }
@@ -108,6 +118,7 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
+        await delay(1000);
         navigate(NAV_LINKS.employer_home);
       } else {
         setMessage(data.message || "Failed to update profile");
@@ -123,11 +134,24 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
       {profile ? (
         <form onSubmit={handleSubmit}>
           <div className="user-box">
+            <label className="field-label">Company Name</label>
+            <input
+              type="text"
+              name="companyName"
+              value={profile.companyName ?? ""}
+              onChange={handleInputChange}
+              disabled={!isEditing}
+            />
+            {companyNameError && (
+              <label className="errorLabel">{companyNameError}</label>
+            )}
+          </div>
+          <div className="user-box">
             <label className="field-label">Email</label>
             <input
               type="email"
               name="email"
-              value={profile.email}
+              value={profile.email ?? ""}
               onChange={handleInputChange}
               disabled={!isEditing}
             />
@@ -137,9 +161,9 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
             <label className="field-label">Industry</label>
             <select
               name="industry"
-              value={profile.industry}
+              value={profile.industry ?? ""}
               onChange={handleInputChange}
-              disabled={!isEditing}
+              className="user-box"
             >
               <option value="">Select Industry</option>
               {INDUSTRY_LIST.map((industry, index) => (
@@ -153,23 +177,11 @@ const EmployerProfileUpdateForm: React.FC<EmployerProfileUpdateFormProps> = () =
             )}
           </div>
           <div className="user-box">
-            <label className="field-label">Company Name</label>
+            <label className="field-label">Company Description</label>
             <input
               type="text"
-              name="companyName"
-              value={profile.companyName}
-              onChange={handleInputChange}
-              disabled={!isEditing}
-            />
-            {companyNameError && (
-              <label className="errorLabel">{companyNameError}</label>
-            )}
-          </div>
-          <div className="user-box">
-            <label className="field-label">Company Description</label>
-            <textarea
               name="companyDescription"
-              value={profile.companyDescription}
+              value={profile.companyDescription ?? ""}
               onChange={handleInputChange}
               disabled={!isEditing}
             />

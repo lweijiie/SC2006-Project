@@ -1,5 +1,7 @@
 import React from "react";
 import "./Navbar.css";
+import { useNavigate } from "react-router-dom";
+import { NAV_LINKS } from "../../constants";
 
 interface NavItem {
   label: string;
@@ -17,6 +19,13 @@ const Navbar: React.FC<NavbarProps> = ({
   navLeftItems,
   navRightItems,
 }) => {
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user_id");
+    navigate(NAV_LINKS.home);
+  };
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -38,6 +47,9 @@ const Navbar: React.FC<NavbarProps> = ({
               {item.label}
             </a>
           ))}
+        </div>
+        <div className="log-out-button">
+          <button onClick={handleLogOut}>Log Out</button>
         </div>
       </div>
     </div>
