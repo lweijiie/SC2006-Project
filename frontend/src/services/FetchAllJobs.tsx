@@ -16,7 +16,7 @@ const FetchAllJobs = async (
 ): Promise<InternshipData[]> => {
   try {
     const response = await fetch(
-      `${API_BASE_URL}/internships?page=1&per_page=5`,
+      `${API_BASE_URL}/internships?page=1&per_page=20`,
       {
         method: "GET",
         headers: {
