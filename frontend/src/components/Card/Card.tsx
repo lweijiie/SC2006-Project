@@ -10,15 +10,17 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ title, description, link }) => {
   return (
     <a
-      href={link}
-      target="_blank"
-      rel="noopener noreferrer"
+      href={link} // The link redirects to the website URL
+      target="_blank" // Opens in a new tab
+      rel="noopener noreferrer" // Prevents security risks with `target="_blank"`
       className="card-link"
     >
       <div className="card">
         <div className="card-content">
           <h3 className="card-title">{title}</h3>
-          <p className="card-description">{description}</p>
+          <div className="card-description">
+            <p>{description}</p>
+          </div>
         </div>
       </div>
     </a>
