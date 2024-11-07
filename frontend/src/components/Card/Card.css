@@ -4,11 +4,24 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   width: 300px;
   margin: 16px;
-  background-color: #fff;
+  background: rgba(255, 145, 0, 0.9);
   transition: transform 0.3s;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit; /* Keeps the color of the text as it appears in the parent element */
+}
+
+.card-link:visited {
+  color: inherit; /* Keeps visited links from turning purple */
+}
+
+.card-link:hover {
+  text-decoration: none; /* Ensures no underline on hover as well */
 }
 
 .card:hover {
