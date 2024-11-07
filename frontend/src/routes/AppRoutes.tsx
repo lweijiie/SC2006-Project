@@ -19,6 +19,10 @@ interface Props {
 }
 
 const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
+
+  const employer_id = localStorage.getItem("user_id") || "";
+  const access_token = localStorage.getItem("access_token") || "";
+
   return (
     <Router>
       <Routes>
@@ -59,7 +63,7 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
 
         <Route
           path="/employer/internships" 
-          element={<EmployerInternshipList  />} 
+          element={<EmployerInternshipList/>} 
         />
 
       </Routes>

@@ -7,6 +7,11 @@ const navbarLeftItems = [
     label: "List Internship",
     link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_list_internship}`,
   },
+  {
+    label: "My Internships",  // New item
+    link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_display_internships}`,  // Assuming employer_internships is defined in NAV_LINKS
+  },
+
 ];
 
 const navbarRightItems = [
