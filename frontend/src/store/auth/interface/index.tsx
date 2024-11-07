@@ -23,3 +23,27 @@ export interface InternshipData {
   duration: string;
   salary?: string;
 }
+
+// CourseData interface should include all the necessary properties
+export interface CourseData {
+  title: string;
+  objective: string;
+  totalCostOfTrainingPerTrainee: number;
+  lengthOfCourseDurationHour: number;
+  url: string;
+  trainingProvider: {
+    name: string;
+    aboutUs?: string;
+    websiteUrl?: string;
+  };
+  methodOfDeliveries: {
+    description: string;
+  }[];
+  category: {
+    description: string;
+  };
+  areaOfTrainings: {
+    description: string;
+  }[];
+  entryRequirement: string;
+}
