@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./JobSeekerCourses.css";
 import Card from "../../components/Card/Card";
 import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
-import { NAV_LINKS } from "../../constants";
 import FetchAllCourses from "../../services/FetchAllCourses";
 
 const JobSeekerCourses: React.FC = () => {
@@ -22,10 +21,21 @@ const JobSeekerCourses: React.FC = () => {
     fetchCourses();
   }, []);
 
+  // Helper function to trim objective to 4 lines and add "..."
+  const truncateText = (text: string, lines: number): string => {
+    const lineHeight = 1.4; // Adjust if necessary based on your styling
+    const maxCharsPerLine = 20; // Estimate based on font size and container width
+    const maxChars = maxCharsPerLine * lines * lineHeight;
+    return text.length > maxChars ? text.substring(0, maxChars) + "..." : text;
+  };
+
   // Helper function to construct course description
   const getCourseDescription = (course: any): string => {
+    // Truncate the objective to 4 lines
+    const truncatedObjective = truncateText(course.objective, 4);
+
     return `
-      Objective: ${course.objective}
+      Objective: ${truncatedObjective}
       Cost: $${course.totalCostOfTrainingPerTrainee}
       Duration: ${course.lengthOfCourseDurationHour} hours
       Provider: ${course.trainingProvider.name}

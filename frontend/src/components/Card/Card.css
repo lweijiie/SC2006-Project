@@ -48,7 +48,6 @@
   color: black;
   white-space: pre-wrap; /* Ensures text wraps correctly */
   display: -webkit-box;
-  -webkit-line-clamp: 15; /* Limit to 4 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis; /* Add "..." when the text is truncated */
