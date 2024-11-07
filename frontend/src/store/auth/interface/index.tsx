@@ -15,6 +15,17 @@ export interface EmployerData {
   companyDescription: string;
 }
 
+export interface MongoInternshipData {
+  _id: string; // MongoDB-generated ID for existing internships, NOT BY EMPLOYER
+  employer_id?: string;
+  title: string;
+  description: string;
+  requirements: string;
+  location: string;
+  duration: string;
+  salary?: string;
+}
+
 export interface InternshipData {
   title: string;
   description: string;
