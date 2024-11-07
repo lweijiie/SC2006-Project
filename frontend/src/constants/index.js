@@ -32,6 +32,7 @@ export const INDUSTRY_LIST = [
 
 export const EDUCATION_LIST = [
   "Secondary",
+  "Polytechnic",
   "Junior College",
   "Undergraduate",
   "Postgraduate",

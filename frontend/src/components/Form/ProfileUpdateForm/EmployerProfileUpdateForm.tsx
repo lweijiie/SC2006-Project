@@ -51,7 +51,8 @@ const EmployerProfileUpdateForm: React.FC = () => {
     }
   };
 
-  const toggleEdit = () => {
+  const toggleEdit = (e: React.FormEvent) => {
+    e.preventDefault();
     setIsEditing(!isEditing);
     setMessage(null);
   };
