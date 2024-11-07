@@ -40,3 +40,15 @@ export interface EmployerRegistrationBody extends AuthBody {}
 export interface Token {
   token: string;
 }
+
+export interface InternshipData {
+  id?: string; 
+  employer_id?: string; 
+  title: string;
+  description: string;
+  requirements: string;
+  location: string;
+  duration: string;
+  salary?: string;
+  posted_date?: string;
+}
