@@ -161,7 +161,7 @@ def update_employer_profile(user_id):
             {'_id': ObjectId(user_id)},  # Find the user by ID
             {'$set': update_fields}  # Update new fields dynamically
         )
-        if result.modified_count:
+        if result:
             return jsonify({'message': 'Profile updated successfully!'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
