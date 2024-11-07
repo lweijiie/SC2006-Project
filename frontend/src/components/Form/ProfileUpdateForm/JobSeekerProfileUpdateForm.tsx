@@ -192,6 +192,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               value={profile.industry ?? ""}
               onChange={handleInputChange}
               className="user-box"
+              disabled={!isEditing}
             >
               <option value="">Select Industry</option>
               {INDUSTRY_LIST.map((industry, index) => (
@@ -211,6 +212,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               value={profile.education ?? ""}
               onChange={handleInputChange}
               className="user-box"
+              disabled={!isEditing}
             >
               <option value="">Select Education</option>
               {EDUCATION_LIST.map((education, index) => (
