@@ -13,13 +13,13 @@ import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
 import React from "react";
 import JobSeekerCourses from "../pages/job-seeker/JobSeekerCourses";
 import JobSeekerJobs from "../pages/job-seeker/JobSeekerJobs";
+import EmployerInternshipList from "../pages/employer/EmployerInternshipList";
 
 interface Props {
   handleLogin: (userId: string, access_token: string) => void;
 }
 
 const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
-
   const employer_id = localStorage.getItem("user_id") || "";
   const access_token = localStorage.getItem("access_token") || "";
 
@@ -66,10 +66,9 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
         />
 
         <Route
-          path="/employer/internships" 
-          element={<EmployerInternshipList/>} 
+          path="/employer/internships"
+          element={<EmployerInternshipList />}
         />
-
       </Routes>
     </Router>
   );
