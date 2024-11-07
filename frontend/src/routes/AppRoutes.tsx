@@ -10,6 +10,7 @@ import EmployerLogin from "../pages/employer/EmployerLogin";
 import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
+import EmployerInternshipList from "../pages/employer/EmployerInternshipList"; // Import your new component
 import React from "react";
 
 interface Props {
@@ -50,6 +51,12 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
           path="/employer/post-internship"
           element={<EmployerPostInternship />}
         />
+
+        <Route
+          path="/employer/internships" 
+          element={<EmployerInternshipList  />} 
+        />
+
       </Routes>
     </Router>
   );
