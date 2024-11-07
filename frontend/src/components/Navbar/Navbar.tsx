@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
 import { NAV_LINKS } from "../../constants";
 
 interface NavItem {
   label: string;
-  link: string;
+  link?: string;
+  dropdown?: { label: string; link: string }[];
 }
 
 interface NavbarProps {
@@ -20,12 +21,18 @@ const Navbar: React.FC<NavbarProps> = ({
   navRightItems,
 }) => {
   const navigate = useNavigate();
-
   const handleLogOut = () => {
     localStorage.removeItem("access_token");
     localStorage.removeItem("user_id");
     navigate(NAV_LINKS.home);
   };
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -34,9 +41,27 @@ const Navbar: React.FC<NavbarProps> = ({
         </a>
         <div className="navbar-items">
           {navLeftItems.map((item, index) => (
-            <a key={index} className="navbar-item" href={item.link}>
-              {item.label}
-            </a>
+            item.dropdown ? (
+              <div
+                key={index}
+                className="navbar-item dropdown"
+                onMouseEnter={toggleDropdown}
+                onMouseLeave={toggleDropdown}
+              >
+                {item.label}
+                <div className={`dropdown-menu ${dropdownOpen ? "open" : ""}`}>
+                  {item.dropdown.map((subItem, subIndex) => (
+                    <a key={subIndex} className="dropdown-item" href={subItem.link}>
+                      {subItem.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <a key={index} className="navbar-item" href={item.link}>
+                {item.label}
+              </a>
+            )
           ))}
         </div>
       </div>
