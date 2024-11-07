@@ -15,6 +15,7 @@ import EmployerEditInternshipForm from "../components/Form/InternshipForm/Employ
 import React from "react";
 import JobSeekerCourses from "../pages/job-seeker/JobSeekerCourses";
 import JobSeekerJobs from "../pages/job-seeker/JobSeekerJobs";
+import JobSeekerSeeEmployers from "../pages/job-seeker/JobSeekerSeeEmployers";
 
 interface Props {
   handleLogin: (userId: string, access_token: string) => void;
@@ -49,6 +50,10 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
         <Route
           path={NAV_LINKS.job_seeker_job_search}
           element={<JobSeekerJobs />}
+        />
+        <Route
+          path={`${NAV_LINKS.job_seeker_see_employers_base_link}:user_id`}
+          element={<JobSeekerSeeEmployers />}
         />
 
         <Route path={NAV_LINKS.employer_sign_up} element={<EmployerSignUp />} />

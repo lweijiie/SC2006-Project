@@ -10,13 +10,14 @@ export const NAV_LINKS = {
   job_seeker_profile: "/profile/job-seeker",
   job_seeker_job_search: "/job/job-seeker",
   job_seeker_find_course: "/course/job-seeker",
+  job_seeker_see_employers_base_link: "/view-employer/",
 
   employer_home: "/home/employer",
   employer_sign_up: "/sign-up/employer",
   employer_login: "/login/employer",
   employer_profile: "/profile/employer",
   employer_list_internship: "/employer/post-internship",
-  employer_display_internships: "/employer/internships"
+  employer_display_internships: "/employer/internships",
 };
 
 export const USER_TYPE = {
