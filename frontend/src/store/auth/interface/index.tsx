@@ -23,32 +23,3 @@ export interface InternshipData {
   duration: string;
   salary?: string;
 }
-
-export interface AuthBody {
-  email: string;
-  password: string;
-}
-
-export interface JobSeekerRegistrationBody extends AuthBody {
-  firstName: string;
-  lastName: string;
-  industry: string;
-}
-
-export interface EmployerRegistrationBody extends AuthBody {}
-
-export interface Token {
-  token: string;
-}
-
-export interface InternshipData {
-  id?: string; 
-  employer_id?: string; 
-  title: string;
-  description: string;
-  requirements: string;
-  location: string;
-  duration: string;
-  salary?: string;
-  posted_date?: string;
-}
