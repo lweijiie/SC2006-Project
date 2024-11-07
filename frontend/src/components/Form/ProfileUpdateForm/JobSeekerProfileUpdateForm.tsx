@@ -58,7 +58,8 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
     }
   };
 
-  const toggleEdit = () => {
+  const toggleEdit = (e: React.FormEvent) => {
+    e.preventDefault();
     setIsEditing(!isEditing);
     setMessage(null);
   };
@@ -107,7 +108,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       hasError = true;
     }
 
-    if (!profile) return;
+    if (hasError) return;
 
     try {
       const response = await fetch(
