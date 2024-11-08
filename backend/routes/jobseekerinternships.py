@@ -5,6 +5,10 @@ from pymongo import MongoClient
 from models.models import UserType
 from datetime import datetime, timedelta
 from bson import ObjectId
+from flask import Flask, Blueprint, jsonify, request
+from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 
 # Initialize the blueprint
 jobseekerinternship_bp = Blueprint('jobseekerinternship_bp', __name__)
@@ -14,6 +18,13 @@ client = MongoClient(uri)
 jobseekers = client.AppDB.jobseekers
 employers = client.AppDB.employers
 internships = client.InternshipDB.Internships 
+
+"""# Flask app initialization
+app = Flask(__name__)
+app.config['MONGO_URI'] = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/SkillsFutureDB?retryWrites=true&w=majority&appName=CareerPathNow"  # Set MongoDB URI in Flask config
+mongo = PyMongo(app)
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # Change this to a random secret key
+jwt = JWTManager(app)"""
 
 # Get Internship by ID
 @jobseekerinternship_bp.route('/internship/<internship_id>', methods=['GET'])
