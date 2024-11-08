@@ -10,6 +10,7 @@ export const NAV_LINKS = {
   job_seeker_profile: "/profile/job-seeker",
   job_seeker_job_search: "/job/job-seeker",
   job_seeker_find_course: "/course/job-seeker",
+  job_seeker_personalised_courses: "/personalised-courses/job-seeker",
   job_seeker_see_employers_base_link: "/view-employer/",
 
   employer_home: "/home/employer",
