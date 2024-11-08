@@ -114,7 +114,7 @@ def get_employer_internships(employer_id):
     employer_internships = internships.find({"employer_id": employer_id})
     internship_list = [
         {
-            "id": str(internship["_id"]),
+            "_id": str(internship["_id"]),
             "title": internship.get("title", ""),
             "description": internship.get("description", ""),
             "requirements": internship.get("requirements", ""),

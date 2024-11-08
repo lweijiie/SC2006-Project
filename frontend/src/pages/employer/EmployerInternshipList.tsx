@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FetchEmployerInternships from "../../services/FetchEmployerInternships";
-import { InternshipData } from "../../store/auth/interface";
+import { MongoInternshipData } from "../../store/auth/interface";
 import Card from "../../components/Card/Card";
 import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
 import "../job-seeker/JobSeekerCourses.css";
 
 const EmployerInternshipList: React.FC = () => {
-    const [internships, setInternships] = useState<InternshipData[]>([]);
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-  
-    // always retrieve user_id and access_token from local storage
-    const employer_id = localStorage.getItem("user_id") || "";
-    const access_token = localStorage.getItem("access_token") || "";
-  
+  const [internships, setInternships] = useState<MongoInternshipData[]>([]); // Using MongoInternshipData[]
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const employer_id = localStorage.getItem("user_id") || "";
+  const access_token = localStorage.getItem("access_token") || "";
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchInternships = async () => {
       try {
         setLoading(true);
         const data = await FetchEmployerInternships(employer_id, access_token);
-        setInternships(data.internships);
+        setInternships(data.internships); // The internships should include _id
         setError(null);
       } catch (error) {
         setError(
@@ -32,6 +34,10 @@ const EmployerInternshipList: React.FC = () => {
 
     fetchInternships();
   }, [employer_id, access_token]);
+
+  const handleEditClick = (internship: MongoInternshipData) => {
+    navigate(`/employer/edit-internship/${internship._id}`);
+  };
 
   if (loading) {
     return <p>Loading internships...</p>;
@@ -49,11 +55,14 @@ const EmployerInternshipList: React.FC = () => {
           <p>No internships found.</p>
         ) : (
           internships.map((internship) => (
-            <Card
-              title={internship.title}
-              description={`Description: ${internship.description} | Requirements: ${internship.requirements} | Location: ${internship.location} | Duration: ${internship.duration} | Salary: ${internship.salary || "Not specified"}`}
-              link={``} 
-            />
+            <div key={internship._id}>
+              <Card
+                title={internship.title}
+                description={`Description: ${internship.description} | Requirements: ${internship.requirements} | Location: ${internship.location} | Duration: ${internship.duration} | Salary: ${internship.salary || "Not specified"}`}
+                link={""}
+              />
+              <button onClick={() => handleEditClick(internship)}>Edit</button>
+            </div>
           ))
         )}
       </div>
