@@ -10,20 +10,19 @@ import EmployerLogin from "../pages/employer/EmployerLogin";
 import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
+import EmployerInternshipList from "../pages/employer/EmployerInternshipList";
 import React from "react";
-import { EmployerData } from "../store/auth/interface";
+import JobSeekerCourses from "../pages/job-seeker/JobSeekerCourses";
+import JobSeekerJobs from "../pages/job-seeker/JobSeekerJobs";
 
 interface Props {
-  handleJobSeekerLogin: (userId: string, access_token: string) => void;
-  handleEmployerLogin: (userId: string, access_token: string) => void;
-  employerProfile: EmployerData;
+  handleLogin: (userId: string, access_token: string) => void;
 }
 
-const AppRoutes: React.FC<Props> = ({
-  handleJobSeekerLogin,
-  handleEmployerLogin,
-  employerProfile,
-}) => {
+const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
+  const employer_id = localStorage.getItem("user_id") || "";
+  const access_token = localStorage.getItem("access_token") || "";
+
   return (
     <Router>
       <Routes>
@@ -35,25 +34,41 @@ const AppRoutes: React.FC<Props> = ({
         />
         <Route
           path={NAV_LINKS.job_seeker_login}
-          element={<JobSeekerLogin onLogin={handleJobSeekerLogin} />}
+          element={<JobSeekerLogin onLogin={handleLogin} />}
         />
         <Route path={NAV_LINKS.job_seeker_home} element={<JobSeekerHome />} />
         <Route
           path={NAV_LINKS.job_seeker_profile}
           element={<JobSeekerProfilePage />}
         />
+        <Route
+          path={NAV_LINKS.job_seeker_find_course}
+          element={<JobSeekerCourses />}
+        />
+        <Route
+          path={NAV_LINKS.job_seeker_job_search}
+          element={<JobSeekerJobs />}
+        />
 
         <Route path={NAV_LINKS.employer_sign_up} element={<EmployerSignUp />} />
         <Route
           path={NAV_LINKS.employer_login}
-          element={<EmployerLogin onLogin={handleEmployerLogin} />}
+          element={<EmployerLogin onLogin={handleLogin} />}
         />
         <Route path={NAV_LINKS.employer_home} element={<EmployerHome />} />
         <Route
           path={NAV_LINKS.employer_profile}
           element={<EmployerProfilePage />}
         />
-        <Route path="/employer/post-internship" element={<EmployerPostInternship />} />
+        <Route
+          path={NAV_LINKS.employer_list_internship}
+          element={<EmployerPostInternship />}
+        />
+
+        <Route
+          path="/employer/internships"
+          element={<EmployerInternshipList />}
+        />
       </Routes>
     </Router>
   );
