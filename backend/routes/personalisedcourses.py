@@ -10,6 +10,16 @@ client = MongoClient(uri)
 courses = client.SkillsFutureDB.SkillsFutureCourses
 jobseekers = client.AppDB.jobseekers
 
+# Helper function to convert ObjectId to string
+def convert_objectid(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    elif isinstance(obj, dict):
+        return {key: convert_objectid(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_objectid(item) for item in obj]
+    return obj
+
 @personalisedcourses_bp.route('/get-personalised-courses/<user_id>', methods=['GET'])
 @jwt_required()
 def get_courses(user_id):
@@ -31,33 +41,36 @@ def get_courses(user_id):
         if not industry:
             return jsonify({'message': 'User does not have an industry specified'}), 400
         
+        # Allow "Others" and "Personal Development" as fallback industries
         industry_list = [industry, "Others", "Personal Development"]
 
         # Step 2: Get pagination parameters (page number and number of courses per page)
         page = int(request.args.get('page', 1))  # Default to page 1 if not provided
-        # if page is less than 1 or more than 100 return error 400
-        if page<1 or page>100:
+        if page < 1 or page > 100:
             return jsonify({'message': 'Page must be within [1,100]'}), 400
         
         per_page = int(request.args.get('per_page', 10))  # Default to 10 courses per page
-        if per_page<1 or per_page>10:
-            return jsonify({'message': 'Per_Page must be within [1,10]'}), 400
-
+        if per_page < 1 or per_page > 50:  # Adjusting the per_page limit to be a bit more flexible
+            return jsonify({'message': 'Per_Page must be within [1,50]'}), 400
 
         training_type = request.args.get('modeOfTrainings')
 
         # Step 3: Query SkillsFutureCourses where areaOfTrainings.description matches the user's industry
         query = {"areaOfTrainings.description": {"$in": industry_list}}
+        
         if training_type:
             query["modeOfTrainings.description"] = training_type
 
         skip = (page - 1) * per_page
 
+        # Fetch courses
         matched_courses = list(courses.find(query).skip(skip).limit(per_page))
 
+        if not matched_courses:
+            return jsonify({'message': 'No courses found for the given filters'}), 404
+
         # Step 4: Convert ObjectId to string and prepare the response
-        for course in matched_courses:
-            course['_id'] = str(course['_id'])
+        matched_courses = [convert_objectid(course) for course in matched_courses]
 
         return jsonify({
             'message': f'Courses for industry {industry} retrieved successfully!',

@@ -31,6 +31,8 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
   const [educationError, setEducationError] = useState("");
 
   const navigate = useNavigate();
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -56,7 +58,8 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
     }
   };
 
-  const toggleEdit = () => {
+  const toggleEdit = (e: React.FormEvent) => {
+    e.preventDefault();
     setIsEditing(!isEditing);
     setMessage(null);
   };
@@ -105,7 +108,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       hasError = true;
     }
 
-    if (!profile) return;
+    if (hasError) return;
 
     try {
       const response = await fetch(
@@ -130,6 +133,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
       if (response.ok) {
         setMessage("Profile updated successfully!");
         setIsEditing(false);
+        await delay(1000);
         navigate(NAV_LINKS.job_seeker_home);
       } else {
         setMessage(data.message || "Failed to update profile");
@@ -188,6 +192,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               value={profile.industry ?? ""}
               onChange={handleInputChange}
               className="user-box"
+              disabled={!isEditing}
             >
               <option value="">Select Industry</option>
               {INDUSTRY_LIST.map((industry, index) => (
@@ -207,6 +212,7 @@ const JobSeekerProfileUpdateForm: React.FC = () => {
               value={profile.education ?? ""}
               onChange={handleInputChange}
               className="user-box"
+              disabled={!isEditing}
             >
               <option value="">Select Education</option>
               {EDUCATION_LIST.map((education, index) => (
