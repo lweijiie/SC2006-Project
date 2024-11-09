@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   API_BASE_URL,
-  ERROR_TEXT_FIELD_MESSAGE,
   NAV_LINKS,
 } from "../../../constants";
+
+import{
+  validateEmail,
+  validatePassword,
+}from "../../../utils/errorValidation";
 
 interface Props {
   email: string;
@@ -49,24 +53,17 @@ function EmployerSignUpForm() {
 
     // Validation
 
-    if (formData.email === "") {
-      setEmailError(ERROR_TEXT_FIELD_MESSAGE.no_email_error);
-      hasError = true;
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError(ERROR_TEXT_FIELD_MESSAGE.invalid_email_error);
-      hasError = true;
-    }
+    const emailValidation = validateEmail(formData.email);
+    const passwordValidation = validatePassword(formData.password);
 
-    if (formData.password === "") {
-      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.no_password_error);
-      hasError = true;
-    } else if (formData.password.length < 8) {
-      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.under_length_password_error);
-      hasError = true;
-    }
+    setEmailError(emailValidation);
+    setPasswordError(passwordValidation);
 
-    // Stop submission if there are validation errors
-    if (hasError) {
+    // Check validation results directly
+    if (
+      emailValidation ||
+      passwordValidation
+    ) {
       return;
     }
 

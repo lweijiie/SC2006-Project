@@ -1,16 +1,24 @@
 import React from "react";
-import LoginForm from "../../components/Form/LoginForm/LoginForm"; // Adjust the import path as necessary
+import LoginForm from "../../components/Form/LoginForm/LoginForm";
 import Logo from "../../components/Logo/Logo";
 import GoBackButton from "../../components/Button/GoBackButton";
+import "../../pages/styles/LoginPage.css";
 
 const EmployerLogin: React.FC<{
   onLogin: (userId: string, access_token: string) => void;
 }> = ({ onLogin }) => {
   return (
-    <div>
-      <Logo />
-      <GoBackButton />
-      <LoginForm onLogin={onLogin} loginType="Employer" />
+    <div className="login-container">
+      <div className="login-form-section">
+        <div className="logo-container">
+          <Logo />
+        </div>
+        <div className="back-button">
+          <GoBackButton />
+        </div>
+        <LoginForm onLogin={onLogin} loginType="Employer" />
+      </div>
+      <div className="login-image-section" />
     </div>
   );
 };

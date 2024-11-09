@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import logo from "../../assets/logo.svg";
+import GoBackButton from "../../components/Button/GoBackButton";
+import Logo from "../../components/Logo/Logo";
 import EmployerSignUpForm from "../../components/Form/SignUpForm/EmployerSignUpForm";
 
 const EmployerSignUp: React.FC = () => {
@@ -11,13 +11,9 @@ const EmployerSignUp: React.FC = () => {
   };
   return (
     <div>
+      <Logo />
+      <GoBackButton />
       <EmployerSignUpForm />
-      <img
-        src={logo}
-        alt="Go Back"
-        onClick={handleGoBack}
-        style={{ cursor: "pointer", marginTop: "15px" }}
-      />
     </div>
   );
 };
