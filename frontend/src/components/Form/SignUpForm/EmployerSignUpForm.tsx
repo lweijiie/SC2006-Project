@@ -25,6 +25,8 @@ function EmployerSignUpForm() {
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -70,6 +72,7 @@ function EmployerSignUpForm() {
     // Show loading state and reset errors
     setLoading(true);
     setError(null);
+    setSuccessMessage(null); 
 
     try {
       const response = await fetch(API_BASE_URL + "/register-employer", {
@@ -87,6 +90,7 @@ function EmployerSignUpForm() {
 
       const data = await response.json();
       console.log("Registration successful:", data);
+      setSuccessMessage("Successfully signed up!");
 
       // Redirect to login page on successful registration
       navigate(NAV_LINKS.employer_login);
@@ -96,7 +100,9 @@ function EmployerSignUpForm() {
       setLoading(false);
     }
   };
-
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   return (
     <div className="container">
       <h2 className="form-title">Create an Account</h2>
@@ -113,20 +119,28 @@ function EmployerSignUpForm() {
           {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
         <div className="user-box">
-          <input
-            type="password"
+        <input
+            type={passwordVisible ? "text" : "password"}
             name="password"
             value={formData.password}
-            placeholder="Enter password here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter password here"
+            required
           />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="password-toggle-button"
+          >
+            {passwordVisible ? "👁️" : "🙈"}
+          </button>
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
           )}
         </div>
 
         {error && <p className="errorLabel">{error}</p>}
+        {successMessage && <p className="successLabel">{successMessage}</p>} 
         <button type="submit" className="input-button" disabled={loading}>
           {loading ? "Signing up..." : "Sign Up"}
         </button>
