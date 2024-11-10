@@ -5,6 +5,7 @@ import Logo from '../../assets/logo.svg';
 
 function NavbarLanding() {
     const [click, setClick] = useState(false);
+
     const handleClick = () => setClick(!click);
     const closeMobileMenu = () => setClick(false);
 
@@ -17,7 +18,15 @@ function NavbarLanding() {
                         <img src={Logo} alt="Logo" className="logo-image" />
                     </Link>
                 </div>
-                {/* Navigation links wrapped in ul */}
+
+                {/* Hamburger Icon for Mobile */}
+                <div className="hamburger" onClick={handleClick}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                {/* Navigation links */}
                 <ul className={click ? 'nav-menu active' : 'nav-menu'}>
                     <li className="navbar-items">
                         <Link to="/about-us" className="navbar-link" onClick={closeMobileMenu}>

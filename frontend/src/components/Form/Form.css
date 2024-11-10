@@ -202,3 +202,9 @@ input[type="text"] {
   padding-right: 40px; /* Add padding to the right to make space for the button */
 }
 
+.successLabel {
+  color: green;
+  font-size: 1rem;
+  margin-top: 10px;
+  text-align: center;
+}

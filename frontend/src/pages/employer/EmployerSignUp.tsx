@@ -10,10 +10,16 @@ const EmployerSignUp: React.FC = () => {
     navigate("/"); // Navigate back to the landing page
   };
   return (
-    <div>
-      <Logo />
-      <GoBackButton />
-      <EmployerSignUpForm />
+    <div className="login-container">
+      <div className="login-form-section">
+        <div className="logo-container">
+          <Logo />
+        </div>
+        <div className="back-button">
+          <GoBackButton />
+        </div>
+        <EmployerSignUpForm />
+      </div>
     </div>
   );
 };

@@ -1,66 +1,41 @@
-/* Container to hold both sections */
+/* Main container */
 .login-container {
     display: flex;
     height: 100vh;
     width: 100%;
-    position: relative; /* Ensures content within container can be positioned properly */
+    position: relative;
 }
 
-/* This will occupy a slightly larger portion of the left side */
-.login-form-section {
-    flex: 1.2; /* Expanding the left section */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Vertically center the form */
-    align-items: center; /* Horizontally center the form */
-    padding: 2rem;
-    background-color: rgb(249, 232, 212);
-    position: relative; /* To position logo and back button */
-}
-
-/* This section will occupy a smaller portion of the right side */
+/* Image section by default */
 .login-image-section {
-    flex: 0.8; /* Reducing the right section */
+    flex: 0.8;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/GARDENS.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    position: relative;
+}
+
+/* Form section by default */
+.login-form-section {
+    flex: 1.2;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative; /* For text overlay positioning */
-}
-
-/* Text overlay for the right section */
-.right-text-overlay {
-    position: absolute;
-    top: 50%;
-    left: 82.5%;
-    transform: translate(-50%, -50%); /* Center text */
-    text-align: center;
-    color: white;
-    z-index: 1; /* Ensure the text is above the background */
-    padding: 0 1rem;
-}
-
-.right-text-overlay h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-}
-
-.right-text-overlay p {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    max-width: 80%;
-    margin: 0 auto;
+    padding: 2rem;
+    background-color: rgb(249, 232, 212);
+    position: relative;
 }
 
 /* Logo styling */
 .logo-container {
     position: absolute;
-    top: 2rem;
+    top: 1rem;
     left: 2rem;
+    width: 150px;
+    height: auto;
+    z-index: 1000;
 }
 
 /* Back button styling */
@@ -68,25 +43,44 @@
     position: absolute;
     top: 2rem;
     right: 2rem;
+    z-index: 1000;
 }
 
-/* Responsive design for mobile */
+/* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .login-container {
         flex-direction: column;
+        min-height: 100vh;
     }
-
+    
     .login-image-section {
-        display: none; /* Hide the image section on smaller screens */
-    }
-
-    .login-form-section {
+        flex: 1;
         width: 100%;
+        height: 100vh;
     }
-
-    /* Adjust text overlay for small screens */
-    .right-text-overlay {
-        top: 60%;
-        font-size: 1.8rem; /* Reduce font size */
+    
+    .login-form-section {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        padding: 1.5rem;
+        background-color: transparent;
+        z-index: 2;
+    }
+    
+    .logo-container {
+        position: fixed;
+        top: -22.8rem; /* Moved up */
+        left: 0.5rem;
+        width: 150px; /* Made smaller for mobile */
+    }
+    
+    .back-button {
+        position: fixed;
+        top: -22.8rem; /* Moved up */
+        right: 0.5rem;
+        padding: 0.5rem;
     }
 }
