@@ -23,7 +23,7 @@ def convert_objectid(obj):
         return [convert_objectid(item) for item in obj]
     return obj
 
-@app.route('/api/courses', methods=['GET'])
+@allcourses_bp.route('/api/courses', methods=['GET'])
 def get_courses():
     # Fetch courses from the database
     courses = mongo.db.SkillsFutureCourses.find()  
