@@ -32,6 +32,7 @@ const FetchAllCourses = async (
 
     // Map the courses to ensure consistent structure
     const courses = data.map((course) => ({
+      id: course.id,
       title: course.title || "Untitled Course", // Fallback for title
       objective: course.objective || "", // Required property for CourseData
       totalCostOfTrainingPerTrainee: course.totalCostOfTrainingPerTrainee || 0, // Fallback for cost
