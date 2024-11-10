@@ -37,6 +37,7 @@ export interface InternshipData {
 
 // CourseData interface should include all the necessary properties
 export interface CourseData {
+  id: string;
   title: string;
   objective: string;
   totalCostOfTrainingPerTrainee: number;

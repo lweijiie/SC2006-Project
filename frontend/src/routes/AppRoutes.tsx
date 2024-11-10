@@ -13,12 +13,12 @@ import EmployerHome from "../pages/employer/EmployerHome";
 import EmployerProfilePage from "../pages/employer/EmployerProfilePage";
 import EmployerPostInternship from "../pages/employer/EmployerPostInternship";
 import EmployerInternshipList from "../pages/employer/EmployerInternshipList";
-import EmployerEditInternshipForm from "../components/Form/InternshipForm/EmployerEditInternshipForm";
 import React from "react";
 import JobSeekerCourses from "../pages/job-seeker/JobSeekerCourses";
 import JobSeekerJobs from "../pages/job-seeker/JobSeekerJobs";
 import JobSeekerSeeEmployers from "../pages/job-seeker/JobSeekerSeeEmployers";
 import JobSeekerPersonalisedCourses from "../pages/job-seeker/JobSeekerPersonalisedCourses";
+import EmployerEditInternship from "../pages/employer/EmployerEditInternship";
 
 interface Props {
   handleLogin: (userId: string, access_token: string) => void;
@@ -84,12 +84,10 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
           path="/employer/internships"
           element={<EmployerInternshipList />}
         />
-        <Route 
-          path="/employer/edit-internship/:internshipId" 
-          element={<EmployerEditInternshipForm />} 
+        <Route
+          path="/employer/edit-internship/:internshipId"
+          element={<EmployerEditInternship />}
         />
-
-
       </Routes>
     </Router>
   );
