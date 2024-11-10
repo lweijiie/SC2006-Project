@@ -5,7 +5,7 @@ import { MongoInternshipData } from "../../store/auth/interface";
 import Card from "../../components/Card/Card";
 import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
 import "../job-seeker/JobSeekerCourses.css";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from "@chakra-ui/react";
 
 const EmployerInternshipList: React.FC = () => {
   const [internships, setInternships] = useState<MongoInternshipData[]>([]); // Using MongoInternshipData[]
@@ -26,7 +26,9 @@ const EmployerInternshipList: React.FC = () => {
         setError(null);
       } catch (error) {
         setError(
-          error instanceof Error ? error.message : "Failed to fetch internships."
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch internships."
         );
       } finally {
         setLoading(false);
@@ -59,7 +61,13 @@ const EmployerInternshipList: React.FC = () => {
             <div key={internship._id}>
               <Card
                 title={internship.title}
-                description={`Description: ${internship.description} | Requirements: ${internship.requirements} | Location: ${internship.location} | Duration: ${internship.duration} | Salary: ${internship.salary || "Not specified"}`}
+                description={`Description: ${
+                  internship.description
+                } | Requirements: ${internship.requirements} | Location: ${
+                  internship.location
+                } | Duration: ${internship.duration} | Salary: ${
+                  internship.salary || "Not specified"
+                }`}
                 link={""}
               />
               <button onClick={() => handleEditClick(internship)}>Edit</button>
