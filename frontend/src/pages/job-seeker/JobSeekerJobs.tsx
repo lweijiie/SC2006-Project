@@ -29,6 +29,15 @@ const JobSeekerJobs: React.FC = () => {
       <NavbarJobSeeker />
       <div className="card-list">
         {error && <p>Error: {error}</p>}
+        <Card
+          title={"TikTok Shop - Data Analyst Intern - 2025 Start"}
+          description={`TikTok is the leading destination for short-form mobile video. At TikTok, our mission ...
+\nRequirements: 
+1. Bachelor degree or above, computer, statistics, mathematics and other related majors are preferred; 
+2. SQL, EXCEL, Python;
+\nSalary: 4000 SGD per month`}
+          link={`https://www.linkedin.com/jobs/view/4000340994/?alternateChannel=search&refId=MxD%2BvWxlCfsWJIKPSn62cg%3D%3D&trackingId=IRWzOFU3P3fI%2FI2rQqSsEQ%3D%3D`}
+        />
         {internships.map((internship) => (
           <Card
             title={internship.title}
