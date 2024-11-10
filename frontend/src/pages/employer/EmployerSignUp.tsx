@@ -4,6 +4,7 @@ import GoBackButton from "../../components/Button/GoBackButton";
 import Logo from "../../components/Logo/Logo";
 import EmployerSignUpForm from "../../components/Form/SignUpForm/EmployerSignUpForm";
 
+
 const EmployerSignUp: React.FC = () => {
   const navigate = useNavigate();
   const handleGoBack = () => {

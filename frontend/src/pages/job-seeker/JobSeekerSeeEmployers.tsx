@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"; // Import useParams to get the dynamic route params
 import FetchEmployerProfile from "../../services/FetchEmployerProfile"; // Service to fetch the profile
 import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
+import { ChakraProvider } from '@chakra-ui/react'
 
 const JobSeekerSeeEmployers: React.FC = () => {
   const { user_id } = useParams(); // Get the user_id from the URL params
@@ -38,7 +39,7 @@ const JobSeekerSeeEmployers: React.FC = () => {
   }
 
   return (
-    <div>
+    <ChakraProvider>
       <NavbarJobSeeker />
       <div className="container">
         <h2 className="form-title">Employer Profile</h2>
@@ -84,7 +85,7 @@ const JobSeekerSeeEmployers: React.FC = () => {
           <div>No profile data found.</div>
         )}
       </div>
-    </div>
+    </ChakraProvider>
   );
 };
 

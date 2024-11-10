@@ -3,12 +3,12 @@ img {
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically if needed */
-  padding: 20px 0; /* Add some padding at the top and bottom */
+  padding: 0 0; /* Add some padding at the top and bottom */
   position: relative; /* Allows centering within the page */
   top: 0; /* Aligns to the top of the page */
 }
 
 .logo {
-  max-width: 150px; /* Adjust based on your logo size */
+  max-width: 3000px; /* Adjust based on your logo size */
   height: auto;
 }

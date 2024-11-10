@@ -5,6 +5,7 @@ import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
 import { NAV_LINKS } from "../../constants";
 import { InternshipData } from "../../store/auth/interface";
 import FetchAllJobs from "../../services/FetchAllJobs";
+import { ChakraProvider } from '@chakra-ui/react'
 
 const JobSeekerJobs: React.FC = () => {
   const [internships, setInternships] = useState<InternshipData[]>([]);
@@ -25,7 +26,7 @@ const JobSeekerJobs: React.FC = () => {
   }, []);
 
   return (
-    <div className="jobs-page">
+    <ChakraProvider>
       <NavbarJobSeeker />
       <div className="card-list">
         {error && <p>Error: {error}</p>}
@@ -43,7 +44,7 @@ const JobSeekerJobs: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </ChakraProvider>
   );
 };
 

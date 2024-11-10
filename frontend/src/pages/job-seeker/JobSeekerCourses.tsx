@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom"; 
 import "./JobSeekerCourses.css";
 import Card from "../../components/Card/Card";
 import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
 import FetchAllCourses from "../../services/FetchAllCourses";
 import { NAV_LINKS } from "../../constants";
+import { ChakraProvider } from '@chakra-ui/react'
 
 const JobSeekerCourses: React.FC = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -49,7 +50,7 @@ const JobSeekerCourses: React.FC = () => {
   };
 
   return (
-    <div className="courses-page">
+    <ChakraProvider>
       <NavbarJobSeeker />
       <Link to={NAV_LINKS.job_seeker_personalised_courses}>
         <button className="navigate-btn">Go to Personalized Courses</button>
@@ -64,7 +65,7 @@ const JobSeekerCourses: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </ChakraProvider>
   );
 };
 

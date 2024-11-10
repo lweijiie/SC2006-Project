@@ -23,7 +23,7 @@ const LandingPage: React.FC = () => {
     <div className="landing-page">
       <NavbarLanding />
       <div className="header">
-        <h1>Welcome to </h1>
+        {/* <h1>Welcome to </h1> */}
         <Logo />
       </div>
       <div className="content">

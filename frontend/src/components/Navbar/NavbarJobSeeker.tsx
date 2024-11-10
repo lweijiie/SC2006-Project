@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "./Navbar";
 import { NAV_LINKS } from "../../constants";
 
@@ -20,7 +21,7 @@ const navbarRightItems = [
   },
 ];
 
-const NavbarJobSeeker = () => {
+const NavbarJobSeeker: React.FC = () => {
   return (
     <Navbar
       homeLink={`${NAV_LINKS.base_link}${NAV_LINKS.job_seeker_home}`}

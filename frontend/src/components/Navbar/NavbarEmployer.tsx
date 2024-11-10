@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "./Navbar";
 import { NAV_LINKS } from "../../constants";
 
@@ -6,8 +7,8 @@ const navbarLeftItems = [
   {
     label: "Internships",
     dropdown: [
-      { label: "List Internship", link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_list_internship}` },
-      { label: "My Internships", link: `${NAV_LINKS.base_link}${NAV_LINKS.employer_display_internships}` },
+      { label: "List Internship", link: `${NAV_LINKS.employer_list_internship}` },
+      { label: "My Internships", link: `${NAV_LINKS.employer_display_internships}` },
     ],
   },
 ];
@@ -19,7 +20,7 @@ const navbarRightItems = [
   },
 ];
 
-const NavbarEmployer = () => {
+const NavbarEmployer: React.FC = () => {
   return (
     <Navbar
       homeLink={`${NAV_LINKS.base_link}${NAV_LINKS.employer_home}`}

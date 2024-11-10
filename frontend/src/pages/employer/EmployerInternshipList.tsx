@@ -5,6 +5,7 @@ import { MongoInternshipData } from "../../store/auth/interface";
 import Card from "../../components/Card/Card";
 import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
 import "../job-seeker/JobSeekerCourses.css";
+import { ChakraProvider } from '@chakra-ui/react'
 
 const EmployerInternshipList: React.FC = () => {
   const [internships, setInternships] = useState<MongoInternshipData[]>([]); // Using MongoInternshipData[]
@@ -48,7 +49,7 @@ const EmployerInternshipList: React.FC = () => {
   }
 
   return (
-    <div className="employer-internship-list-page">
+    <ChakraProvider>
       <NavbarEmployer />
       <div className="card-list">
         {internships.length === 0 ? (
@@ -66,7 +67,7 @@ const EmployerInternshipList: React.FC = () => {
           ))
         )}
       </div>
-    </div>
+    </ChakraProvider>
   );
 };
 

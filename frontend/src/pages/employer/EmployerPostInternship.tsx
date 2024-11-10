@@ -2,6 +2,8 @@
 import React from "react";
 import EmployerPostInternshipForm from "../../components/Form/InternshipForm/EmployerPostInternshipForm";
 import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
+import { ChakraProvider } from '@chakra-ui/react'
+
 
 const EmployerPostInternship: React.FC = () => {
   const handlePostSuccess = () => {
@@ -10,10 +12,10 @@ const EmployerPostInternship: React.FC = () => {
   };
 
   return (
-    <div>
+    <ChakraProvider>
       <NavbarEmployer />
       <EmployerPostInternshipForm onPostSuccess={handlePostSuccess} />
-    </div>
+    </ChakraProvider>
   );
 };
 

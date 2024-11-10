@@ -6,6 +6,7 @@ import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
 import FetchPersonalisedCourses from "../../services/FetchPersonalisedCourses";
 import { CourseData } from "../../store/auth/interface"; // Import CourseData type
 import { NAV_LINKS } from "../../constants";
+import { ChakraProvider } from '@chakra-ui/react'
 
 const JobSeekerPersonalisedCourses: React.FC = () => {
   const [courses, setCourses] = useState<CourseData[]>([]);
@@ -63,7 +64,7 @@ const JobSeekerPersonalisedCourses: React.FC = () => {
   };
 
   return (
-    <div className="courses-page">
+    <ChakraProvider>
       <NavbarJobSeeker />
       <Link to={NAV_LINKS.job_seeker_find_course}>
         <button className="navigate-btn">Go to All Courses</button>
@@ -84,7 +85,7 @@ const JobSeekerPersonalisedCourses: React.FC = () => {
           ))
         )}
       </div>
-    </div>
+    </ChakraProvider>
   );
 };
 
