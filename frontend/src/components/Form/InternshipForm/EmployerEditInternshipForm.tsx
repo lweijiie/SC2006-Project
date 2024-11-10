@@ -6,7 +6,9 @@ import UpdateEmployerInternship from "../../../services/UpdateEmployerInternship
 
 const EmployerEditInternshipForm: React.FC = () => {
   const { internshipId } = useParams<{ internshipId: string }>(); // Use the URL parameter
-  const [internship, setInternship] = useState<MongoInternshipData | null>(null);
+  const [internship, setInternship] = useState<MongoInternshipData | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
@@ -21,7 +23,10 @@ const EmployerEditInternshipForm: React.FC = () => {
 
       try {
         setLoading(true);
-        const internshipData = await FetchSingleInternship(internshipId, access_token);
+        const internshipData = await FetchSingleInternship(
+          internshipId,
+          access_token
+        );
         setInternship(internshipData);
         setError(null);
       } catch (err) {
@@ -34,7 +39,9 @@ const EmployerEditInternshipForm: React.FC = () => {
     loadInternship();
   }, [internshipId, access_token]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setInternship((prev) => (prev ? { ...prev, [name]: value } : prev));
   };
@@ -43,7 +50,11 @@ const EmployerEditInternshipForm: React.FC = () => {
     e.preventDefault();
     if (internship) {
       try {
-        await UpdateEmployerInternship(internship._id, access_token, internship);
+        await UpdateEmployerInternship(
+          internship._id,
+          access_token,
+          internship
+        );
         alert("Internship updated successfully!");
         navigate("/employer/internships");
       } catch (error) {
@@ -56,11 +67,11 @@ const EmployerEditInternshipForm: React.FC = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h2>Edit Internship</h2>
+    <div className="internship-form-container">
+      <h2 className="form-title">Edit Internship</h2>
       {internship && (
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="user-box">
             <label>Title</label>
             <input
               type="text"
@@ -70,7 +81,7 @@ const EmployerEditInternshipForm: React.FC = () => {
               required
             />
           </div>
-          <div>
+          <div className="user-box">
             <label>Description</label>
             <textarea
               name="description"
@@ -79,7 +90,7 @@ const EmployerEditInternshipForm: React.FC = () => {
               required
             />
           </div>
-          <div>
+          <div className="user-box">
             <label>Requirements</label>
             <textarea
               name="requirements"
@@ -88,7 +99,7 @@ const EmployerEditInternshipForm: React.FC = () => {
               required
             />
           </div>
-          <div>
+          <div className="user-box">
             <label>Location</label>
             <input
               type="text"
@@ -98,7 +109,7 @@ const EmployerEditInternshipForm: React.FC = () => {
               required
             />
           </div>
-          <div>
+          <div className="user-box">
             <label>Duration</label>
             <input
               type="text"
@@ -108,7 +119,7 @@ const EmployerEditInternshipForm: React.FC = () => {
               required
             />
           </div>
-          <div>
+          <div className="user-box">
             <label>Salary</label>
             <input
               type="text"
@@ -117,7 +128,9 @@ const EmployerEditInternshipForm: React.FC = () => {
               onChange={handleInputChange}
             />
           </div>
-          <button type="submit">Update Internship</button>
+          <button className="input-button" type="submit">
+            Update Internship
+          </button>
         </form>
       )}
     </div>
