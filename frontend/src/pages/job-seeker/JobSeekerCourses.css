@@ -20,3 +20,14 @@
 .navigate-btn:hover {
   background-color: #45a049;
 }
+
+.course-card {
+  position: relative;
+}
+
+.endorse-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+}

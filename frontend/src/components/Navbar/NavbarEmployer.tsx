@@ -7,9 +7,19 @@ const navbarLeftItems = [
   {
     label: "Internships",
     dropdown: [
-      { label: "List Internship", link: `${NAV_LINKS.employer_list_internship}` },
-      { label: "My Internships", link: `${NAV_LINKS.employer_display_internships}` },
+      {
+        label: "List Internship",
+        link: `${NAV_LINKS.employer_list_internship}`,
+      },
+      {
+        label: "My Internships",
+        link: `${NAV_LINKS.employer_display_internships}`,
+      },
     ],
+  },
+  {
+    label: "Endorse Course",
+    link: `${NAV_LINKS.base_link}employer/endorse-course`,
   },
 ];
 
