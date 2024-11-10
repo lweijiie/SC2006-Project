@@ -4,8 +4,18 @@ import {
   API_BASE_URL,
   EDUCATION_LIST,
   INDUSTRY_LIST,
+  ERROR_TEXT_FIELD_MESSAGE,
   NAV_LINKS,
 } from "../../../constants";
+
+import {
+  validateFirstName,
+  validateLastName,
+  validateEmail,
+  validatePassword,
+  validateIndustry,
+  validateEducation,
+} from "../../../utils/errorValidation";
 
 interface Props {
   firstName: string;
@@ -64,53 +74,34 @@ function JobSeekerSignUpForm() {
     let hasError = false;
 
     // Validation
-    if (formData.firstName === "") {
-      setFirstNameError("Please enter your first name");
-      hasError = true;
-    } else if (!/^[a-zA-Z ]*$/.test(formData.firstName)) {
-      setFirstNameError("Please enter a valid first name");
-      hasError = true;
-    }
+    const firstNameValidation = validateFirstName(formData.firstName);
+    const lastNameValidation = validateLastName(formData.lastName);
+    const emailValidation = validateEmail(formData.email);
+    const passwordValidation = validatePassword(formData.password);
+    const industryValidation = validateIndustry(formData.industry);
+    const educationValidation = validateEducation(formData.education);
 
-    if (formData.lastName === "") {
-      setLastNameError("Please enter your last name");
-      hasError = true;
-    } else if (!/^[a-zA-Z ]*$/.test(formData.lastName)) {
-      setLastNameError("Please enter a valid last name");
-      hasError = true;
-    }
+    // Set the states for UI updates
+    setFirstNameError(firstNameValidation);
+    setLastNameError(lastNameValidation);
+    setEmailError(emailValidation);
+    setPasswordError(passwordValidation);
+    setIndustryError(industryValidation);
+    setEducationError(educationValidation);
 
-    if (formData.email === "") {
-      setEmailError("Please enter your email");
-      hasError = true;
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError("Please enter a valid email address");
-      hasError = true;
-    }
-
-    if (formData.password === "") {
-      setPasswordError("Please enter a password");
-      hasError = true;
-    } else if (formData.password.length < 8) {
-      setPasswordError("Password must be 8 characters or longer");
-      hasError = true;
-    }
-
-    if (formData.industry === "") {
-      setIndustryError("Please select an industry");
-      hasError = true;
-    }
-
-    if (formData.education === "") {
-      setEducationError("Please select an education");
-      hasError = true;
-    }
-
-    // Stop submission if there are validation errors
-    if (hasError) {
+    // Check validation results directly
+    if (
+      firstNameValidation ||
+      lastNameValidation ||
+      emailValidation ||
+      passwordValidation ||
+      industryValidation ||
+      educationValidation
+    ) {
       return;
     }
 
+  
     // Show loading state and reset errors
     setLoading(true);
     setError(null);

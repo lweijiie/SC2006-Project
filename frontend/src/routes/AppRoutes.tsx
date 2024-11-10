@@ -1,6 +1,8 @@
 import { HashRouter as Router, Route, Routes } from "react-router-dom"; // Change to HashRouter
 import { NAV_LINKS } from "../constants";
 import LandingPage from "../pages/landing/LandingPage";
+import AboutUs from "../pages/landing/AboutUs";
+import ContactUs from "../pages/landing/ContactUs";
 import JobSeekerSignUp from "../pages/job-seeker/JobSeekerSignUp";
 import JobSeekerLogin from "../pages/job-seeker/JobSeekerLogin";
 import JobSeekerHome from "../pages/job-seeker/JobSeekerHome";
@@ -30,7 +32,9 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
     <Router>
       <Routes>
         <Route path={NAV_LINKS.home} element={<LandingPage />} />
-
+        <Route path ={NAV_LINKS.about_us} element = {<AboutUs />}/>
+        <Route path = {NAV_LINKS.contact_us} element = {<ContactUs />}/>
+        
         <Route
           path={NAV_LINKS.job_seeker_sign_up}
           element={<JobSeekerSignUp />}

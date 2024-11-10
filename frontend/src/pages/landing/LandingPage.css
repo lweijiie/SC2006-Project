@@ -1,5 +1,11 @@
-/* LandingPage.css */
+/* Disable scrolling for the entire page */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
 
+/* Main container */
 .landing-page {
   display: flex;
   flex-direction: column;
@@ -7,48 +13,116 @@
   justify-content: center;
   height: 100vh;
   text-align: center;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/CBD.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 0 20px;
 }
 
+/* NavbarLanding styles - now with transparent background */
+.navbarlanding {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent; /* Remove background color */
+  backdrop-filter: blur(5px); /* Optional: adds a slight blur effect to content behind the navbar */
+  transition: background-color 0.3s ease;
+}
+
+/* Optional: Add background color on scroll */
+.navbarlanding.scrolled {
+  background-color: rgba(51, 51, 51, 0.95);
+}
+
+/* Header Section */
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+  margin-top: 80px;
+  margin-bottom: 40px;
 }
 
 .header h1 {
   margin: 0;
-  margin-right: 15px; /* Adds space between h1 and Logo */
-  white-space: nowrap; /* Prevents line breaks */
+  font-size: 2.5rem;
+  margin-right: 20px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .header .Logo {
-  margin-left: auto; /* Keeps the Logo aligned to the right */
+  margin-left: auto;
+  max-width: 150px;
 }
 
+/* Paragraph text */
 p {
   font-size: 1.2rem;
+  color: #ccc;
   margin-bottom: 40px;
-  color: #666;
+  font-weight: 400;
 }
 
+/* Login options layout */
 .login-options {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  max-width: 400px;
 }
 
+/* Individual login button styles */
 .login-button {
   padding: 15px 30px;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: white;
   background-color: #007bff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+  width: 100%;
 }
 
+/* Hover and focus effects */
 .login-button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.login-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .login-options {
+    gap: 15px;
+  }
+  
+  .login-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+  }
+  
+  .navbarlanding {
+    padding: 15px; /* Slightly reduce padding on mobile */
+  }
 }

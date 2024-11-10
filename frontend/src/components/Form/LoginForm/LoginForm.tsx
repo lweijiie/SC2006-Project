@@ -7,6 +7,12 @@ import {
   NAV_LINKS,
 } from "../../../constants";
 
+import {
+  validateEmail,
+  validatePassword,
+
+} from "../../../utils/errorValidation";
+
 interface LoginFormProps {
   onLogin: (userId: string, access_token: string) => void;
   loginType: "Job Seeker" | "Employer";
@@ -22,6 +28,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
     password: "",
     user_type: loginType,
   });
+
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
   const formTitle =
@@ -50,22 +58,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
     setPasswordError("");
     let hasError = false;
 
-    if (formData.email === "") {
-      setEmailError(ERROR_TEXT_FIELD_MESSAGE.no_email_error);
-      hasError = true;
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError(ERROR_TEXT_FIELD_MESSAGE.invalid_email_error);
-      hasError = true;
-    }
-    if (formData.password === "") {
-      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.no_password_error);
-      hasError = true;
-    } else if (formData.password.length < 8) {
-      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.under_length_password_error);
-      hasError = true;
-    }
 
-    if (hasError) {
+    const emailValidation = validateEmail(formData.email);
+    const passwordValidation = validatePassword(formData.password);
+
+    // Set the states for UI updates
+    setEmailError(emailValidation);
+    setPasswordError(passwordValidation);
+
+    // Check validation results directly
+    if (
+      emailValidation ||
+      passwordValidation
+    ) {
       return;
     }
 
@@ -73,7 +78,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
     setError(null);
 
     try {
-      // Perform login request
       const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
         headers: {
@@ -93,13 +97,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
 
       onLogin(userId, access_token);
 
-      // Navigate to the home page after successful login and profile fetch
       navigate(`/home/${userPageType}`);
     } catch (err: any) {
       setError(err.message || "An error occurred during login.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -120,13 +127,20 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
 
         <div className="user-box">
           <input
-            type="password"
+            type={passwordVisible ? "text" : "password"}
             name="password"
             value={formData.password}
             onChange={handleChange}
             placeholder="Enter password here"
             required
           />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="password-toggle-button"
+          >
+            {passwordVisible ? "👁️" : "🙈"}
+          </button>
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
           )}

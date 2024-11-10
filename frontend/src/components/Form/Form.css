@@ -172,3 +172,33 @@
   border: 1px solid black; /* Ensure border stays the same */
   opacity: 1 !important; /* Override dimming effect (disable opacity change) */
 }
+
+/* Password visibility toggle button */
+/* Password visibility toggle button */
+.password-toggle-button {
+  position: absolute;
+  top: 30%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.password-toggle-button:hover {
+  text-decoration: underline;
+}
+
+.user-box {
+  position: relative;
+}
+
+input[type="password"],
+input[type="text"] {
+  padding-right: 40px; /* Add padding to the right to make space for the button */
+}
+

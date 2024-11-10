@@ -1,0 +1,92 @@
+/* Container to hold both sections */
+.login-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: relative; /* Ensures content within container can be positioned properly */
+}
+
+/* This will occupy a slightly larger portion of the left side */
+.login-form-section {
+    flex: 1.2; /* Expanding the left section */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center the form */
+    align-items: center; /* Horizontally center the form */
+    padding: 2rem;
+    background-color: rgb(249, 232, 212);
+    position: relative; /* To position logo and back button */
+}
+
+/* This section will occupy a smaller portion of the right side */
+.login-image-section {
+    flex: 0.8; /* Reducing the right section */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/GARDENS.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* For text overlay positioning */
+}
+
+/* Text overlay for the right section */
+.right-text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 82.5%;
+    transform: translate(-50%, -50%); /* Center text */
+    text-align: center;
+    color: white;
+    z-index: 1; /* Ensure the text is above the background */
+    padding: 0 1rem;
+}
+
+.right-text-overlay h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.right-text-overlay p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Logo styling */
+.logo-container {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+
+/* Back button styling */
+.back-button {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .login-image-section {
+        display: none; /* Hide the image section on smaller screens */
+    }
+
+    .login-form-section {
+        width: 100%;
+    }
+
+    /* Adjust text overlay for small screens */
+    .right-text-overlay {
+        top: 60%;
+        font-size: 1.8rem; /* Reduce font size */
+    }
+}
