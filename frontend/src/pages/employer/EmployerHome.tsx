@@ -5,6 +5,8 @@ import {
   IconButton,
   useToast,
   Button,
+  Box,
+  Flex,
 } from "@chakra-ui/react";
 import NavbarEmployer from "../../components/Navbar/NavbarEmployer";
 import Slider from "react-slick";
@@ -30,15 +32,11 @@ const EmployerHome: React.FC = () => {
       try {
         const fetchedCourses = await FetchAllCourses(access_token);
         const chunkSize = 5;
-        const courseChunks = [];
-        for (
-          let i = 0;
-          i < fetchedCourses.length && i < chunkSize * 3;
-          i += chunkSize
-        ) {
-          courseChunks.push(fetchedCourses.slice(i, i + chunkSize));
+        const chunks = [];
+        for (let i = 0; i < fetchedCourses.length && i < chunkSize * 3; i += chunkSize) {
+          chunks.push(fetchedCourses.slice(i, i + chunkSize));
         }
-        setCourseChunks(courseChunks);
+        setCourseChunks(chunks);
       } catch (error) {
         console.error("Failed to fetch courses:", error);
       }
@@ -48,15 +46,11 @@ const EmployerHome: React.FC = () => {
       try {
         const data = await FetchEmployerInternships(employer_id, access_token);
         const chunkSize = 5;
-        const internshipChunks = [];
-        for (
-          let i = 0;
-          i < data.internships.length && i < chunkSize * 3;
-          i += chunkSize
-        ) {
-          internshipChunks.push(data.internships.slice(i, i + chunkSize));
+        const chunks = [];
+        for (let i = 0; i < data.internships.length && i < chunkSize * 3; i += chunkSize) {
+          chunks.push(data.internships.slice(i, i + chunkSize));
         }
-        setInternshipChunks(internshipChunks);
+        setInternshipChunks(chunks);
       } catch (error) {
         console.error("Failed to fetch internships:", error);
       }
@@ -91,85 +85,87 @@ const EmployerHome: React.FC = () => {
 
   return (
     <ChakraProvider>
-      <NavbarEmployer />
-      <div style={{ padding: "20px" }}>
-        {/* Course Slider */}
-        <Heading as="h2" size="lg" mb={4} textAlign="center">
-          Featured Courses for Endorsement
-        </Heading>
-        <Slider {...sliderSettings}>
-          {courseChunks.map((chunk, index) => (
-            <div key={index} className="course-slide">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "center",
-                }}
-              >
-                {chunk.map((course, courseIndex) => (
-                  <div key={courseIndex}>
-                    <Card
-                      title={course.title}
-                      description={course.objective}
-                      link={course.url}
-                    />
-                    <IconButton
-                      icon={<FaHeart />}
-                      colorScheme="pink"
-                      aria-label="Endorse Course"
-                      onClick={handleEndorse}
-                      size="sm"
-                      className="endorse-button"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </Slider>
+      <Flex direction="column" minH="100vh" overflowY="auto">
+        <NavbarEmployer />
+        <Box p={6} maxW="1200px" mx="auto">
+          {/* Course Slider */}
+          <Heading as="h2" size="lg" mb={4} textAlign="center" color="teal.600">
+            Featured Courses for Endorsement
+          </Heading>
+          <Slider {...sliderSettings}>
+            {courseChunks.map((chunk, index) => (
+              <Box key={index} className="course-slide" px={4}>
+                <Flex gap="10px" justifyContent="center" flexWrap="wrap">
+                  {chunk.map((course, courseIndex) => (
+                    <Box key={courseIndex} position="relative">
+                      <Card
+                        title={course.title}
+                        details={{
+                          description: course.objective,
+                          cost: `$${course.totalCostOfTrainingPerTrainee}`,
+                          provider: course.trainingProvider?.name,
+                          category: course.category?.description,
+                        }}
+                        link={course.url}
+                      />
+                      <IconButton
+                        icon={<FaHeart />}
+                        colorScheme="pink"
+                        aria-label="Endorse Course"
+                        onClick={handleEndorse}
+                        size="sm"
+                        position="absolute"
+                        top="10px"
+                        right="10px"
+                        zIndex={1}
+                      />
+                    </Box>
+                  ))}
+                </Flex>
+              </Box>
+            ))}
+          </Slider>
 
-        {/* Internship Slider */}
-        <Heading as="h2" size="lg" mt={8} mb={4} textAlign="center">
-          My Internships
-        </Heading>
-        <Slider {...sliderSettings}>
-          {internshipChunks.map((chunk, index) => (
-            <div key={index} className="internship-slide">
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  justifyContent: "center",
-                }}
-              >
-                {chunk.map((internship, internshipIndex) => (
-                  <div key={internshipIndex}>
-                    <Card
-                      title={internship.title}
-                      description={`Description: ${
-                        internship.description
-                      } | Requirements: ${
-                        internship.requirements
-                      } | Location: ${internship.location} | Duration: ${
-                        internship.duration
-                      } | Salary: ${internship.salary || "Not specified"}`}
-                      link=""
-                    />
-                    <Button
-                      onClick={() => handleEditClick(internship._id)}
-                      colorScheme="blue"
-                      size="sm"
-                    >
-                      Edit
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </Slider>
-      </div>
+          {/* Internship Slider */}
+          <Heading as="h2" size="lg" mt={10} mb={4} textAlign="center" color="teal.600">
+            My Internships
+          </Heading>
+          <Slider {...sliderSettings}>
+            {internshipChunks.map((chunk, index) => (
+              <Box key={index} className="internship-slide" px={4}>
+                <Flex gap="10px" justifyContent="center" flexWrap="wrap">
+                  {chunk.map((internship, internshipIndex) => (
+                    <Box key={internshipIndex} position="relative">
+                      <Card
+                        title={internship.title}
+                        details={{
+                          description: internship.description,
+                          duration: internship.duration,
+                          location: internship.location,
+                          requirements: Array.isArray(internship.requirements)
+                            ? internship.requirements.join(", ")
+                            : internship.requirements,
+                          salary: internship.salary || "Not specified",
+                        }}
+                        link=""
+                      />
+                      <Button
+                        onClick={() => handleEditClick(internship._id)}
+                        colorScheme="blue"
+                        size="sm"
+                        mt={2}
+                        w="full"
+                      >
+                        Edit
+                      </Button>
+                    </Box>
+                  ))}
+                </Flex>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
+      </Flex>
     </ChakraProvider>
   );
 };

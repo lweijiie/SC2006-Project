@@ -5,7 +5,7 @@ import Card from "../../components/Card/Card";
 import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
 import FetchAllCourses from "../../services/FetchAllCourses";
 import { NAV_LINKS } from "../../constants";
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react';
 
 const JobSeekerCourses: React.FC = () => {
   const [courses, setCourses] = useState<any[]>([]);
@@ -31,24 +31,6 @@ const JobSeekerCourses: React.FC = () => {
     return text.length > maxChars ? text.substring(0, maxChars) + "..." : text;
   };
 
-  const getCourseDescription = (course: any): string => {
-    const truncatedObjective = truncateText(course.objective, 4);
-    return `
-      Objective: ${truncatedObjective}
-      Cost: $${course.totalCostOfTrainingPerTrainee}
-      Duration: ${course.lengthOfCourseDurationHour} hours
-      Provider: ${course.trainingProvider.name}
-      Delivery Methods: ${course.methodOfDeliveries
-        .map((method: any) => method.description)
-        .join(", ")}
-      Category: ${course.category.description}
-      Areas of Training: ${course.areaOfTrainings
-        .map((area: any) => area.description)
-        .join(", ")}
-      Entry Requirements: ${course.entryRequirement}
-    `;
-  };
-
   return (
     <ChakraProvider>
       <NavbarJobSeeker />
@@ -60,7 +42,20 @@ const JobSeekerCourses: React.FC = () => {
           <Card
             key={index}
             title={course.title}
-            description={getCourseDescription(course)}
+            details={{
+              description: truncateText(course.objective, 4), // Truncated for card display
+              cost: `$${course.totalCostOfTrainingPerTrainee}`,
+              duration: `${course.lengthOfCourseDurationHour} hours`,
+              provider: course.trainingProvider.name,
+              category: course.category.description,
+              requirements: course.entryRequirement,
+              deliveryMethods: course.methodOfDeliveries
+                .map((method: any) => method.description)
+                .join(", "),
+              areasOfTraining: course.areaOfTrainings
+                .map((area: any) => area.description)
+                .join(", "),
+            }}
             link={course.url}
           />
         ))}

@@ -14,7 +14,7 @@ const JobSeekerJobs: React.FC = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const token = localStorage.getItem("access_token"); // Adjust token retrieval as needed
+        const token = localStorage.getItem("access_token");
         const fetchedInternships = await FetchAllJobs(token);
         setInternships(fetchedInternships);
       } catch (err: any) {
@@ -33,13 +33,15 @@ const JobSeekerJobs: React.FC = () => {
         {internships.map((internship) => (
           <Card
             title={internship.title}
-            description={`${internship.description} \n\n Duration: ${
-              internship.duration
-            } \n Location: ${internship.location} \n\n Requirements: ${
-              Array.isArray(internship.requirements)
+            details={{
+              description: internship.description,
+              duration: internship.duration,
+              location: internship.location,
+              requirements: Array.isArray(internship.requirements)
                 ? internship.requirements.join(", ")
-                : internship.requirements
-            } \n Salary: ${internship.salary}`}
+                : internship.requirements,
+              salary: internship.salary,
+            }}
             link={`${NAV_LINKS.base_link}${NAV_LINKS.job_seeker_home}`}
           />
         ))}

@@ -1,25 +1,70 @@
 import React from "react";
+import {
+  ChakraProvider,
+  Box,
+  Flex,
+  Stack,
+  HStack,
+  Text,
+  Button,
+} from "@chakra-ui/react";
 import LoginForm from "../../components/Form/LoginForm/LoginForm";
 import Logo from "../../components/Logo/Logo";
-import GoBackButton from "../../components/Button/GoBackButton";
-import "../../pages/styles/LoginPage.css";
+import { useNavigate } from "react-router-dom";
+import { NAV_LINKS } from "../../constants"; // Assuming NAV_LINKS holds the paths
 
 const EmployerLogin: React.FC<{
   onLogin: (userId: string, access_token: string) => void;
 }> = ({ onLogin }) => {
+
+  const navigate = useNavigate();
+  const handleJobSeekerLogin = () => {
+    navigate(NAV_LINKS.job_seeker_login); // Update with actual route for job seeker login
+  };
+  
+  const handleEmployerLogin = () => {
+    navigate(NAV_LINKS.employer_login); 
+  };
+
   return (
-    <div className="login-container">
-      <div className="login-form-section">
-        <div className="logo-container">
+    <ChakraProvider>
+      <Flex
+        minH="100vh"
+        direction="column"
+        align="center"
+        justify="center"
+        overflow="auto"
+        bgImage="linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/CBD.jpg')"
+        bgSize="cover"
+        bgPosition="center"
+      >
+        <Stack spacing={6} align="center" mb={6}>
           <Logo />
-        </div>
-        <div className="back-button">
-          <GoBackButton />
-        </div>
-        <LoginForm onLogin={onLogin} loginType="Employer" />
-      </div>
-      <div className="login-image-section" />
-    </div>
+        </Stack>
+
+        <HStack spacing={4} mb={4}>
+          <Button colorScheme="gray" variant="solid" onClick={handleEmployerLogin}>
+            Employer Login
+          </Button>
+          <Button colorScheme="blue" variant="solid" onClick={handleJobSeekerLogin}>
+            Job Seeker Login
+          </Button>
+        </HStack>
+
+          <Box
+            p={10} // Ample padding for comfortable spacing
+            bg="whiteAlpha.900"
+            borderRadius="lg"
+            boxShadow="sm" // Softer shadow for depth
+            maxW="sm"
+            width="100%"
+            mx="auto"
+            color="gray.800" 
+          >
+            <LoginForm onLogin={onLogin} loginType="Employer" />
+          </Box>
+      </Flex>
+    </ChakraProvider>
   );
 };
 

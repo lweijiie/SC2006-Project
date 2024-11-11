@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import {
   API_BASE_URL,
-  EDUCATION_LIST,
   INDUSTRY_LIST,
-  ERROR_TEXT_FIELD_MESSAGE,
+  EDUCATION_LIST,
   NAV_LINKS,
 } from "../../../constants";
-
 import {
   validateFirstName,
   validateLastName,
@@ -17,17 +26,8 @@ import {
   validateEducation,
 } from "../../../utils/errorValidation";
 
-interface Props {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-  industry: string;
-  education: string;
-}
-
 function JobSeekerSignUpForm() {
-  const [formData, setFormData] = useState<Props>({
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -36,11 +36,8 @@ function JobSeekerSignUpForm() {
     education: "",
   });
 
-  const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.job_seeker_login}`;
-
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState(false);
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -49,17 +46,11 @@ function JobSeekerSignUpForm() {
   const [educationError, setEducationError] = useState("");
 
   const navigate = useNavigate();
-  const industries = INDUSTRY_LIST;
-  const educations = EDUCATION_LIST;
+  const toast = useToast();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -71,9 +62,7 @@ function JobSeekerSignUpForm() {
     setPasswordError("");
     setIndustryError("");
     setEducationError("");
-    let hasError = false;
 
-    // Validation
     const firstNameValidation = validateFirstName(formData.firstName);
     const lastNameValidation = validateLastName(formData.lastName);
     const emailValidation = validateEmail(formData.email);
@@ -81,7 +70,6 @@ function JobSeekerSignUpForm() {
     const industryValidation = validateIndustry(formData.industry);
     const educationValidation = validateEducation(formData.education);
 
-    // Set the states for UI updates
     setFirstNameError(firstNameValidation);
     setLastNameError(lastNameValidation);
     setEmailError(emailValidation);
@@ -89,30 +77,23 @@ function JobSeekerSignUpForm() {
     setIndustryError(industryValidation);
     setEducationError(educationValidation);
 
-    // Check validation results directly
-    if (
-      firstNameValidation ||
-      lastNameValidation ||
-      emailValidation ||
-      passwordValidation ||
-      industryValidation ||
-      educationValidation
-    ) {
-      return;
-    }
+    if (firstNameValidation || lastNameValidation || emailValidation || passwordValidation || industryValidation || educationValidation) return;
 
-  
-    // Show loading state and reset errors
     setLoading(true);
-    setError(null);
 
     try {
-      const response = await fetch(API_BASE_URL + "/register-jobseeker", {
+      const response = await fetch(`${API_BASE_URL}/register-jobseeker`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          industry: formData.industry,
+          education: formData.education,
+      }),
+
       });
 
       if (!response.ok) {
@@ -120,10 +101,14 @@ function JobSeekerSignUpForm() {
         throw new Error(errorData.message || "Registration failed.");
       }
 
-      const data = await response.json();
-      console.log("Registration successful:", data);
+      toast({
+        title: "Registration successful.",
+        description: "Please login to continue.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
 
-      // Redirect to login page on successful registration
       navigate(NAV_LINKS.job_seeker_login);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
@@ -133,112 +118,142 @@ function JobSeekerSignUpForm() {
   };
 
   return (
-    <div className="container">
-      <h2 className="form-title">Create an Account</h2>
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="user-box">
-          <input
+    <Box as="form" onSubmit={handleSubmit} noValidate>
+      <Stack spacing={4}>
+        <FormControl id="firstName" isInvalid={!!firstNameError}>
+          <FormLabel>First Name</FormLabel>
+          <Input
             type="text"
             name="firstName"
             value={formData.firstName}
-            placeholder="Enter first name here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter first name here"
+            focusBorderColor="blue.500"
+            bg="gray.50"
+            required
           />
           {firstNameError && (
-            <label className="errorLabel">{firstNameError}</label>
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {firstNameError}
+            </Text>
           )}
-        </div>
-        <div className="user-box">
-          <input
+        </FormControl>
+        <FormControl id="lastName" isInvalid={!!lastNameError}>
+          <FormLabel>Last Name</FormLabel>
+          <Input
             type="text"
             name="lastName"
             value={formData.lastName}
-            placeholder="Enter last name here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter last name here"
+            focusBorderColor="blue.500"
+            bg="gray.50"
+            size="md"
+            required
           />
           {lastNameError && (
-            <label className="errorLabel">{lastNameError}</label>
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {lastNameError}
+            </Text>
           )}
-        </div>
-        <div className="user-box">
-          <input
+        </FormControl>
+        <FormControl id="email" isInvalid={!!emailError}>
+          <FormLabel>Email Address</FormLabel>
+          <Input
             type="email"
             name="email"
             value={formData.email}
-            placeholder="Enter email address here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter email address here"
+            focusBorderColor="blue.500"
+            bg="gray.50"
+            required
           />
-          {emailError && <label className="errorLabel">{emailError}</label>}
-        </div>
-        <div className="user-box">
-          <input
+          {emailError && (
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {emailError}
+            </Text>
+          )}
+        </FormControl>
+        <FormControl id="password" isInvalid={!!passwordError}>
+          <FormLabel>Password</FormLabel>
+          <Input
             type="password"
             name="password"
             value={formData.password}
-            placeholder="Enter password here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter password here"
+            focusBorderColor="blue.500"
+            bg="gray.50"
+            required
           />
           {passwordError && (
-            <label className="errorLabel">{passwordError}</label>
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {passwordError}
+            </Text>
           )}
-        </div>
-
-        <div className="user-box">
-          <select
+        </FormControl>
+        <FormControl id="industry" isInvalid={!!industryError}>
+          <FormLabel>Industry</FormLabel>
+          <Select
             name="industry"
             value={formData.industry}
             onChange={handleChange}
-            className="user-box"
+            placeholder="Select Industry"
+            focusBorderColor="blue.500"
+            bg="gray.50"
           >
-            <option value="">Select Industry</option>
-            {industries.map((industry, index) => (
+            {INDUSTRY_LIST.map((industry, index) => (
               <option key={index} value={industry}>
                 {industry}
               </option>
             ))}
-          </select>
+          </Select>
           {industryError && (
-            <label className="errorLabel">{industryError}</label>
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {industryError}
+            </Text>
           )}
-        </div>
-
-        <div className="user-box">
-          <select
+        </FormControl>
+        <FormControl id="education" isInvalid={!!educationError}>
+          <FormLabel>Education</FormLabel>
+          <Select
             name="education"
             value={formData.education}
             onChange={handleChange}
-            className="user-box"
+            placeholder="Select Education"
+            focusBorderColor="blue.500"
+            bg="gray.50"
           >
-            <option value="">Select Education</option>
-            {educations.map((education, index) => (
+            {EDUCATION_LIST.map((education, index) => (
               <option key={index} value={education}>
                 {education}
               </option>
             ))}
-          </select>
+          </Select>
           {educationError && (
-            <label className="errorLabel">{educationError}</label>
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {educationError}
+            </Text>
           )}
-        </div>
-
-        {error && <p className="errorLabel">{error}</p>}
-        <button type="submit" className="input-button" disabled={loading}>
-          {loading ? "Signing up..." : "Sign Up"}
-        </button>
-
-        <div id="redirect">
-          <p id="redirect-text">Already have an account?&nbsp;</p>
-          <a id="redirect-link" href={loginLink}>
-            Login
-          </a>
-          <p id="redirect-text">&nbsp;now!</p>
-        </div>
-      </form>
-    </div>
+        </FormControl>
+        {error && (
+          <Text color="red.500" fontSize="sm">
+            {error}
+          </Text>
+        )}
+        <Button
+          type="submit"
+          colorScheme="blue"
+          size="lg"
+          isLoading={loading}
+          loadingText="Signing up..."
+          fontWeight="bold"
+        >
+          Sign Up
+        </Button>
+      </Stack>
+    </Box>
   );
 }
 

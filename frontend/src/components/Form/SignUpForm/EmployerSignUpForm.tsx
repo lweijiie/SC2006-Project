@@ -1,39 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  API_BASE_URL,
-  NAV_LINKS,
-} from "../../../constants";
-
-import{
-  validateEmail,
-  validatePassword,
-}from "../../../utils/errorValidation";
-
-interface Props {
-  email: string;
-  password: string;
-}
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { API_BASE_URL, NAV_LINKS } from "../../../constants";
+import { validateEmail, validatePassword } from "../../../utils/errorValidation";
 
 function EmployerSignUpForm() {
-  const [formData, setFormData] = useState<Props>({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.employer_login}`;
-
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
+  const toast = useToast();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -43,15 +37,9 @@ function EmployerSignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Clear previous errors
-
     setEmailError("");
     setPasswordError("");
-
-    let hasError = false;
-
-    // Validation
+    setError(null);
 
     const emailValidation = validateEmail(formData.email);
     const passwordValidation = validatePassword(formData.password);
@@ -59,24 +47,14 @@ function EmployerSignUpForm() {
     setEmailError(emailValidation);
     setPasswordError(passwordValidation);
 
-    // Check validation results directly
-    if (
-      emailValidation ||
-      passwordValidation
-    ) {
-      return;
-    }
+    if (emailValidation || passwordValidation) return;
 
-    // Show loading state and reset errors
     setLoading(true);
-    setError(null);
 
     try {
-      const response = await fetch(API_BASE_URL + "/register-employer", {
+      const response = await fetch(`${API_BASE_URL}/register-employer`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -85,10 +63,14 @@ function EmployerSignUpForm() {
         throw new Error(errorData.message || "Registration failed.");
       }
 
-      const data = await response.json();
-      console.log("Registration successful:", data);
+      toast({
+        title: "Registration successful.",
+        description: "Please login to continue.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
 
-      // Redirect to login page on successful registration
       navigate(NAV_LINKS.employer_login);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
@@ -98,48 +80,63 @@ function EmployerSignUpForm() {
   };
 
   return (
-    <div className="container">
-      <h2 className="form-title">Create an Account</h2>
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="user-box">
-          <input
+    <Box as="form" onSubmit={handleSubmit} noValidate>
+      <Stack spacing={4}>
+        <FormControl id="email" isInvalid={!!emailError}>
+          <FormLabel>Email address</FormLabel>
+          <Input
             type="email"
             name="email"
             value={formData.email}
-            placeholder="Enter email address here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter email address here"
+            focusBorderColor="blue.500"
+            size="lg"
+            bg="gray.50"
+            required
           />
-          {emailError && <label className="errorLabel">{emailError}</label>}
-        </div>
-        <div className="user-box">
-          <input
+          {emailError && (
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {emailError}
+            </Text>
+          )}
+        </FormControl>
+        <FormControl id="password" isInvalid={!!passwordError}>
+          <FormLabel>Password</FormLabel>
+          <Input
             type="password"
             name="password"
             value={formData.password}
-            placeholder="Enter password here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter password here"
+            focusBorderColor="blue.500"
+            size="lg"
+            bg="gray.50"
+            required
           />
           {passwordError && (
-            <label className="errorLabel">{passwordError}</label>
+            <Text color="red.500" fontSize="sm" mt={1}>
+              {passwordError}
+            </Text>
           )}
-        </div>
-
-        {error && <p className="errorLabel">{error}</p>}
-        <button type="submit" className="input-button" disabled={loading}>
-          {loading ? "Signing up..." : "Sign Up"}
-        </button>
-
-        <div id="redirect">
-          <p id="redirect-text">Already have an account?&nbsp;</p>
-          <a id="redirect-link" href={loginLink}>
-            Login
-          </a>
-          <p id="redirect-text">&nbsp;now!</p>
-        </div>
-      </form>
-    </div>
+        </FormControl>
+        {error && (
+          <Text color="red.500" fontSize="sm">
+            {error}
+          </Text>
+        )}
+        <Button
+          type="submit"
+          colorScheme="blue"
+          size="lg"
+          isLoading={loading}
+          loadingText="Signing up..."
+          fontWeight="bold"
+        >
+          Sign Up
+        </Button>
+      </Stack>
+    </Box>
   );
 }
 
