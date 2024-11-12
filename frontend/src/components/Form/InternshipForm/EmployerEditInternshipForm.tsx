@@ -5,7 +5,7 @@ import FetchSingleInternship from "../../../services/FetchSingleInternship";
 import UpdateEmployerInternship from "../../../services/UpdateEmployerInternship";
 
 const EmployerEditInternshipForm: React.FC = () => {
-  const { internshipId } = useParams<{ internshipId: string }>(); // Use the URL parameter
+  const { internshipId } = useParams<{ internshipId: string }>(); 
   const [internship, setInternship] = useState<MongoInternshipData | null>(
     null
   );
@@ -27,6 +27,7 @@ const EmployerEditInternshipForm: React.FC = () => {
           internshipId,
           access_token
         );
+
         setInternship(internshipData);
         setError(null);
       } catch (err) {
@@ -48,8 +49,9 @@ const EmployerEditInternshipForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (internship) {
+    if (internship && internship._id) {
       try {
+        console.log("Internship ID before update:", internship._id);
         await UpdateEmployerInternship(
           internship._id,
           access_token,
@@ -60,7 +62,10 @@ const EmployerEditInternshipForm: React.FC = () => {
       } catch (error) {
         setError("Failed to update internship.");
       }
+    } else{
+      console.error("Cannot update: internship ID is missing");
     }
+
   };
 
   if (loading) return <p>Loading internship data...</p>;

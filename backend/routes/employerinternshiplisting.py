@@ -48,7 +48,7 @@ def edit_internship(internship_id):
     current_user = get_jwt_identity()
 
     # Verify that the internship exists 
-    internship = internships.find_one({"id": ObjectId(internship_id)})
+    internship = internships.find_one({"_id": ObjectId(internship_id)})
     if not internship:
         return jsonify({"message": "Internship not found."}), 404
 

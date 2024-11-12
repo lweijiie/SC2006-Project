@@ -2,6 +2,8 @@ import { API_BASE_URL } from "../constants";
 import { MongoInternshipData } from "../store/auth/interface";
 
 const FetchSingleInternship = async (internshipId: string, access_token: string): Promise<MongoInternshipData> => {
+  // console.log("Fetching internship with ID:", internshipId);
+  // console.log("Request URL:", `${API_BASE_URL}/internship/${internshipId}`);
   const response = await fetch(`${API_BASE_URL}/internship/${internshipId}`, {
     method: "GET",
     headers: {

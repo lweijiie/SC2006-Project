@@ -37,7 +37,7 @@ def get_internship_by_id(internship_id):
 
     # Prepare the internship data for response (convert ObjectId to string)
     internship_data = {
-        "id": str(internship["_id"]),
+        "_id": str(internship["_id"]),
         "title": internship.get("title"),
         "description": internship.get("description"),
         "requirements": internship.get("requirements"),
