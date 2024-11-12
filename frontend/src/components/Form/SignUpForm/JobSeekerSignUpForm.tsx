@@ -40,6 +40,8 @@ function JobSeekerSignUpForm() {
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
@@ -105,6 +107,7 @@ function JobSeekerSignUpForm() {
     // Show loading state and reset errors
     setLoading(true);
     setError(null);
+    setSuccessMessage(null); 
 
     try {
       const response = await fetch(API_BASE_URL + "/register-jobseeker", {
@@ -112,7 +115,14 @@ function JobSeekerSignUpForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          industry: formData.industry,
+          education: formData.education,
+      }),
       });
 
       if (!response.ok) {
@@ -122,14 +132,21 @@ function JobSeekerSignUpForm() {
 
       const data = await response.json();
       console.log("Registration successful:", data);
+      setSuccessMessage("Successfully signed up!");
 
       // Redirect to login page on successful registration
-      navigate(NAV_LINKS.job_seeker_login);
+      setTimeout(() => {
+        navigate(NAV_LINKS.job_seeker_login);
+        },2000);
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -174,14 +191,21 @@ function JobSeekerSignUpForm() {
           {emailError && <label className="errorLabel">{emailError}</label>}
         </div>
         <div className="user-box">
-          <input
-            type="password"
+        <input
+            type={passwordVisible ? "text" : "password"}
             name="password"
             value={formData.password}
-            placeholder="Enter password here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter password here"
+            required
           />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="password-toggle-button"
+          >
+            {passwordVisible ? "👁️" : "🙈"}
+          </button>
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
           )}
@@ -226,6 +250,7 @@ function JobSeekerSignUpForm() {
         </div>
 
         {error && <p className="errorLabel">{error}</p>}
+        {successMessage && <p className="successLabel">{successMessage}</p>} 
         <button type="submit" className="input-button" disabled={loading}>
           {loading ? "Signing up..." : "Sign Up"}
         </button>

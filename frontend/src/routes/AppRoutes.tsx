@@ -19,6 +19,7 @@ import JobSeekerJobs from "../pages/job-seeker/JobSeekerJobs";
 import JobSeekerSeeEmployers from "../pages/job-seeker/JobSeekerSeeEmployers";
 import JobSeekerPersonalisedCourses from "../pages/job-seeker/JobSeekerPersonalisedCourses";
 import EmployerEditInternship from "../pages/employer/EmployerEditInternship";
+import EmployerEndorseCourses from "../pages/employer/EmployerEndorseCourses";
 
 interface Props {
   handleLogin: (userId: string, access_token: string) => void;
@@ -32,9 +33,9 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
     <Router>
       <Routes>
         <Route path={NAV_LINKS.home} element={<LandingPage />} />
-        <Route path ={NAV_LINKS.about_us} element = {<AboutUs />}/>
-        <Route path = {NAV_LINKS.contact_us} element = {<ContactUs />}/>
-        
+        <Route path={NAV_LINKS.about_us} element={<AboutUs />} />
+        <Route path={NAV_LINKS.contact_us} element={<ContactUs />} />
+
         <Route
           path={NAV_LINKS.job_seeker_sign_up}
           element={<JobSeekerSignUp />}
@@ -87,6 +88,10 @@ const AppRoutes: React.FC<Props> = ({ handleLogin }) => {
         <Route
           path="/employer/edit-internship/:internshipId"
           element={<EmployerEditInternship />}
+        />
+        <Route
+          path="/employer/endorse-course"
+          element={<EmployerEndorseCourses />}
         />
       </Routes>
     </Router>
