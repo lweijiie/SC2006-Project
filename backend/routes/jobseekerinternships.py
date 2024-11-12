@@ -10,7 +10,6 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
-# Initialize the blueprint
 jobseekerinternship_bp = Blueprint('jobseekerinternship_bp', __name__)
 bcrypt = Bcrypt()
 uri = "mongodb+srv://SC2006:Apple12345@careerpathnow.tpgyu.mongodb.net/?retryWrites=true&w=majority&appName=CareerPathNow"
@@ -35,16 +34,15 @@ def get_internship_by_id(internship_id):
     if not internship:
         return jsonify({"message": "Internship not found."}), 404
 
-    # Prepare the internship data for response (convert ObjectId to string)
     internship_data = {
-        "id": str(internship["_id"]),
+        "_id": str(internship["_id"]), # IT HAS TO BE _id !!! with the underscore
         "title": internship.get("title"),
         "description": internship.get("description"),
         "requirements": internship.get("requirements"),
         "location": internship.get("location"),
         "duration": internship.get("duration"),
         "salary": internship.get("salary", "Not specified"),
-        "employer_id": internship.get("employer_id"),  # Optional: Decide if you want to expose this
+        "employer_id": internship.get("employer_id"), 
         "posted_date": internship.get("posted_date")
     }
 
@@ -56,12 +54,11 @@ def get_internship_by_id(internship_id):
 @jwt_required()  
 def list_internships():
     page = int(request.args.get('page', 1))  # Default to page 1 if not provided
-    per_page = int(request.args.get('per_page', 10))  # Default to 10 items per page
+    per_page = int(request.args.get('per_page', 10))  
 
     skip = (page - 1) * per_page
     limit = per_page
 
-    # Fetch internships from the database
     internships_cursor = internships.find().skip(skip).limit(limit)
     internships_list = []
 

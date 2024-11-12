@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 import "./JobSeekerCourses.css";
 import Card from "../../components/Card/Card";
 import NavbarJobSeeker from "../../components/Navbar/NavbarJobSeeker";
 import FetchPersonalisedCourses from "../../services/FetchPersonalisedCourses";
-import { CourseData } from "../../store/auth/interface"; // Import CourseData type
+import { CourseData } from "../../store/auth/interface";
 import { NAV_LINKS } from "../../constants";
-import { ChakraProvider } from '@chakra-ui/react'
+import {
+  ChakraProvider,
+  Box,
+  Heading,
+  Text,
+  Button,
+  Spinner,
+  Center,
+} from "@chakra-ui/react";
 
 const JobSeekerPersonalisedCourses: React.FC = () => {
   const [courses, setCourses] = useState<CourseData[]>([]);
-  const [error, setError] = useState<string | null>(null); // State for error message
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -29,9 +38,9 @@ const JobSeekerPersonalisedCourses: React.FC = () => {
         setCourses(fetchedCourses);
       } catch (error) {
         console.error("Failed to fetch courses:", error);
-        setError(
-          "Failed to fetch personalized courses. Please try again later."
-        );
+        setError("Failed to fetch personalized courses. Please try again later.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -45,46 +54,56 @@ const JobSeekerPersonalisedCourses: React.FC = () => {
     return text.length > maxChars ? text.substring(0, maxChars) + "..." : text;
   };
 
-  const getCourseDescription = (course: CourseData): string => {
-    const truncatedObjective = truncateText(course.objective, 4);
-    return `
-      Objective: ${truncatedObjective}
-      Cost: $${course.totalCostOfTrainingPerTrainee}
-      Duration: ${course.lengthOfCourseDurationHour} hours
-      Provider: ${course.trainingProvider.name}
-      Delivery Methods: ${course.methodOfDeliveries
-        .map((method) => method.description)
-        .join(", ")}
-      Category: ${course.category.description}
-      Areas of Training: ${course.areaOfTrainings
-        .map((area) => area.description)
-        .join(", ")}
-      Entry Requirements: ${course.entryRequirement}
-    `;
-  };
+  const getCourseDetails = (course: CourseData) => ({
+    description: truncateText(course.objective, 4),
+    cost: `$${course.totalCostOfTrainingPerTrainee}`,
+    duration: `${course.lengthOfCourseDurationHour} hours`,
+    provider: course.trainingProvider.name,
+    category: course.category.description,
+    requirements: course.entryRequirement,
+    deliveryMethods: course.methodOfDeliveries
+      .map((method) => method.description)
+      .join(", "),
+    areasOfTraining: course.areaOfTrainings
+      .map((area) => area.description)
+      .join(", "),
+  });
 
   return (
     <ChakraProvider>
       <NavbarJobSeeker />
-      <Link to={NAV_LINKS.job_seeker_find_course}>
-        <button className="navigate-btn">Go to All Courses</button>
-      </Link>
-      {error && <div className="error-message">{error}</div>}{" "}
-      {/* Error message display */}
-      <div className="card-list">
-        {courses.length === 0 ? (
-          <p>No personalized courses available.</p> // Handling empty courses list
+      <Box p={6}>
+        <Link to={NAV_LINKS.job_seeker_find_course}>
+          <Button colorScheme="teal" mb={4}>Go to All Courses</Button>
+        </Link>
+
+        {loading ? (
+          <Center mt={10}>
+            <Spinner size="lg" color="teal.500" />
+          </Center>
+        ) : error ? (
+          <Center mt={10}>
+            <Box textAlign="center" color="red.500">
+              <Text fontSize="lg">{error}</Text>
+            </Box>
+          </Center>
+        ) : courses.length === 0 ? (
+          <Center mt={10}>
+            <Text fontSize="lg" color="gray.500">No personalized courses available.</Text>
+          </Center>
         ) : (
-          courses.map((course, index) => (
-            <Card
-              key={index}
-              title={course.title}
-              description={getCourseDescription(course)}
-              link={course.url}
-            />
-          ))
+          <Box className="card-list">
+            {courses.map((course, index) => (
+              <Card
+                key={index}
+                title={course.title}
+                details={getCourseDetails(course)}
+                link={course.url}
+              />
+            ))}
+          </Box>
         )}
-      </div>
+      </Box>
     </ChakraProvider>
   );
 };

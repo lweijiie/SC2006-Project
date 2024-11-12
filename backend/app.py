@@ -9,7 +9,7 @@ from routes.employerinternshiplisting import employerinternship_bp
 from routes.jobseekerinternships import jobseekerinternship_bp
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173", "methods": ["GET", "POST", "PUT", "DELETE"]}})
 
 # Set up JWT secret key (change this to a strong, unique key in production)
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'

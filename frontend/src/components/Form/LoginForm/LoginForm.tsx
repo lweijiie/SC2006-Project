@@ -1,47 +1,48 @@
 import { useState } from "react";
-import "../Form.css";
+import {
+  Button,
+  Checkbox,
+  Flex,
+  Text,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Stack,
+  InputGroup,
+  InputRightElement,
+  Link,
+  useToast,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import {
-  API_BASE_URL,
-  ERROR_TEXT_FIELD_MESSAGE,
-  NAV_LINKS,
-} from "../../../constants";
+import { API_BASE_URL, NAV_LINKS } from "../../../constants";
+import { validateEmail, validatePassword } from "../../../utils/errorValidation";
+import "../Form.css";
 
-import {
-  validateEmail,
-  validatePassword,
-
-} from "../../../utils/errorValidation";
 
 interface LoginFormProps {
   onLogin: (userId: string, access_token: string) => void;
   loginType: "Job Seeker" | "Employer";
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
-  const [formData, setFormData] = useState<{
-    email: string;
-    password: string;
-    user_type: "Job Seeker" | "Employer";
-  }>({
+export default function LoginForm({ onLogin, loginType }: LoginFormProps) {
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
     user_type: loginType,
   });
-
-  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-
-  const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
-  const formTitle =
-    loginType === "Job Seeker" ? "Login for Job Seeker" : "Login for Employer";
-  const signUpLink = `${NAV_LINKS.base_link}/sign-up/${userPageType}`;
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [emailError, setEmailError] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const navigate = useNavigate();
+  const toast = useToast();
+
+  const userPageType = loginType === "Job Seeker" ? "job-seeker" : "employer";
+  const signUpLink = `${NAV_LINKS.base_link}/sign-up/${userPageType}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,21 +57,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
 
     setEmailError("");
     setPasswordError("");
-    let hasError = false;
-
-
     const emailValidation = validateEmail(formData.email);
     const passwordValidation = validatePassword(formData.password);
 
-    // Set the states for UI updates
     setEmailError(emailValidation);
     setPasswordError(passwordValidation);
 
-    // Check validation results directly
-    if (
-      emailValidation ||
-      passwordValidation
-    ) {
+    if (emailValidation || passwordValidation) {
       return;
     }
 
@@ -96,7 +89,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
       const access_token = data.access_token;
 
       onLogin(userId, access_token);
-
       navigate(`/home/${userPageType}`);
     } catch (err: any) {
       setError(err.message || "An error occurred during login.");
@@ -105,61 +97,98 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin, loginType }) => {
     }
   };
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   return (
-    <div className="container">
-      <h2 className="form-title">{formTitle}</h2>
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="user-box">
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter email address here"
-            required
-          />
-          {emailError && <label className="errorLabel">{emailError}</label>}
-        </div>
-
-        <div className="user-box">
-          <input
+<Flex p={10} flex={1} align="center" justify="center">
+  <Stack spacing={8} w="full" maxW="md">
+    <Heading fontSize="xl" color="gray.700" fontWeight="bold" textAlign="center">
+      {loginType} Login
+    </Heading>
+    <form onSubmit={handleSubmit}>
+      <FormControl id="email" isInvalid={!!emailError}>
+        <FormLabel fontWeight="medium" color="gray.600">
+          Email address
+        </FormLabel>
+        <Input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="Enter email address here"
+          focusBorderColor="blue.500"
+          bg="gray.50" // Light gray background for inputs
+          borderRadius="md"
+          size="md"
+          fontSize="sm"
+          fontWeight="medium"
+          required
+        />
+        {emailError && (
+          <Text color="red.500" fontSize="sm" mt={1}>
+            {emailError}
+          </Text>
+        )}
+      </FormControl>
+      <FormControl id="password" mt={4} isInvalid={!!passwordError}>
+        <FormLabel fontWeight="medium" color="gray.600">
+          Password
+        </FormLabel>
+        <InputGroup>
+          <Input
             type={passwordVisible ? "text" : "password"}
             name="password"
             value={formData.password}
             onChange={handleChange}
             placeholder="Enter password here"
+            focusBorderColor="blue.500"
+            bg="gray.50" // Light gray background for inputs
+            borderRadius="md"
+            size="md"
+            fontSize="sm"
+            fontWeight="medium"
             required
           />
-          <button
-            type="button"
-            onClick={togglePasswordVisibility}
-            className="password-toggle-button"
-          >
-            {passwordVisible ? "👁️" : "🙈"}
-          </button>
-          {passwordError && (
-            <label className="errorLabel">{passwordError}</label>
-          )}
-        </div>
-
-        {error && <p className="errorLabel">{error}</p>}
-        <button type="submit" className="input-button" disabled={loading}>
-          {loading ? "Logging in..." : "Log In"}
-        </button>
-      </form>
-      <div id="redirect">
-        <p id="redirect-text">Don't have an account?&nbsp;</p>
-        <a id="redirect-link" href={signUpLink}>
-          Sign Up
-        </a>
-        <p id="redirect-text">&nbsp;now!</p>
-      </div>
-    </div>
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={togglePasswordVisibility}>
+              {passwordVisible ? "Hide" : "Show"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+        {passwordError && (
+          <Text color="red.500" fontSize="sm" mt={1}>
+            {passwordError}
+          </Text>
+        )}
+      </FormControl>
+      {error && (
+        <Text color="red.500" mt={2} fontSize="sm">
+          {error}
+        </Text>
+      )}
+      <Stack spacing={5} mt={6}>
+        <Checkbox colorScheme="blue">Remember me</Checkbox>
+        <Button
+          type="submit"
+          colorScheme="blue"
+          size="lg"
+          fontWeight="bold"
+          isLoading={loading}
+          loadingText="Logging in..."
+          py={6} // Increased padding for button
+        >
+          Sign in
+        </Button>
+      </Stack>
+    </form>
+    <Text fontSize="sm" color="gray.600" mt={4} textAlign="center">
+      Don't have an account?{" "}
+      <Link color="blue.500" href={signUpLink}>
+        Sign Up
+      </Link>{" "}
+      now!
+    </Text>
+  </Stack>
+</Flex>
   );
-};
-
-export default LoginForm;
+}
