@@ -100,6 +100,7 @@ def remove_endorsement(course_id):
         {
             '$pull': {'endorsed_by': employer_id}, 
             '$inc': {'endorsement': -1}  
+        }
     )
 
     if result.modified_count == 1:
