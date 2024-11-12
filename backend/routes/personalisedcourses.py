@@ -41,10 +41,8 @@ def get_courses(user_id):
         if not industry:
             return jsonify({'message': 'User does not have an industry specified'}), 400
         
-        # Allow "Others" and "Personal Development" as fallback industries
         industry_list = [industry, "Others", "Personal Development"]
 
-        # Step 2: Get pagination parameters (page number and number of courses per page)
         page = int(request.args.get('page', 1))  # Default to page 1 if not provided
         if page < 1 or page > 100:
             return jsonify({'message': 'Page must be within [1,100]'}), 400
@@ -55,7 +53,6 @@ def get_courses(user_id):
 
         training_type = request.args.get('modeOfTrainings')
 
-        # Step 3: Query SkillsFutureCourses where areaOfTrainings.description matches the user's industry
         query = {"areaOfTrainings.description": {"$in": industry_list}}
         
         if training_type:
@@ -63,7 +60,6 @@ def get_courses(user_id):
 
         skip = (page - 1) * per_page
 
-        # Fetch courses
         matched_courses = list(courses.find(query).skip(skip).limit(per_page))
 
         if not matched_courses:

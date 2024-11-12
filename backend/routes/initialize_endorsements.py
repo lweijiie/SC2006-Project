@@ -15,11 +15,8 @@ client = MongoClient(uri)
 db = client["SkillsFutureDB"]
 courses_collection = db['SkillsFutureCourses']  # Assume 'courses' is your collection name
 
-# Flask app initialization
 app = Flask(__name__)
 
-
-# Update documents to add an endorsement field if it doesn't exist
 
 courses_collection.update_many(
     {"endorsement": {"$exists": False}},  # Filter documents without "endorsement"
