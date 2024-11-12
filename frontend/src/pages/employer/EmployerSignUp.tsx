@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import logo from "../../assets/logo.svg";
+import GoBackButton from "../../components/Button/GoBackButton";
+import Logo from "../../components/Logo/Logo";
 import EmployerSignUpForm from "../../components/Form/SignUpForm/EmployerSignUpForm";
 
 const EmployerSignUp: React.FC = () => {
@@ -10,14 +10,16 @@ const EmployerSignUp: React.FC = () => {
     navigate("/"); // Navigate back to the landing page
   };
   return (
-    <div>
-      <EmployerSignUpForm />
-      <img
-        src={logo}
-        alt="Go Back"
-        onClick={handleGoBack}
-        style={{ cursor: "pointer", marginTop: "15px" }}
-      />
+    <div className="login-container">
+      <div className="login-form-section">
+        <div className="logo-container">
+          <Logo />
+        </div>
+        <div className="back-button">
+          <GoBackButton />
+        </div>
+        <EmployerSignUpForm />
+      </div>
     </div>
   );
 };

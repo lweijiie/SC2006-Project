@@ -3,6 +3,8 @@ export const API_BASE_URL = "http://127.0.0.1:5000";
 export const NAV_LINKS = {
   base_link: "/career-path-now/#",
   home: "/",
+  about_us: "/about-us",
+  contact_us:"/contact-us",
 
   job_seeker_home: "/home/job-seeker",
   job_seeker_sign_up: "/sign-up/job-seeker",
@@ -46,4 +48,10 @@ export const ERROR_TEXT_FIELD_MESSAGE = {
   invalid_email_error: "Please enter a valid email address",
   no_password_error: "Please enter a password",
   under_length_password_error: "Password must be 8 characters or longer",
+  no_first_name:"Please enter your first name",
+  invalid_first_name:"Please enter a valid first name",
+  no_last_name:"Please enter your last name",
+  invalid_last_name:"Please enter a valid last name",
+  no_industry:"Please select an industry",
+  no_education:"Please select an education"
 };

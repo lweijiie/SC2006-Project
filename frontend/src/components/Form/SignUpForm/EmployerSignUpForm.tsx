@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   API_BASE_URL,
-  ERROR_TEXT_FIELD_MESSAGE,
   NAV_LINKS,
 } from "../../../constants";
+
+import {
+  validateEmail,
+  validatePassword,
+} from "../../../utils/errorValidation";
 
 interface Props {
   email: string;
@@ -16,14 +20,15 @@ function EmployerSignUpForm() {
     email: "",
     password: "",
   });
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
 
   const loginLink = `${NAV_LINKS.base_link}${NAV_LINKS.employer_login}`;
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [successMessage, setSuccessMessage] = useState<string | null>(null); 
 
   const navigate = useNavigate();
 
@@ -41,38 +46,27 @@ function EmployerSignUpForm() {
     e.preventDefault();
 
     // Clear previous errors
-
     setEmailError("");
     setPasswordError("");
 
     let hasError = false;
 
     // Validation
+    const emailValidation = validateEmail(formData.email);
+    const passwordValidation = validatePassword(formData.password);
 
-    if (formData.email === "") {
-      setEmailError(ERROR_TEXT_FIELD_MESSAGE.no_email_error);
-      hasError = true;
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
-      setEmailError(ERROR_TEXT_FIELD_MESSAGE.invalid_email_error);
-      hasError = true;
-    }
+    setEmailError(emailValidation);
+    setPasswordError(passwordValidation);
 
-    if (formData.password === "") {
-      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.no_password_error);
-      hasError = true;
-    } else if (formData.password.length < 8) {
-      setPasswordError(ERROR_TEXT_FIELD_MESSAGE.under_length_password_error);
-      hasError = true;
-    }
-
-    // Stop submission if there are validation errors
-    if (hasError) {
+    
+    if (emailValidation || passwordValidation) {
       return;
     }
 
-    // Show loading state and reset errors
+    
     setLoading(true);
     setError(null);
+    setSuccessMessage(null); 
 
     try {
       const response = await fetch(API_BASE_URL + "/register-employer", {
@@ -91,13 +85,22 @@ function EmployerSignUpForm() {
       const data = await response.json();
       console.log("Registration successful:", data);
 
-      // Redirect to login page on successful registration
-      navigate(NAV_LINKS.employer_login);
+     
+      setSuccessMessage("Successfully signed up!");
+
+      
+      setTimeout(() => {
+        navigate(NAV_LINKS.employer_login);
+      }, 2000); 
     } catch (err: any) {
       setError(err.message || "An error occurred during registration.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -117,19 +120,27 @@ function EmployerSignUpForm() {
         </div>
         <div className="user-box">
           <input
-            type="password"
+            type={passwordVisible ? "text" : "password"}
             name="password"
             value={formData.password}
-            placeholder="Enter password here"
             onChange={handleChange}
-            className="user-box"
+            placeholder="Enter password here"
+            required
           />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="password-toggle-button"
+          >
+            {passwordVisible ? "👁️" : "🙈"}
+          </button>
           {passwordError && (
             <label className="errorLabel">{passwordError}</label>
           )}
         </div>
 
         {error && <p className="errorLabel">{error}</p>}
+        {successMessage && <p className="successLabel">{successMessage}</p>} 
         <button type="submit" className="input-button" disabled={loading}>
           {loading ? "Signing up..." : "Sign Up"}
         </button>
