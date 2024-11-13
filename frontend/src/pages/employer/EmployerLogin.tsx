@@ -12,6 +12,7 @@ import LoginForm from "../../components/Form/LoginForm/LoginForm";
 import Logo from "../../components/Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { NAV_LINKS } from "../../constants"; // Assuming NAV_LINKS holds the paths
+import "../../style.css"
 
 const EmployerLogin: React.FC<{
   onLogin: (userId: string, access_token: string) => void;

@@ -9,6 +9,7 @@ import { CourseData, InternshipData } from "../../store/auth/interface";
 import { NAV_LINKS } from "../../constants";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "../../style.css"
 
 const JobSeekerHome: React.FC = () => {
   const [courses, setCourses] = useState<CourseData[]>([]);
@@ -53,7 +54,7 @@ const JobSeekerHome: React.FC = () => {
 
   return (
     <ChakraProvider>
-      <Flex direction="column" minH="100vh" bg="gray.100">
+      <Flex direction="column" minH="100vh" bg="gray.100" overflowY="auto">
         <NavbarJobSeeker />
 
         {/* Hero Section */}
@@ -69,7 +70,7 @@ const JobSeekerHome: React.FC = () => {
           </Button>
         </Box>
 
-        <Box p={4} flex="1" maxW="1200px" mx="auto">
+        <Box p={4} flex="1" maxW="1200px" mx="auto" overflowY="auto">
           {/* Personalized Courses Section */}
           <Heading as="h2" size="lg" mt={10} mb={4} textAlign="center" color="teal.600">
             Personalized Courses
