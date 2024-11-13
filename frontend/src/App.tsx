@@ -1,5 +1,6 @@
 import React from "react";
 import AppRoutes from "./routes/AppRoutes";
+import './style.css';
 
 const App: React.FC = () => {
   const handleLogin = async (userId: string, access_token: string) => {
